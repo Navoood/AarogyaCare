@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useState, useEffect } from "react";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import Layout from "@/components/layout/Layout";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -9,16 +9,21 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { getInitials } from "@/lib/utils";
 import { useLanguage } from "@/context/LanguageContext";
 import { Link } from "wouter";
-import { Building, Calendar, Star, Search, Filter } from "lucide-react";
+import { Building, Calendar, Star, Search, Filter, MapPin, RefreshCw } from "lucide-react";
+import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 type Specialization = "All" | "Cardiologist" | "Neurologist" | "Pediatrics" | "Orthopedic" | "General Medicine";
 type Availability = "all" | "available" | "unavailable";
+type Location = "All" | "Delhi" | "Mumbai" | "Bangalore" | "Chennai" | "Kolkata" | "Rural";
 
 export default function DoctorsPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedSpecialization, setSelectedSpecialization] = useState<Specialization>("All");
+  const [selectedLocation, setSelectedLocation] = useState<Location>("All");
   const [availability, setAvailability] = useState<Availability>("all");
+  const [isRefreshing, setIsRefreshing] = useState(false);
   const { t } = useLanguage();
+  const queryClient = useQueryClient();
 
   const specializations: Specialization[] = [
     "All",
@@ -29,17 +34,52 @@ export default function DoctorsPage() {
     "General Medicine",
   ];
 
-  // Fetch doctors
+  const locations: Location[] = [
+    "All",
+    "Delhi",
+    "Mumbai",
+    "Bangalore",
+    "Chennai",
+    "Kolkata",
+    "Rural"
+  ];
+
+  // Function to manually refresh doctor availability data
+  const refreshDoctors = () => {
+    setIsRefreshing(true);
+    queryClient.invalidateQueries({ queryKey: ["/api/doctors"] })
+      .then(() => {
+        setTimeout(() => setIsRefreshing(false), 500); // Short timeout for UI feedback
+      });
+  };
+
+  // Automatically refresh every 10 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      queryClient.invalidateQueries({ queryKey: ["/api/doctors"] });
+    }, 10000); // 10 seconds
+
+    return () => clearInterval(interval);
+  }, [queryClient]);
+
+  // Fetch doctors with filters applied through the API
   const { data: doctorsData, isLoading } = useQuery({
-    queryKey: ["/api/doctors", selectedSpecialization !== "All" ? selectedSpecialization : undefined],
+    queryKey: [
+      "/api/doctors", 
+      selectedSpecialization !== "All" ? selectedSpecialization : undefined,
+      selectedLocation !== "All" ? selectedLocation : undefined,
+      availability === "available" ? true : undefined
+    ],
+    refetchInterval: 10000 // Also set automatic refetch
   });
 
-  // Filter doctors based on search and availability
+  // Additional client-side filtering for search query and other filters not in the API
   const filteredDoctors = doctorsData?.doctors?.filter((doctor: any) => {
     const matchesSearch = 
       doctor.user.fullName.toLowerCase().includes(searchQuery.toLowerCase()) ||
       doctor.specialization.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      doctor.hospital.toLowerCase().includes(searchQuery.toLowerCase());
+      doctor.hospital.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      doctor.location?.toLowerCase().includes(searchQuery.toLowerCase());
     
     const matchesAvailability = 
       availability === "all" ||
@@ -57,7 +97,7 @@ export default function DoctorsPage() {
           <div className="relative flex-1">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
             <Input
-              placeholder="Search by name, specialty, or hospital..."
+              placeholder="Search by name, specialty, hospital, or location..."
               className="pl-10"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
@@ -65,6 +105,26 @@ export default function DoctorsPage() {
           </div>
           
           <div className="flex space-x-2">
+            {/* Location Filter */}
+            <Select value={selectedLocation} onValueChange={(value) => setSelectedLocation(value as Location)}>
+              <SelectTrigger className="w-[140px]">
+                <div className="flex items-center gap-2">
+                  <MapPin className="h-4 w-4" />
+                  <SelectValue placeholder="Location" />
+                </div>
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  {locations.map((location) => (
+                    <SelectItem key={location} value={location}>
+                      {location}
+                    </SelectItem>
+                  ))}
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+            
+            {/* Availability Filter */}
             <div className="relative">
               <Button variant="outline" className="flex items-center gap-2">
                 <Filter className="h-4 w-4" />
@@ -91,6 +151,17 @@ export default function DoctorsPage() {
                 </div>
               </div>
             </div>
+            
+            {/* Refresh Button */}
+            <Button 
+              variant="outline" 
+              size="icon"
+              onClick={refreshDoctors}
+              disabled={isRefreshing}
+              className={isRefreshing ? "animate-spin" : ""}
+            >
+              <RefreshCw className="h-4 w-4" />
+            </Button>
           </div>
         </div>
 
@@ -170,6 +241,10 @@ export default function DoctorsPage() {
                     <div className="flex items-center">
                       <Building className="h-4 w-4 text-slate-400 mr-2" />
                       <span>{doctor.hospital}</span>
+                    </div>
+                    <div className="flex items-center">
+                      <MapPin className="h-4 w-4 text-slate-400 mr-2" />
+                      <span>{doctor.location || "Delhi"}</span>
                     </div>
                     <div className="flex items-center">
                       <Calendar className="h-4 w-4 text-slate-400 mr-2" />

@@ -142,17 +142,57 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/api/doctors", async (req, res) => {
     try {
       const specialization = req.query.specialization as string | undefined;
+      const location = req.query.location as string | undefined;
+      const available = req.query.available === 'true';
+      const limit = req.query.limit ? parseInt(req.query.limit as string) : undefined;
       
-      let doctors;
+      let doctors = await storage.getAllDoctors();
+
+      // Filter by specialization if provided
       if (specialization) {
-        doctors = await storage.getDoctorsBySpecialization(specialization);
-      } else {
-        doctors = await storage.getAllDoctors();
+        doctors = doctors.filter(doctor => doctor.specialization === specialization);
+      }
+      
+      // Filter by location if provided
+      if (location) {
+        doctors = doctors.filter(doctor => doctor.location?.toLowerCase().includes(location.toLowerCase()));
+      }
+      
+      // Filter by availability if required
+      if (available) {
+        doctors = doctors.filter(doctor => doctor.isAvailable);
+      }
+      
+      // Limit the number of results if specified
+      if (limit && limit > 0) {
+        doctors = doctors.slice(0, limit);
       }
       
       res.json({ doctors });
     } catch (error) {
       res.status(500).json({ message: "Server error fetching doctors" });
+    }
+  });
+  
+  // Get top available doctors
+  app.get("/api/doctors/available", async (req, res) => {
+    try {
+      const limit = req.query.limit ? parseInt(req.query.limit as string) : 5;
+      
+      let doctors = await storage.getAllDoctors();
+      
+      // Filter to only available doctors
+      doctors = doctors.filter(doctor => doctor.isAvailable);
+      
+      // Sort by rating (highest first)
+      doctors.sort((a, b) => b.rating - a.rating);
+      
+      // Limit to requested number
+      doctors = doctors.slice(0, limit);
+      
+      res.json({ doctors });
+    } catch (error) {
+      res.status(500).json({ message: "Server error fetching available doctors" });
     }
   });
   

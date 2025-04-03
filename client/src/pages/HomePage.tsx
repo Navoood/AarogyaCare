@@ -4,6 +4,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "../context/LanguageContext";
 import { useAuth } from "../context/AuthContext";
+import DoctorsList from "../components/dashboard/DoctorsList";
 import {
   Stethoscope,
   Activity,
@@ -138,6 +139,7 @@ export default function HomePage() {
         />
       </div>
 
+      {/* Main feature cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {filteredFeatures.map((feature) => (
           <Card key={feature.id} className="h-full hover:shadow-lg transition-shadow cursor-pointer">
@@ -177,6 +179,11 @@ export default function HomePage() {
             </CardFooter>
           </Card>
         ))}
+      </div>
+
+      {/* Available Doctors Section */}
+      <div className="mt-12 bg-gray-50 p-6 rounded-lg border">
+        <DoctorsList homepageMode={true} />
       </div>
     </div>
   );

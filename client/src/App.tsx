@@ -4,6 +4,8 @@ import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import SymptomCheckerPage from "./pages/SymptomCheckerPage";
+import DoctorsPage from "./pages/DoctorsPage";
+import DoctorProfilePage from "./pages/DoctorProfilePage";
 import Layout from "./components/layout/Layout";
 import { AuthProvider } from "./context/AuthContext";
 import { LanguageProvider } from "./context/LanguageContext";
@@ -32,9 +34,8 @@ function Router() {
       <Route path="/" component={HomePage} />
       <Route path="/login" component={LoginPage} />
       <Route path="/register" component={RegisterPage} />
-      <Route path="/doctors">
-        {() => <PlaceholderPage title="Doctor Availability" />}
-      </Route>
+      <Route path="/doctors" component={DoctorsPage} />
+      <Route path="/doctor/:id" component={DoctorProfilePage} />
       <Route path="/symptom-checker" component={SymptomCheckerPage} />
       <Route path="/diet-plans">
         {() => <PlaceholderPage title="Smart Diet Plans" />}

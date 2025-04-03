@@ -31,6 +31,7 @@ export const doctorProfiles = pgTable("doctor_profiles", {
   experience: integer("experience").notNull(),
   hospital: text("hospital"),
   qualification: text("qualification").notNull(),
+  location: text("location").notNull().default("Delhi"), // Add location field with default
   isAvailable: boolean("is_available").default(false),
   rating: integer("rating").default(0),
   reviewCount: integer("review_count").default(0),
