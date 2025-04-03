@@ -140,24 +140,42 @@ export default function HomePage() {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {filteredFeatures.map((feature) => (
-          <Link key={feature.id} href={feature.path}>
-            <Card className="h-full hover:shadow-lg transition-shadow cursor-pointer">
-              <CardHeader>
-                <div className="flex items-center gap-2">
-                  {feature.icon}
-                  <CardTitle>{feature.title}</CardTitle>
+          <Card key={feature.id} className="h-full hover:shadow-lg transition-shadow cursor-pointer">
+            <CardHeader>
+              <div className="flex items-center gap-2">
+                {feature.icon}
+                <CardTitle>{feature.title}</CardTitle>
+              </div>
+            </CardHeader>
+            <CardContent>
+              <CardDescription className="text-base">{feature.description}</CardDescription>
+            </CardContent>
+            <CardFooter>
+              {feature.id === 4 ? (
+                // Telemedicine card with multiple options
+                <div className="flex gap-2 w-full">
+                  <Button variant="outline" className="flex-1" asChild>
+                    <Link href="/consultations?chat=true">
+                      <MessageSquareText className="h-4 w-4 mr-1" />
+                      Chat
+                    </Link>
+                  </Button>
+                  <Button variant="default" className="flex-1" asChild>
+                    <Link href="/consultations?video=true">
+                      <Video className="h-4 w-4 mr-1" />
+                      Video
+                    </Link>
+                  </Button>
                 </div>
-              </CardHeader>
-              <CardContent>
-                <CardDescription className="text-base">{feature.description}</CardDescription>
-              </CardContent>
-              <CardFooter>
-                <Button variant="outline" className="w-full">
-                  Explore
+              ) : (
+                <Button variant="outline" className="w-full" asChild>
+                  <Link href={feature.path}>
+                    Explore
+                  </Link>
                 </Button>
-              </CardFooter>
-            </Card>
-          </Link>
+              )}
+            </CardFooter>
+          </Card>
         ))}
       </div>
     </div>

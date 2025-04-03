@@ -1,0 +1,98 @@
+[
+  {
+    "id": 1,
+    "name": "Dr. Aarav Patel",
+    "specialization": "General Medicine",
+    "experience": "15 years",
+    "availability": "available",
+    "avatar": "/avatars/doctor-1.jpg",
+    "qualifications": "MBBS, MD (Internal Medicine)",
+    "languages": ["English", "Hindi", "Gujarati"],
+    "rating": 4.8,
+    "reviews": 128
+  },
+  {
+    "id": 2,
+    "name": "Dr. Priya Singh",
+    "specialization": "Pediatrics",
+    "experience": "10 years",
+    "availability": "busy",
+    "avatar": "/avatars/doctor-2.jpg",
+    "qualifications": "MBBS, MD (Pediatrics)",
+    "languages": ["English", "Hindi", "Punjabi"],
+    "rating": 4.9,
+    "reviews": 156
+  },
+  {
+    "id": 3,
+    "name": "Dr. Rajesh Kumar",
+    "specialization": "Cardiology",
+    "experience": "20 years",
+    "availability": "available",
+    "avatar": "/avatars/doctor-3.jpg",
+    "qualifications": "MBBS, MD (Medicine), DM (Cardiology)",
+    "languages": ["English", "Hindi", "Bengali"],
+    "rating": 4.7,
+    "reviews": 210
+  },
+  {
+    "id": 4,
+    "name": "Dr. Meera Sharma",
+    "specialization": "Gynecology",
+    "experience": "12 years",
+    "availability": "available",
+    "avatar": "/avatars/doctor-4.jpg",
+    "qualifications": "MBBS, MS (Gynecology)",
+    "languages": ["English", "Hindi", "Marathi"],
+    "rating": 4.9,
+    "reviews": 185
+  },
+  {
+    "id": 5,
+    "name": "Dr. Vikram Reddy",
+    "specialization": "Orthopedics",
+    "experience": "18 years",
+    "availability": "busy",
+    "avatar": "/avatars/doctor-5.jpg",
+    "qualifications": "MBBS, MS (Orthopedics)",
+    "languages": ["English", "Hindi", "Telugu"],
+    "rating": 4.8,
+    "reviews": 142
+  },
+  {
+    "id": 6,
+    "name": "Dr. Sunita Agarwal",
+    "specialization": "Dermatology",
+    "experience": "14 years",
+    "availability": "available",
+    "avatar": "/avatars/doctor-6.jpg",
+    "qualifications": "MBBS, MD (Dermatology)",
+    "languages": ["English", "Hindi"],
+    "rating": 4.6,
+    "reviews": 120
+  },
+  {
+    "id": 7,
+    "name": "Dr. Anand Desai",
+    "specialization": "Psychiatry",
+    "experience": "16 years",
+    "availability": "busy",
+    "avatar": "/avatars/doctor-7.jpg",
+    "qualifications": "MBBS, MD (Psychiatry)",
+    "languages": ["English", "Hindi", "Gujarati"],
+    "rating": 4.7,
+    "reviews": 98
+  },
+  {
+    "id": 8,
+    "name": "Dr. Lakshmi Nair",
+    "specialization": "Ophthalmology",
+    "experience": "11 years",
+    "availability": "available",
+    "avatar": "/avatars/doctor-8.jpg",
+    "qualifications": "MBBS, MS (Ophthalmology)",
+    "languages": ["English", "Hindi", "Malayalam"],
+    "rating": 4.8,
+    "reviews": 115
+  }
+]

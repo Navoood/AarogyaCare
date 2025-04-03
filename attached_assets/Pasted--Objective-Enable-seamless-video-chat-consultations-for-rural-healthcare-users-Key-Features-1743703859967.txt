@@ -1,0 +1,51 @@
+🔹 Objective: Enable seamless video & chat consultations for rural healthcare users.
+🔹 Key Features: Real-time doctor availability, instant consultations, and smooth user experience.
+🔹 Priority: Integrate directly into the existing system WITHOUT breaking anything.
+
+1️⃣ Video Consultation Feature 🎥
+✅ Use WebRTC or any free alternative to create a video calling system.
+✅ Doctors & patients should join/leave virtual rooms smoothly.
+✅ Ensure secure, private connections – only users with an appointment link can join.
+✅ "Start Video Consultation" button should be added:
+
+On the homepage (next to "Symptom Checker").
+
+On the Symptom Checker results page (after symptom evaluation).
+
+2️⃣ Chat-Based Consultation 💬
+✅ Implement a basic real-time chat system between doctors & patients.
+✅ Allow users to ask health-related questions before booking a video call.
+✅ Add pre-filled quick questions to guide the user (e.g., "How long have you had these symptoms?").
+✅ "Start Chat Consultation" button should be available:
+
+On the homepage.
+
+Inside the Telemedicine section.
+
+3️⃣ Doctor Availability Check 🏥
+✅ Each doctor should have an availability status ("Available" / "Busy").
+✅ If no doctors are available, users should schedule an appointment for later.
+✅ Simple status indicators (Green = Available, Red = Busy).
+
+4️⃣ UI Enhancements & Routing Improvements 📌
+✅ Add a /telemedicine page for all consultations.
+✅ The homepage should have cards showing available doctors with action buttons:
+
+"Start Chat" (if available).
+
+"Join Video Call" (if online).
+
+"Schedule Appointment" (if busy).
+✅ Ensure smooth navigation from symptom results → consultation.
+✅ DO NOT break login, symptom checker, or any working component.
+
+🚨 Final Instructions for Replit:
+
+DO NOT MESS UP OR HAMPER ANYTHING THAT IS ALREADY WORKING. ❌🔧
+
+ENSURE PERFECT ROUTING – No broken links, missing pages, or incorrect paths. 🛣️✅
+
+Use free & scalable technologies. No API keys or paid third-party services.
+
+Focus on a smooth, intuitive user experience.
+

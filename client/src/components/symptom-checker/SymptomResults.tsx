@@ -1,7 +1,8 @@
 import React from 'react';
+import { Link } from "wouter";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { AlertTriangle, AlertCircle, Info, ThumbsUp, ChevronRight } from "lucide-react";
+import { AlertTriangle, AlertCircle, Info, ThumbsUp, ChevronRight, Video } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import { ConditionMatch, Symptom } from "@/utils/symptomLogic";
@@ -44,7 +45,7 @@ export const SymptomResults = ({ conditions, selectedSymptoms, onReset }: Sympto
   };
 
   const getProgressColor = (percentage: number) => {
-    if (percentage >= 80) return "bg-primary";
+    if (percentage >= 80) return "";  // The default is primary color
     if (percentage >= 50) return "bg-amber-500";
     return "bg-gray-400";
   };
@@ -122,8 +123,7 @@ export const SymptomResults = ({ conditions, selectedSymptoms, onReset }: Sympto
                           </div>
                           <Progress 
                             value={matchPercentage} 
-                            className="h-2"
-                            indicatorClassName={getProgressColor(matchPercentage)}
+                            className={`h-2 ${getProgressColor(matchPercentage)}`}
                           />
                         </div>
                       </div>
@@ -179,10 +179,18 @@ export const SymptomResults = ({ conditions, selectedSymptoms, onReset }: Sympto
           <Button variant="outline" onClick={onReset} className="w-full">
             Start New Symptom Check
           </Button>
-          <Button variant="default" className="w-full">
-            <span>Find Doctors Near You</span>
-            <ChevronRight className="h-4 w-4 ml-1" />
-          </Button>
+          <Link href="/doctors" className="w-full">
+            <Button variant="default" className="w-full">
+              <span>Find Doctors Near You</span>
+              <ChevronRight className="h-4 w-4 ml-1" />
+            </Button>
+          </Link>
+          <Link href="/consultations" className="w-full">
+            <Button variant="secondary" className="w-full">
+              <Video className="h-4 w-4 mr-2" />
+              <span>Start Video Consultation</span>
+            </Button>
+          </Link>
         </CardFooter>
       </Card>
     </div>

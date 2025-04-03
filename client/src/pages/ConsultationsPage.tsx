@@ -77,6 +77,7 @@ export default function ConsultationsPage() {
     const params = new URLSearchParams(location.split("?")[1]);
     const appointmentDoctor = params.get("appointment");
     const chatDoctor = params.get("chat");
+    const videoDoctor = params.get("video");
     
     if (appointmentDoctor) {
       setSelectedDoctorId(Number(appointmentDoctor));
@@ -87,7 +88,19 @@ export default function ConsultationsPage() {
       setChatDoctorId(Number(chatDoctor));
       setSelectedTab("chat");
     }
-  }, [location]);
+
+    if (videoDoctor === "true") {
+      // For initial landing, default to first available doctor
+      setSelectedTab("upcoming");
+      // If we have doctors data, find first available doctor
+      if (doctorsData?.doctors?.length > 0) {
+        const availableDoctor = doctorsData.doctors.find((doc: any) => doc.isAvailable);
+        if (availableDoctor) {
+          startVideoCall(availableDoctor.id);
+        }
+      }
+    }
+  }, [location, doctorsData?.doctors]);
 
   // Fetch appointments
   const { data: appointmentsData, isLoading: isLoadingAppointments } = useQuery({
