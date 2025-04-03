@@ -12,6 +12,8 @@ import {
   type InsertForumPost, type InsertForumReply, type InsertHealthScheme,
   type InsertHealthMetric, type InsertChatMessage, type InsertTranslation
 } from "@shared/schema";
+import { db } from "./db";
+import { eq, and, or, asc } from "drizzle-orm";
 
 export interface IStorage {
   // User operations
@@ -873,4 +875,415 @@ export class MemStorage implements IStorage {
   }
 }
 
-export const storage = new MemStorage();
+// Database storage implementation
+export class DatabaseStorage implements IStorage {
+  async getUser(id: number): Promise<User | undefined> {
+    const [user] = await db.select().from(users).where(eq(users.id, id));
+    return user || undefined;
+  }
+
+  async getUserByUsername(username: string): Promise<User | undefined> {
+    const [user] = await db.select().from(users).where(eq(users.username, username));
+    return user || undefined;
+  }
+
+  async getUserByEmail(email: string): Promise<User | undefined> {
+    const [user] = await db.select().from(users).where(eq(users.email, email));
+    return user || undefined;
+  }
+
+  async createUser(insertUser: InsertUser): Promise<User> {
+    const [user] = await db.insert(users).values(insertUser).returning();
+    return user;
+  }
+
+  async updateUser(id: number, data: Partial<User>): Promise<User | undefined> {
+    const [user] = await db.update(users).set(data).where(eq(users.id, id)).returning();
+    return user || undefined;
+  }
+
+  async getDoctorProfile(id: number): Promise<DoctorProfile | undefined> {
+    const [profile] = await db.select().from(doctorProfiles).where(eq(doctorProfiles.id, id));
+    return profile || undefined;
+  }
+
+  async getDoctorProfileByUserId(userId: number): Promise<DoctorProfile | undefined> {
+    const [profile] = await db.select().from(doctorProfiles).where(eq(doctorProfiles.userId, userId));
+    return profile || undefined;
+  }
+
+  async createDoctorProfile(profile: InsertDoctorProfile): Promise<DoctorProfile> {
+    const [doctorProfile] = await db.insert(doctorProfiles).values(profile).returning();
+    return doctorProfile;
+  }
+
+  async updateDoctorProfile(id: number, data: Partial<DoctorProfile>): Promise<DoctorProfile | undefined> {
+    const [profile] = await db.update(doctorProfiles).set(data).where(eq(doctorProfiles.id, id)).returning();
+    return profile || undefined;
+  }
+
+  async getAllDoctors(): Promise<Array<DoctorProfile & { user: User }>> {
+    const doctors = await db.select({
+      doctorProfile: doctorProfiles,
+      user: users
+    }).from(doctorProfiles)
+      .innerJoin(users, eq(doctorProfiles.userId, users.id));
+    
+    return doctors.map(({ doctorProfile, user }) => ({
+      ...doctorProfile,
+      user
+    }));
+  }
+
+  async getDoctorsBySpecialization(specialization: string): Promise<Array<DoctorProfile & { user: User }>> {
+    const doctors = await db.select({
+      doctorProfile: doctorProfiles,
+      user: users
+    }).from(doctorProfiles)
+      .innerJoin(users, eq(doctorProfiles.userId, users.id))
+      .where(eq(doctorProfiles.specialization, specialization));
+    
+    return doctors.map(({ doctorProfile, user }) => ({
+      ...doctorProfile,
+      user
+    }));
+  }
+
+  async getEmergencyContacts(userId: number): Promise<EmergencyContact[]> {
+    return db.select().from(emergencyContacts).where(eq(emergencyContacts.userId, userId));
+  }
+
+  async createEmergencyContact(contact: InsertEmergencyContact): Promise<EmergencyContact> {
+    const [emergencyContact] = await db.insert(emergencyContacts).values(contact).returning();
+    return emergencyContact;
+  }
+
+  async updateEmergencyContact(id: number, data: Partial<EmergencyContact>): Promise<EmergencyContact | undefined> {
+    const [contact] = await db.update(emergencyContacts).set(data).where(eq(emergencyContacts.id, id)).returning();
+    return contact || undefined;
+  }
+
+  async deleteEmergencyContact(id: number): Promise<boolean> {
+    const result = await db.delete(emergencyContacts).where(eq(emergencyContacts.id, id));
+    return !!result;
+  }
+
+  async getSymptom(id: number): Promise<Symptom | undefined> {
+    const [symptom] = await db.select().from(symptoms).where(eq(symptoms.id, id));
+    return symptom || undefined;
+  }
+
+  async getSymptoms(): Promise<Symptom[]> {
+    return db.select().from(symptoms);
+  }
+
+  async createSymptom(symptom: InsertSymptom): Promise<Symptom> {
+    const [newSymptom] = await db.insert(symptoms).values(symptom).returning();
+    return newSymptom;
+  }
+
+  async getCondition(id: number): Promise<Condition | undefined> {
+    const [condition] = await db.select().from(conditions).where(eq(conditions.id, id));
+    return condition || undefined;
+  }
+
+  async getConditions(): Promise<Condition[]> {
+    return db.select().from(conditions);
+  }
+
+  async getConditionsBySymptoms(symptomIds: number[]): Promise<Condition[]> {
+    // This is a complex query that would need to match conditions containing any of the symptom IDs
+    // In SQL we'd normally use something like WHERE symptoms && ARRAY[...symptomIds]
+    // Since this is more complex with Drizzle ORM, we'll get all conditions and filter in JS
+    const allConditions = await this.getConditions();
+    return allConditions.filter(condition => {
+      const conditionSymptomIds = condition.symptoms.map(Number);
+      return symptomIds.some(id => conditionSymptomIds.includes(id));
+    });
+  }
+
+  async createCondition(condition: InsertCondition): Promise<Condition> {
+    const [newCondition] = await db.insert(conditions).values(condition).returning();
+    return newCondition;
+  }
+
+  async getDoctorAvailability(doctorId: number): Promise<Availability[]> {
+    return db.select().from(availability).where(eq(availability.doctorId, doctorId));
+  }
+
+  async createAvailability(avail: InsertAvailability): Promise<Availability> {
+    const [newAvailability] = await db.insert(availability).values(avail).returning();
+    return newAvailability;
+  }
+
+  async updateAvailability(id: number, data: Partial<Availability>): Promise<Availability | undefined> {
+    const [updatedAvailability] = await db.update(availability).set(data).where(eq(availability.id, id)).returning();
+    return updatedAvailability || undefined;
+  }
+
+  async deleteAvailability(id: number): Promise<boolean> {
+    const result = await db.delete(availability).where(eq(availability.id, id));
+    return !!result;
+  }
+
+  async getAppointment(id: number): Promise<Appointment | undefined> {
+    const [appointment] = await db.select().from(appointments).where(eq(appointments.id, id));
+    return appointment || undefined;
+  }
+
+  async getPatientAppointments(patientId: number): Promise<(Appointment & { doctor: DoctorProfile & { user: User } })[]> {
+    const result = await db.select({
+      appointment: appointments,
+      doctorProfile: doctorProfiles,
+      user: users
+    }).from(appointments)
+      .innerJoin(doctorProfiles, eq(appointments.doctorId, doctorProfiles.id))
+      .innerJoin(users, eq(doctorProfiles.userId, users.id))
+      .where(eq(appointments.patientId, patientId));
+    
+    return result.map(({ appointment, doctorProfile, user }) => ({
+      ...appointment,
+      doctor: {
+        ...doctorProfile,
+        user
+      }
+    }));
+  }
+
+  async getDoctorAppointments(doctorId: number): Promise<(Appointment & { patient: User })[]> {
+    const result = await db.select({
+      appointment: appointments,
+      patient: users
+    }).from(appointments)
+      .innerJoin(users, eq(appointments.patientId, users.id))
+      .where(eq(appointments.doctorId, doctorId));
+    
+    return result.map(({ appointment, patient }) => ({
+      ...appointment,
+      patient
+    }));
+  }
+
+  async createAppointment(appointment: InsertAppointment): Promise<Appointment> {
+    const [newAppointment] = await db.insert(appointments).values(appointment).returning();
+    return newAppointment;
+  }
+
+  async updateAppointment(id: number, data: Partial<Appointment>): Promise<Appointment | undefined> {
+    const [updatedAppointment] = await db.update(appointments).set(data).where(eq(appointments.id, id)).returning();
+    return updatedAppointment || undefined;
+  }
+
+  async getDietPlan(id: number): Promise<DietPlan | undefined> {
+    const [dietPlan] = await db.select().from(dietPlans).where(eq(dietPlans.id, id));
+    return dietPlan || undefined;
+  }
+
+  async getDietPlans(): Promise<DietPlan[]> {
+    return db.select().from(dietPlans);
+  }
+
+  async getDietPlansByCondition(condition: string): Promise<DietPlan[]> {
+    // Similar to getConditionsBySymptoms, we need to check if the condition is in the forConditions array
+    const allDietPlans = await this.getDietPlans();
+    return allDietPlans.filter(plan => plan.forConditions.includes(condition));
+  }
+
+  async createDietPlan(dietPlan: InsertDietPlan): Promise<DietPlan> {
+    const [newDietPlan] = await db.insert(dietPlans).values(dietPlan).returning();
+    return newDietPlan;
+  }
+
+  async getMedication(id: number): Promise<Medication | undefined> {
+    const [medication] = await db.select().from(medications).where(eq(medications.id, id));
+    return medication || undefined;
+  }
+
+  async getUserMedications(userId: number): Promise<Medication[]> {
+    return db.select().from(medications).where(eq(medications.userId, userId));
+  }
+
+  async createMedication(medication: InsertMedication): Promise<Medication> {
+    const [newMedication] = await db.insert(medications).values(medication).returning();
+    return newMedication;
+  }
+
+  async updateMedication(id: number, data: Partial<Medication>): Promise<Medication | undefined> {
+    const [updatedMedication] = await db.update(medications).set(data).where(eq(medications.id, id)).returning();
+    return updatedMedication || undefined;
+  }
+
+  async deleteMedication(id: number): Promise<boolean> {
+    const result = await db.delete(medications).where(eq(medications.id, id));
+    return !!result;
+  }
+
+  async getForumPost(id: number): Promise<(ForumPost & { user: User }) | undefined> {
+    const [result] = await db.select({
+      post: forumPosts,
+      user: users
+    }).from(forumPosts)
+      .innerJoin(users, eq(forumPosts.userId, users.id))
+      .where(eq(forumPosts.id, id));
+    
+    if (!result) return undefined;
+    
+    return {
+      ...result.post,
+      user: result.user
+    };
+  }
+
+  async getForumPosts(): Promise<(ForumPost & { user: User })[]> {
+    const result = await db.select({
+      post: forumPosts,
+      user: users
+    }).from(forumPosts)
+      .innerJoin(users, eq(forumPosts.userId, users.id));
+    
+    return result.map(({ post, user }) => ({
+      ...post,
+      user
+    }));
+  }
+
+  async createForumPost(post: InsertForumPost): Promise<ForumPost> {
+    const [newPost] = await db.insert(forumPosts).values({
+      ...post,
+      upvotes: 0
+    }).returning();
+    
+    return newPost;
+  }
+
+  async updateForumPost(id: number, data: Partial<ForumPost>): Promise<ForumPost | undefined> {
+    const [updatedPost] = await db.update(forumPosts).set(data).where(eq(forumPosts.id, id)).returning();
+    return updatedPost || undefined;
+  }
+
+  async getForumReplies(postId: number): Promise<(ForumReply & { user: User })[]> {
+    const result = await db.select({
+      reply: forumReplies,
+      user: users
+    }).from(forumReplies)
+      .innerJoin(users, eq(forumReplies.userId, users.id))
+      .where(eq(forumReplies.postId, postId));
+    
+    return result.map(({ reply, user }) => ({
+      ...reply,
+      user
+    }));
+  }
+
+  async createForumReply(reply: InsertForumReply): Promise<ForumReply> {
+    const [newReply] = await db.insert(forumReplies).values({
+      ...reply,
+      upvotes: 0
+    }).returning();
+    
+    return newReply;
+  }
+
+  async updateForumReply(id: number, data: Partial<ForumReply>): Promise<ForumReply | undefined> {
+    const [updatedReply] = await db.update(forumReplies).set(data).where(eq(forumReplies.id, id)).returning();
+    return updatedReply || undefined;
+  }
+
+  async getHealthScheme(id: number): Promise<HealthScheme | undefined> {
+    const [scheme] = await db.select().from(healthSchemes).where(eq(healthSchemes.id, id));
+    return scheme || undefined;
+  }
+
+  async getHealthSchemes(): Promise<HealthScheme[]> {
+    return db.select().from(healthSchemes);
+  }
+
+  async createHealthScheme(scheme: InsertHealthScheme): Promise<HealthScheme> {
+    const [newScheme] = await db.insert(healthSchemes).values(scheme).returning();
+    return newScheme;
+  }
+
+  async updateHealthScheme(id: number, data: Partial<HealthScheme>): Promise<HealthScheme | undefined> {
+    const [updatedScheme] = await db.update(healthSchemes).set(data).where(eq(healthSchemes.id, id)).returning();
+    return updatedScheme || undefined;
+  }
+
+  async getHealthMetric(id: number): Promise<HealthMetric | undefined> {
+    const [metric] = await db.select().from(healthMetrics).where(eq(healthMetrics.id, id));
+    return metric || undefined;
+  }
+
+  async getUserHealthMetrics(userId: number): Promise<HealthMetric[]> {
+    return db.select().from(healthMetrics).where(eq(healthMetrics.userId, userId));
+  }
+
+  async getUserHealthMetricsByType(userId: number, type: string): Promise<HealthMetric[]> {
+    return db.select().from(healthMetrics)
+      .where(and(
+        eq(healthMetrics.userId, userId),
+        eq(healthMetrics.type, type)
+      ));
+  }
+
+  async createHealthMetric(metric: InsertHealthMetric): Promise<HealthMetric> {
+    const [newMetric] = await db.insert(healthMetrics).values(metric).returning();
+    return newMetric;
+  }
+
+  async getChatMessages(senderId: number, receiverId: number): Promise<ChatMessage[]> {
+    return db.select().from(chatMessages)
+      .where(
+        or(
+          and(
+            eq(chatMessages.senderId, senderId),
+            eq(chatMessages.receiverId, receiverId)
+          ),
+          and(
+            eq(chatMessages.senderId, receiverId),
+            eq(chatMessages.receiverId, senderId)
+          )
+        )
+      )
+      .orderBy(asc(chatMessages.timestamp));
+  }
+
+  async createChatMessage(message: InsertChatMessage): Promise<ChatMessage> {
+    const [newMessage] = await db.insert(chatMessages).values({
+      ...message,
+      isRead: false
+    }).returning();
+    
+    return newMessage;
+  }
+
+  async markMessageAsRead(id: number): Promise<ChatMessage | undefined> {
+    const [updatedMessage] = await db.update(chatMessages)
+      .set({ isRead: true })
+      .where(eq(chatMessages.id, id))
+      .returning();
+    
+    return updatedMessage || undefined;
+  }
+
+  async getTranslation(language: string, key: string): Promise<Translation | undefined> {
+    const [translation] = await db.select().from(translations)
+      .where(and(
+        eq(translations.language, language),
+        eq(translations.key, key)
+      ));
+    
+    return translation || undefined;
+  }
+
+  async getTranslationsByLanguage(language: string): Promise<Translation[]> {
+    return db.select().from(translations).where(eq(translations.language, language));
+  }
+
+  async createTranslation(translation: InsertTranslation): Promise<Translation> {
+    const [newTranslation] = await db.insert(translations).values(translation).returning();
+    return newTranslation;
+  }
+}
+
+// Use database storage instead of memory storage
+export const storage = new DatabaseStorage();

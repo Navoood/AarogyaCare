@@ -1,12 +1,8 @@
-import { ReactNode, useState } from "react";
-import Sidebar from "./Sidebar";
-import MobileNav from "./MobileNav";
-import EmergencySOS from "../common/EmergencySOS";
-import { useAuth } from "@/context/AuthContext";
-import LanguageSwitcher from "../common/LanguageSwitcher";
-import { Bell } from "lucide-react";
+import { useState, useEffect } from "react";
+import { Link, useLocation } from "wouter";
+import { useAuth } from "../../context/AuthContext";
+import { useLanguage } from "../../context/LanguageContext";
 import { Button } from "@/components/ui/button";
-import { useNotifications } from "@/context/NotificationContext";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -15,159 +11,278 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useLocation } from "wouter";
-import { Badge } from "@/components/ui/badge";
-import { timeAgo } from "@/lib/utils";
+import { 
+  Home, 
+  Menu, 
+  User, 
+  LogOut, 
+  Globe, 
+  Stethoscope, 
+  Activity, 
+  Apple, 
+  Video, 
+  PillIcon, 
+  MessageSquareText,
+  BellRing
+} from "lucide-react";
 
 interface LayoutProps {
-  children: ReactNode;
-  title: string;
+  children: React.ReactNode;
 }
 
-export default function Layout({ children, title }: LayoutProps) {
-  const [mobileNavOpen, setMobileNavOpen] = useState(false);
-  const { user } = useAuth();
-  const { notifications, unreadCount, markAsRead, markAllAsRead } = useNotifications();
-  const [_, navigate] = useLocation();
+export default function Layout({ children }: LayoutProps) {
+  const [isOpen, setIsOpen] = useState(false);
+  const { user, logout } = useAuth();
+  const { currentLanguage, changeLanguage, availableLanguages } = useLanguage();
+  const [location, setLocation] = useLocation();
+  const [isMobile, setIsMobile] = useState(false);
 
-  const toggleMobileNav = () => {
-    setMobileNavOpen(!mobileNavOpen);
-  };
+  // Check if mobile on initial load and when window resizes
+  useEffect(() => {
+    const checkIfMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    checkIfMobile();
+    window.addEventListener("resize", checkIfMobile);
+    
+    return () => {
+      window.removeEventListener("resize", checkIfMobile);
+    };
+  }, []);
 
-  const handleNotificationClick = (notification: any) => {
-    markAsRead(notification.id);
-    if (notification.actionUrl) {
-      navigate(notification.actionUrl);
-    }
+  const navigationItems = [
+    { name: "Home", path: "/", icon: <Home className="h-5 w-5" /> },
+    { name: "Doctors", path: "/doctors", icon: <Stethoscope className="h-5 w-5" /> },
+    { name: "Symptom Checker", path: "/symptom-checker", icon: <Activity className="h-5 w-5" /> },
+    { name: "Diet Plans", path: "/diet-plans", icon: <Apple className="h-5 w-5" /> },
+    { name: "Consultations", path: "/consultations", icon: <Video className="h-5 w-5" /> },
+    { name: "Reminders", path: "/reminders", icon: <PillIcon className="h-5 w-5" /> },
+    { name: "Community Forum", path: "/forum", icon: <MessageSquareText className="h-5 w-5" /> },
+    { name: "Emergency", path: "/emergency", icon: <BellRing className="h-5 w-5" /> },
+  ];
+
+  const handleLogout = async () => {
+    await logout();
+    setLocation("/");
   };
 
   return (
-    <div className="flex h-screen overflow-hidden">
-      {/* Sidebar (desktop) */}
-      <Sidebar />
-
-      {/* Main Content */}
-      <main className="flex-1 relative overflow-y-auto focus:outline-none md:ml-64">
-        {/* Top Navigation (mobile) */}
-        <div className="md:hidden border-b border-slate-200 bg-white">
-          <div className="flex items-center justify-between h-16 px-4">
-            <h1 className="text-xl font-bold text-primary-600">AAROGYA</h1>
-            <button
-              type="button"
-              className="inline-flex items-center justify-center rounded-md text-gray-500 hover:text-gray-700"
-              onClick={toggleMobileNav}
-            >
-              <span className="sr-only">Open main menu</span>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
-              </svg>
-            </button>
+    <div className="min-h-screen flex flex-col">
+      {/* Navbar */}
+      <header className="bg-background sticky top-0 z-40 w-full border-b">
+        <div className="container mx-auto flex h-16 items-center px-4 sm:justify-between sm:space-x-0">
+          <div className="flex gap-6 md:gap-10">
+            <Link href="/" className="flex items-center space-x-2">
+              <span className="font-bold text-primary text-xl md:text-2xl">AAROGYA</span>
+            </Link>
           </div>
-        </div>
-
-        {/* Mobile Navigation Sidebar */}
-        {mobileNavOpen && (
-          <MobileNav onClose={() => setMobileNavOpen(false)} />
-        )}
-
-        {/* Dashboard Header */}
-        <div className="py-6 px-4 sm:px-6 lg:px-8 bg-white border-b">
-          <div className="flex items-center justify-between">
-            <h2 className="text-2xl font-bold text-slate-900">{title}</h2>
-            <div className="flex items-center space-x-4">
-              {/* Language Switcher */}
-              <LanguageSwitcher />
-              
-              {/* Notifications */}
+          
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex items-center space-x-4">
+            {navigationItems.slice(0, 4).map((item) => (
+              <Link 
+                key={item.path} 
+                href={item.path}
+                className={`text-sm font-medium transition-colors hover:text-primary ${
+                  location === item.path ? "text-primary" : "text-muted-foreground"
+                }`}
+              >
+                {item.name}
+              </Link>
+            ))}
+            
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="outline" size="sm">
+                  <span className="mr-1">More</span>
+                  <Menu className="h-4 w-4" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                {navigationItems.slice(4).map((item) => (
+                  <DropdownMenuItem key={item.path} asChild>
+                    <Link href={item.path} className="cursor-pointer flex items-center">
+                      {item.icon}
+                      <span className="ml-2">{item.name}</span>
+                    </Link>
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
+            
+            {/* Language Selector */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" size="icon">
+                  <Globe className="h-5 w-5" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuLabel>Select Language</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                {availableLanguages.map((lang) => (
+                  <DropdownMenuItem 
+                    key={lang} 
+                    onClick={() => changeLanguage(lang)}
+                    className={currentLanguage === lang ? "bg-muted" : ""}
+                  >
+                    {lang.charAt(0).toUpperCase() + lang.slice(1)}
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
+            
+            {/* User Menu or Login/Register */}
+            {user ? (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" size="icon" className="relative">
-                    <Bell className="h-5 w-5" />
-                    {unreadCount > 0 && (
-                      <span className="absolute top-0 right-0 h-4 w-4 bg-red-500 text-white text-xs rounded-full flex items-center justify-center">
-                        {unreadCount > 9 ? '9+' : unreadCount}
-                      </span>
-                    )}
+                  <Button variant="ghost" size="icon">
+                    <User className="h-5 w-5" />
                   </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="w-80">
-                  <DropdownMenuLabel className="flex items-center justify-between">
-                    <span>Notifications</span>
-                    {unreadCount > 0 && (
-                      <Button 
-                        variant="link" 
-                        size="sm" 
-                        onClick={() => markAllAsRead()}
-                        className="text-xs"
-                      >
-                        Mark all as read
-                      </Button>
-                    )}
-                  </DropdownMenuLabel>
+                <DropdownMenuContent align="end">
+                  <DropdownMenuLabel>My Account</DropdownMenuLabel>
                   <DropdownMenuSeparator />
-                  {notifications.length === 0 ? (
-                    <div className="py-4 px-2 text-center text-sm text-gray-500">
-                      No notifications
-                    </div>
-                  ) : (
-                    <>
-                      {notifications.slice(0, 5).map((notification) => (
-                        <DropdownMenuItem 
-                          key={notification.id}
-                          className="py-3 px-4 cursor-pointer"
-                          onClick={() => handleNotificationClick(notification)}
-                        >
-                          <div className="flex flex-col w-full">
-                            <div className="flex justify-between items-start">
-                              <span className="font-medium">{notification.title}</span>
-                              {!notification.read && (
-                                <Badge variant="secondary" className="ml-2 bg-primary-100 text-primary-700 hover:bg-primary-100">
-                                  New
-                                </Badge>
-                              )}
-                            </div>
-                            <p className="text-sm text-gray-500 mt-1">
-                              {notification.message}
-                            </p>
-                            <span className="text-xs text-gray-400 mt-1">
-                              {timeAgo(notification.timestamp)}
-                            </span>
-                          </div>
-                        </DropdownMenuItem>
-                      ))}
-                      {notifications.length > 5 && (
-                        <DropdownMenuItem 
-                          className="py-2 px-4 text-center"
-                          onClick={() => navigate("/notifications")}
-                        >
-                          <span className="text-sm text-primary-600">View all</span>
-                        </DropdownMenuItem>
-                      )}
-                    </>
-                  )}
+                  <DropdownMenuItem asChild>
+                    <Link href="/profile" className="cursor-pointer">Profile</Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={handleLogout} className="cursor-pointer">
+                    <LogOut className="h-4 w-4 mr-2" />
+                    Logout
+                  </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
-            </div>
+            ) : (
+              <div className="flex items-center gap-2">
+                <Link href="/login">
+                  <Button variant="ghost" size="sm">Login</Button>
+                </Link>
+                <Link href="/register">
+                  <Button size="sm">Register</Button>
+                </Link>
+              </div>
+            )}
+          </nav>
+          
+          {/* Mobile Navigation Toggle */}
+          <div className="flex md:hidden ml-auto">
+            <Button variant="ghost" size="icon" onClick={() => setIsOpen(!isOpen)}>
+              <Menu className="h-6 w-6" />
+            </Button>
           </div>
         </div>
-
-        {/* Main Content Area */}
-        <div className="py-6 px-4 sm:px-6 lg:px-8">{children}</div>
+        
+        {/* Mobile Navigation Dropdown */}
+        {isOpen && (
+          <div className="md:hidden border-t">
+            <div className="container mx-auto px-4 py-2 space-y-1">
+              {navigationItems.map((item) => (
+                <Link
+                  key={item.path}
+                  href={item.path}
+                  className="flex items-center gap-2 px-2 py-2 text-sm font-medium rounded-md hover:bg-muted"
+                  onClick={() => setIsOpen(false)}
+                >
+                  {item.icon}
+                  {item.name}
+                </Link>
+              ))}
+              
+              <div className="pt-2 border-t">
+                <div className="flex flex-col gap-2">
+                  {!user ? (
+                    <>
+                      <Link href="/login" onClick={() => setIsOpen(false)}>
+                        <Button variant="outline" className="w-full justify-start">
+                          <User className="h-4 w-4 mr-2" />
+                          Login
+                        </Button>
+                      </Link>
+                      <Link href="/register" onClick={() => setIsOpen(false)}>
+                        <Button className="w-full justify-start">Register</Button>
+                      </Link>
+                    </>
+                  ) : (
+                    <>
+                      <Link href="/profile" onClick={() => setIsOpen(false)}>
+                        <Button variant="outline" className="w-full justify-start">
+                          <User className="h-4 w-4 mr-2" />
+                          Profile
+                        </Button>
+                      </Link>
+                      <Button 
+                        variant="destructive" 
+                        onClick={() => {
+                          handleLogout();
+                          setIsOpen(false);
+                        }}
+                        className="w-full justify-start"
+                      >
+                        <LogOut className="h-4 w-4 mr-2" />
+                        Logout
+                      </Button>
+                    </>
+                  )}
+                </div>
+              </div>
+              
+              {/* Language Selection in Mobile Menu */}
+              <div className="pt-2 border-t">
+                <p className="px-2 py-1 text-sm font-medium text-muted-foreground">Language</p>
+                <div className="grid grid-cols-2 gap-1 pt-1">
+                  {availableLanguages.map((lang) => (
+                    <Button 
+                      key={lang} 
+                      variant={currentLanguage === lang ? "default" : "ghost"}
+                      size="sm"
+                      onClick={() => {
+                        changeLanguage(lang);
+                        setIsOpen(false);
+                      }}
+                      className="justify-start"
+                    >
+                      {lang.charAt(0).toUpperCase() + lang.slice(1)}
+                    </Button>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+      </header>
+      
+      {/* Main Content */}
+      <main className="flex-1">
+        {children}
       </main>
-
-      {/* Emergency SOS Button */}
-      <EmergencySOS />
+      
+      {/* Footer */}
+      <footer className="border-t py-6 md:py-0">
+        <div className="container mx-auto px-4 md:flex md:items-center md:justify-between md:h-16">
+          <div className="text-center md:text-left">
+            <p className="text-sm text-muted-foreground">
+              © {new Date().getFullYear()} AAROGYA. All rights reserved.
+            </p>
+          </div>
+          <div className="mt-4 md:mt-0">
+            <nav className="flex justify-center md:justify-end space-x-4 text-sm font-medium">
+              <Link href="/about" className="text-muted-foreground hover:text-primary">
+                About
+              </Link>
+              <Link href="/privacy" className="text-muted-foreground hover:text-primary">
+                Privacy
+              </Link>
+              <Link href="/terms" className="text-muted-foreground hover:text-primary">
+                Terms
+              </Link>
+              <Link href="/contact" className="text-muted-foreground hover:text-primary">
+                Contact
+              </Link>
+            </nav>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }
