@@ -1,0 +1,174 @@
+
+This project is a web-based AI-powered rural healthcare platform that provides telemedicine, doctor availability tracking, symptom checking, diet planning, health reminders, emergency alerts, multilingual support, and more—without relying on API keys.
+
+2. Key Features & Functional Requirements
+1️⃣ User Authentication (Register & Login)
+User Roles: Patients, Doctors, Admins
+
+User Registration: Email & password-based signup
+
+Login & Session Management: Secure authentication
+
+Database Requirement: Replit must use a database (e.g., SQL or NoSQL) to store user credentials
+
+UI: Clean, user-friendly form designs
+
+2️⃣ Real-time Doctor Availability
+Doctor List: Doctors can mark themselves as available/unavailable
+
+Filtering & Sorting: Users can filter doctors based on specialization
+
+Database Requirement: Store doctor details & availability in a database
+
+Implementation Without APIs:
+
+Query the database to dynamically update availability
+
+Use loops to display data
+
+UI: Doctor cards with availability badges
+
+3️⃣ Symptom Checker
+User Input: Patients enter symptoms
+
+Pattern Matching: Instead of APIs, use a database with predefined symptom-disease mappings
+
+Database Requirement: Store symptoms & related conditions in a database
+
+Implementation Without APIs:
+
+Use database queries instead of API calls
+
+Apply loops & conditionals for matching
+
+UI: Simple, guided symptom input and results display
+
+4️⃣ Smart Diet Plans
+Custom Diet Generation: Based on the patient’s symptoms & conditions
+
+Database Requirement: Store predefined diet plans in a database
+
+Implementation Without APIs:
+
+Query diet plans using database filters
+
+UI:
+
+Cards showing meal plans
+
+Option to download as PDF
+
+5️⃣ Telemedicine (Video & Chat Consultations)
+Doctor-Patient Video Calls & Chat
+
+Database Requirement: Store chat history in a database
+
+Implementation Without APIs:
+
+Peer-to-peer WebRTC for video calls
+
+Simple messaging system storing data locally
+
+UI: Intuitive video & chat interface
+
+6️⃣ Automated Medication & Appointment Reminders
+Reminders for Medication & Appointments
+
+Database Requirement: Store reminders in a database
+
+Implementation Without APIs:
+
+Use database triggers for scheduled reminders
+
+UI:
+
+Toast notifications
+
+Table for upcoming alerts
+
+7️⃣ Community Health Forum
+Users can post questions & get answers from doctors or other users
+
+Database Requirement: Store discussions in a database
+
+Implementation Without APIs:
+
+Query and render discussion threads dynamically
+
+UI:
+
+Forum-style posts, reply system, and upvote button
+
+8️⃣ One-Tap Emergency SOS Alerts
+Emergency alert that notifies family & nearby hospitals
+
+Database Requirement: Store emergency contacts in a database
+
+Implementation Without APIs:
+
+Trigger SMS/email using built-in device functionalities
+
+UI:
+
+Floating emergency button
+
+Confirmation modal
+
+9️⃣ Integration with Government Health Schemes
+Display available free/subsidized health schemes
+
+Database Requirement: Store health schemes data in a database
+
+Implementation Without APIs:
+
+Query database for relevant schemes
+
+UI:
+
+List of schemes with eligibility filters
+
+🔟 Multilingual Support
+Supports regional languages
+
+Database Requirement: Store translations in a database
+
+Implementation Without APIs:
+
+Dynamically load translations from the database
+
+UI:
+
+Language switcher
+
+1️⃣1️⃣ AI-powered Health Improvement Recommendations
+Lifestyle suggestions based on user conditions
+
+Database Requirement: Store recommendations in a database
+
+Implementation Without APIs:
+
+Query user history & suggest improvements
+
+UI:
+
+Insight cards with icons
+
+1️⃣2️⃣ Interactive Visual Reports & Health Analytics
+Users can view their health trends in charts
+
+Database Requirement: Store user health data in a database
+
+Implementation Without APIs:
+
+Generate charts from stored data
+
+UI:
+
+Dashboard with visual graphs
+
+3. Development Guidelines
+Replit must use a database instead of relying on API calls.
+
+User interactions should be processed locally or with database queries.
+
+Loops, conditionals, and open-source libraries should be used where necessary.
