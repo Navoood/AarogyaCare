@@ -1,81 +1,162 @@
-import Layout from "@/components/layout/Layout";
-import SymptomChecker from "@/components/symptom-checker/SymptomChecker";
-import { useLanguage } from "@/context/LanguageContext";
-import { useLocation } from "wouter";
-import { useEffect, useState } from "react";
+import React, { useState, useEffect } from 'react';
+import { SymptomSearch } from '@/components/symptom-checker/SymptomSearch';
+import { SelectedSymptoms } from '@/components/symptom-checker/SelectedSymptoms';
+import { SymptomResults } from '@/components/symptom-checker/SymptomResults';
+import { getAllSymptoms, Symptom, analyzeSymptoms, ConditionMatch } from '@/utils/symptomLogic';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
+import { ArrowLeft, Search, Activity, HelpCircle } from 'lucide-react';
 
-export default function SymptomCheckerPage() {
-  const { t } = useLanguage();
-  const [location] = useLocation();
-  const [initialSymptoms, setInitialSymptoms] = useState<string>("");
-  const [initialDuration, setInitialDuration] = useState<string>("");
+const SymptomCheckerPage = () => {
+  const [symptoms, setSymptoms] = useState<Symptom[]>([]);
+  const [selectedSymptoms, setSelectedSymptoms] = useState<Symptom[]>([]);
+  const [conditions, setConditions] = useState<ConditionMatch[]>([]);
+  const [showResults, setShowResults] = useState(false);
+  const [activeTab, setActiveTab] = useState('search');
 
-  // Parse URL parameters if any
   useEffect(() => {
-    const params = new URLSearchParams(location.split("?")[1]);
-    const symptoms = params.get("symptoms");
-    const duration = params.get("duration");
-    
-    if (symptoms) setInitialSymptoms(symptoms);
-    if (duration) setInitialDuration(duration);
-  }, [location]);
+    // Load all symptoms on component mount
+    setSymptoms(getAllSymptoms());
+  }, []);
+
+  const handleSymptomSelect = (symptom: Symptom) => {
+    // Check if symptom is already selected
+    if (!selectedSymptoms.some(s => s.id === symptom.id)) {
+      setSelectedSymptoms(prev => [...prev, symptom]);
+    }
+  };
+
+  const handleRemoveSymptom = (id: number) => {
+    setSelectedSymptoms(prev => prev.filter(s => s.id !== id));
+  };
+
+  const handleAnalyzeSymptoms = () => {
+    const results = analyzeSymptoms(selectedSymptoms);
+    setConditions(results);
+    setShowResults(true);
+    setActiveTab('results');
+  };
+
+  const handleReset = () => {
+    setSelectedSymptoms([]);
+    setConditions([]);
+    setShowResults(false);
+    setActiveTab('search');
+  };
 
   return (
-    <Layout title={t("symptomChecker")}>
-      <div className="max-w-6xl mx-auto">
-        <div className="mb-6">
-          <h1 className="text-2xl font-bold mb-2">Symptom Checker</h1>
-          <p className="text-gray-600">
-            Check your symptoms to get a preliminary assessment and health recommendations.
-            This tool helps identify potential health issues but is not a substitute for professional medical advice.
-          </p>
-        </div>
+    <div className="container mx-auto py-6 max-w-4xl">
+      <div className="mb-6">
+        <h1 className="text-3xl font-bold">Symptom Checker</h1>
+        <p className="text-gray-600 mt-2">
+          Search for your symptoms, select all that apply, and get information about possible conditions.
+        </p>
+      </div>
 
-        <div className="bg-primary-50 rounded-lg p-4 mb-6">
-          <div className="flex items-start">
-            <div className="bg-primary-100 p-2 rounded-full mr-3">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-primary-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
+      <Card className="mb-6">
+        <CardHeader className="pb-3">
+          <CardTitle>How It Works</CardTitle>
+          <CardDescription>
+            Follow these steps to check your symptoms
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="grid gap-4 md:grid-cols-3">
+            <div className="flex flex-col items-center text-center p-4 bg-gray-50 rounded-lg">
+              <Search className="h-8 w-8 text-primary mb-2" />
+              <h3 className="font-medium">1. Search Symptoms</h3>
+              <p className="text-sm text-gray-600">
+                Enter your symptoms in the search box below
+              </p>
             </div>
-            <div>
-              <h3 className="font-medium">Important Information</h3>
-              <p className="text-sm text-gray-600 mt-1">
-                This symptom checker provides general guidance based on the symptoms you enter.
-                In case of severe symptoms or emergency, please contact a healthcare provider immediately
-                or use the SOS button.
+            <div className="flex flex-col items-center text-center p-4 bg-gray-50 rounded-lg">
+              <Activity className="h-8 w-8 text-primary mb-2" />
+              <h3 className="font-medium">2. Select All That Apply</h3>
+              <p className="text-sm text-gray-600">
+                Add all symptoms you're experiencing
+              </p>
+            </div>
+            <div className="flex flex-col items-center text-center p-4 bg-gray-50 rounded-lg">
+              <HelpCircle className="h-8 w-8 text-primary mb-2" />
+              <h3 className="font-medium">3. Review Results</h3>
+              <p className="text-sm text-gray-600">
+                Get information about possible conditions
               </p>
             </div>
           </div>
-        </div>
+        </CardContent>
+      </Card>
 
-        <SymptomChecker 
-          initialSymptoms={initialSymptoms} 
-          initialDuration={initialDuration} 
-        />
+      <Tabs value={activeTab} onValueChange={setActiveTab}>
+        <TabsList className="grid w-full grid-cols-2">
+          <TabsTrigger value="search">Search Symptoms</TabsTrigger>
+          <TabsTrigger value="results" disabled={!showResults}>View Results</TabsTrigger>
+        </TabsList>
+        
+        <TabsContent value="search" className="space-y-4">
+          <Card>
+            <CardHeader>
+              <CardTitle>Search for Symptoms</CardTitle>
+              <CardDescription>
+                Enter a symptom you're experiencing, like "headache" or "fever"
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <SymptomSearch 
+                symptoms={symptoms}
+                onSymptomSelect={handleSymptomSelect}
+              />
+              
+              {selectedSymptoms.length > 0 && (
+                <div className="mt-4 p-4 bg-blue-50 rounded-md">
+                  <p className="text-sm text-blue-800">
+                    <strong>Tip:</strong> For more accurate results, add all symptoms you're experiencing.
+                  </p>
+                </div>
+              )}
+            </CardContent>
+          </Card>
 
-        <div className="mt-8 border-t pt-6">
-          <h3 className="font-medium mb-3">Common Health Topics</h3>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
-            <div className="border rounded-lg p-4 hover:bg-gray-50 cursor-pointer">
-              <h4 className="font-medium text-primary-600">Fever & Flu</h4>
-              <p className="text-sm text-gray-600 mt-1">Common symptoms and management</p>
-            </div>
-            <div className="border rounded-lg p-4 hover:bg-gray-50 cursor-pointer">
-              <h4 className="font-medium text-primary-600">Digestive Issues</h4>
-              <p className="text-sm text-gray-600 mt-1">Stomach pain, indigestion, diarrhea</p>
-            </div>
-            <div className="border rounded-lg p-4 hover:bg-gray-50 cursor-pointer">
-              <h4 className="font-medium text-primary-600">Respiratory Problems</h4>
-              <p className="text-sm text-gray-600 mt-1">Breathing difficulty, cough, congestion</p>
-            </div>
-            <div className="border rounded-lg p-4 hover:bg-gray-50 cursor-pointer">
-              <h4 className="font-medium text-primary-600">Joint & Muscle Pain</h4>
-              <p className="text-sm text-gray-600 mt-1">Arthritis, sprains, chronic pain</p>
-            </div>
-          </div>
-        </div>
+          <SelectedSymptoms 
+            symptoms={selectedSymptoms}
+            onRemove={handleRemoveSymptom}
+            onAnalyze={handleAnalyzeSymptoms}
+          />
+        </TabsContent>
+        
+        <TabsContent value="results">
+          {showResults && (
+            <>
+              <div className="mb-4">
+                <Button 
+                  variant="outline" 
+                  onClick={() => setActiveTab('search')}
+                  className="flex items-center gap-2"
+                >
+                  <ArrowLeft className="h-4 w-4" />
+                  Back to Search
+                </Button>
+              </div>
+              
+              <SymptomResults 
+                conditions={conditions}
+                selectedSymptoms={selectedSymptoms}
+                onReset={handleReset}
+              />
+            </>
+          )}
+        </TabsContent>
+      </Tabs>
+
+      <div className="mt-8 p-4 bg-gray-100 rounded-md text-center">
+        <p className="text-sm text-gray-600">
+          <strong>Disclaimer:</strong> This tool is for informational purposes only and is not a substitute for professional medical advice, diagnosis, or treatment.
+          Always seek the advice of qualified health providers with questions you may have regarding medical conditions.
+        </p>
       </div>
-    </Layout>
+    </div>
   );
-}
+};
+
+export default SymptomCheckerPage;

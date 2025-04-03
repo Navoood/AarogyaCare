@@ -3,6 +3,7 @@ import { Toaster } from "@/components/ui/toaster";
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
+import SymptomCheckerPage from "./pages/SymptomCheckerPage";
 import Layout from "./components/layout/Layout";
 import { AuthProvider } from "./context/AuthContext";
 import { LanguageProvider } from "./context/LanguageContext";
@@ -34,9 +35,7 @@ function Router() {
       <Route path="/doctors">
         {() => <PlaceholderPage title="Doctor Availability" />}
       </Route>
-      <Route path="/symptom-checker">
-        {() => <PlaceholderPage title="Symptom Checker" />}
-      </Route>
+      <Route path="/symptom-checker" component={SymptomCheckerPage} />
       <Route path="/diet-plans">
         {() => <PlaceholderPage title="Smart Diet Plans" />}
       </Route>

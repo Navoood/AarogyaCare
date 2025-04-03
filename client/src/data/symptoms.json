@@ -1,0 +1,182 @@
+[
+  {
+    "id": 1,
+    "symptom": "Fever",
+    "description": "Elevated body temperature above normal range",
+    "possible_conditions": ["Flu", "Common Cold", "Malaria", "Dengue", "COVID-19", "Typhoid"],
+    "severity": "moderate",
+    "basic_treatment": "Rest, stay hydrated, take fever-reducing medication if temperature is high",
+    "when_to_consult": "If fever persists for more than 3 days or is accompanied by severe symptoms"
+  },
+  {
+    "id": 2,
+    "symptom": "Headache",
+    "description": "Pain or discomfort in the head or scalp",
+    "possible_conditions": ["Migraine", "Tension Headache", "Dehydration", "Sinus Infection", "Hypertension"],
+    "severity": "mild to moderate",
+    "basic_treatment": "Rest in a quiet, dark room, stay hydrated, take over-the-counter pain relievers",
+    "when_to_consult": "If severe, sudden, or accompanied by confusion, stiff neck, or after head injury"
+  },
+  {
+    "id": 3,
+    "symptom": "Cough",
+    "description": "Sudden expulsion of air from the lungs to clear airways",
+    "possible_conditions": ["Common Cold", "Bronchitis", "Pneumonia", "Asthma", "COVID-19", "Tuberculosis"],
+    "severity": "mild to severe",
+    "basic_treatment": "Stay hydrated, use cough drops or honey (for adults), use a humidifier",
+    "when_to_consult": "If persistent for more than 2 weeks, produces thick green/yellow phlegm, or causes difficulty breathing"
+  },
+  {
+    "id": 4,
+    "symptom": "Fatigue",
+    "description": "Extreme tiredness resulting from mental or physical exertion",
+    "possible_conditions": ["Anemia", "Depression", "Hypothyroidism", "Chronic Fatigue Syndrome", "Diabetes"],
+    "severity": "mild to severe",
+    "basic_treatment": "Ensure adequate rest, maintain proper nutrition, engage in light physical activity",
+    "when_to_consult": "If persistent and interferes with daily activities or is accompanied by other symptoms"
+  },
+  {
+    "id": 5,
+    "symptom": "Nausea",
+    "description": "Sensation of discomfort in the stomach with an urge to vomit",
+    "possible_conditions": ["Food Poisoning", "Gastritis", "Migraine", "Pregnancy", "Motion Sickness", "Viral Infection"],
+    "severity": "mild to moderate",
+    "basic_treatment": "Eat smaller meals, avoid strong odors, stay hydrated with clear fluids",
+    "when_to_consult": "If severe, persistent, or accompanied by vomiting blood or severe abdominal pain"
+  },
+  {
+    "id": 6,
+    "symptom": "Shortness of Breath",
+    "description": "Feeling of not getting enough air, difficulty breathing",
+    "possible_conditions": ["Asthma", "Pneumonia", "Heart Failure", "Anxiety", "COVID-19", "COPD"],
+    "severity": "moderate to severe",
+    "basic_treatment": "Sit upright, practice deep breathing, use rescue medications if prescribed",
+    "when_to_consult": "If sudden onset, severe, or accompanied by chest pain, immediately seek medical attention"
+  },
+  {
+    "id": 7,
+    "symptom": "Chest Pain",
+    "description": "Discomfort or pain in the chest area",
+    "possible_conditions": ["Heart Attack", "Angina", "Acid Reflux", "Muscle Strain", "Anxiety", "Pneumonia"],
+    "severity": "moderate to severe",
+    "basic_treatment": "Rest, take prescribed medications for known conditions like acid reflux",
+    "when_to_consult": "If sudden, severe, or accompanied by sweating, nausea, or shortness of breath, seek emergency care"
+  },
+  {
+    "id": 8,
+    "symptom": "Dizziness",
+    "description": "Feeling lightheaded, unsteady, or like the room is spinning",
+    "possible_conditions": ["Low Blood Pressure", "Dehydration", "Anemia", "Inner Ear Problems", "Low Blood Sugar"],
+    "severity": "mild to moderate",
+    "basic_treatment": "Sit or lie down safely, stay hydrated, avoid sudden movements",
+    "when_to_consult": "If persistent, severe, recurrent, or accompanied by fainting or neurological symptoms"
+  },
+  {
+    "id": 9,
+    "symptom": "Abdominal Pain",
+    "description": "Pain felt between the chest and groin area",
+    "possible_conditions": ["Appendicitis", "Gastritis", "Irritable Bowel Syndrome", "Kidney Stones", "Pancreatitis"],
+    "severity": "mild to severe",
+    "basic_treatment": "Rest, over-the-counter pain relievers, avoid trigger foods",
+    "when_to_consult": "If severe, persistent, or accompanied by fever, vomiting, or inability to keep food down"
+  },
+  {
+    "id": 10,
+    "symptom": "Rash",
+    "description": "Area of irritated or swollen skin that changes its appearance or texture",
+    "possible_conditions": ["Allergic Reaction", "Eczema", "Psoriasis", "Chickenpox", "Contact Dermatitis"],
+    "severity": "mild to moderate",
+    "basic_treatment": "Avoid irritants, use mild soaps, apply over-the-counter hydrocortisone cream",
+    "when_to_consult": "If covers large area, spreads rapidly, or is accompanied by fever or difficulty breathing"
+  },
+  {
+    "id": 11,
+    "symptom": "Joint Pain",
+    "description": "Discomfort, pain, or inflammation in any joint in the body",
+    "possible_conditions": ["Arthritis", "Gout", "Rheumatoid Arthritis", "Injury", "Lupus"],
+    "severity": "mild to severe",
+    "basic_treatment": "Rest affected joints, apply ice/heat, gentle stretching, over-the-counter pain relievers",
+    "when_to_consult": "If severe, accompanied by significant swelling, redness, or inability to use the joint"
+  },
+  {
+    "id": 12,
+    "symptom": "Sore Throat",
+    "description": "Pain, irritation, or scratchiness in the throat",
+    "possible_conditions": ["Strep Throat", "Common Cold", "Tonsillitis", "Laryngitis", "Allergies"],
+    "severity": "mild to moderate",
+    "basic_treatment": "Gargle with warm salt water, drink warm liquids, use throat lozenges",
+    "when_to_consult": "If severe, persistent for more than a week, or accompanied by high fever or difficulty swallowing"
+  },
+  {
+    "id": 13,
+    "symptom": "Back Pain",
+    "description": "Pain felt anywhere along the spine or muscles in the back",
+    "possible_conditions": ["Muscle Strain", "Herniated Disc", "Sciatica", "Kidney Infection", "Osteoporosis"],
+    "severity": "mild to severe",
+    "basic_treatment": "Rest, gentle stretching, over-the-counter pain relievers, heat/ice therapy",
+    "when_to_consult": "If severe, persists more than a few weeks, or is accompanied by numbness, weakness, or fever"
+  },
+  {
+    "id": 14,
+    "symptom": "Diarrhea",
+    "description": "Loose, watery stools occurring more frequently than normal",
+    "possible_conditions": ["Food Poisoning", "Viral Gastroenteritis", "Food Intolerance", "Irritable Bowel Syndrome", "Parasitic Infection"],
+    "severity": "mild to severe",
+    "basic_treatment": "Stay hydrated with clear fluids, eat bland foods, avoid dairy and high-fiber foods temporarily",
+    "when_to_consult": "If severe, lasts more than 2 days, or accompanied by high fever, severe abdominal pain, or bloody stools"
+  },
+  {
+    "id": 15,
+    "symptom": "Constipation",
+    "description": "Infrequent bowel movements or difficulty passing stools",
+    "possible_conditions": ["Dehydration", "Low-Fiber Diet", "Irritable Bowel Syndrome", "Medications", "Hypothyroidism"],
+    "severity": "mild",
+    "basic_treatment": "Increase fiber intake, stay hydrated, regular physical activity",
+    "when_to_consult": "If persistent for more than 2 weeks, accompanied by severe abdominal pain, or alternating with diarrhea"
+  },
+  {
+    "id": 16,
+    "symptom": "Blurred Vision",
+    "description": "Lack of sharpness of vision resulting in the inability to see fine details",
+    "possible_conditions": ["Eyestrain", "Migraine", "Diabetic Retinopathy", "Cataracts", "Glaucoma", "Hypertension"],
+    "severity": "mild to severe",
+    "basic_treatment": "Rest eyes, ensure proper lighting, use prescribed corrective lenses",
+    "when_to_consult": "If sudden onset, persistent, accompanied by eye pain, or only affecting one eye"
+  },
+  {
+    "id": 17,
+    "symptom": "Swollen Lymph Nodes",
+    "description": "Enlarged lymph nodes that may feel tender or painful",
+    "possible_conditions": ["Infection", "Common Cold", "Strep Throat", "Mononucleosis", "Lymphoma", "HIV"],
+    "severity": "mild to moderate",
+    "basic_treatment": "Rest, over-the-counter pain relievers, warm compresses",
+    "when_to_consult": "If persistent for more than 2 weeks, unexplained, or accompanied by weight loss, night sweats, or fever"
+  },
+  {
+    "id": 18,
+    "symptom": "Insomnia",
+    "description": "Difficulty falling asleep or staying asleep",
+    "possible_conditions": ["Stress", "Anxiety", "Depression", "Sleep Apnea", "Hormonal Changes"],
+    "severity": "mild to moderate",
+    "basic_treatment": "Establish regular sleep schedule, create relaxing bedtime routine, limit caffeine and screen time before bed",
+    "when_to_consult": "If chronic (lasting more than 3 months) or significantly affecting daily life"
+  },
+  {
+    "id": 19,
+    "symptom": "Loss of Appetite",
+    "description": "Reduced desire to eat for a period of time",
+    "possible_conditions": ["Depression", "Infection", "Digestive Conditions", "Medications", "Cancer"],
+    "severity": "mild to moderate",
+    "basic_treatment": "Eat smaller, more frequent meals, focus on nutrient-dense foods, stay hydrated",
+    "when_to_consult": "If accompanied by significant weight loss, persistent for more than 2 weeks, or accompanied by other symptoms"
+  },
+  {
+    "id": 20,
+    "symptom": "Frequent Urination",
+    "description": "Passing urine more often than usual",
+    "possible_conditions": ["Urinary Tract Infection", "Diabetes", "Pregnancy", "Prostate Problems", "Bladder Infection"],
+    "severity": "mild to moderate",
+    "basic_treatment": "Stay hydrated, avoid caffeine and alcohol, practice good hygiene",
+    "when_to_consult": "If accompanied by pain during urination, blood in urine, fever, or lower abdominal pain"
+  }
+]
