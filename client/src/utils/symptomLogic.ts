@@ -8,11 +8,13 @@ export type Symptom = {
   severity: string;
   basic_treatment: string;
   when_to_consult: string;
+  category?: string;
 };
 
 export type ConditionMatch = {
   condition: string;
   matchCount: number;
+  matchScore: number;
   symptoms: string[];
   severity: 'mild' | 'moderate' | 'severe';
   recommendation: string;
@@ -84,6 +86,8 @@ export const analyzeSymptoms = (selectedSymptoms: Symptom[]): ConditionMatch[] =
   const results = Array.from(conditionMap.entries())
     .map(([condition, data]) => {
       const averageSeverity = data.severityScore / data.count;
+      // Calculate a match score: combination of match count and severity
+      const matchScore = data.count * (1 + (getSeverityValue(getSeverityLevel(averageSeverity)) / 3));
       // Remove duplicates by filtering
       const uniqueSymptoms = data.symptoms.filter((symptom, index, self) => 
         self.indexOf(symptom) === index
@@ -91,12 +95,16 @@ export const analyzeSymptoms = (selectedSymptoms: Symptom[]): ConditionMatch[] =
       return {
         condition,
         matchCount: data.count,
+        matchScore,
         symptoms: uniqueSymptoms,
         severity: getSeverityLevel(averageSeverity),
         recommendation: getRecommendation(condition, getSeverityLevel(averageSeverity))
       };
     })
-    .sort((a, b) => b.matchCount - a.matchCount);
+    // Sort by match score (prioritizing both number of matches and severity)
+    .sort((a, b) => b.matchScore - a.matchScore)
+    // Limit to top 5 results
+    .slice(0, 5);
   
   return results;
 };

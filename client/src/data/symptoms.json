@@ -3,180 +3,400 @@
     "id": 1,
     "symptom": "Fever",
     "description": "Elevated body temperature above normal range",
-    "possible_conditions": ["Flu", "Common Cold", "Malaria", "Dengue", "COVID-19", "Typhoid"],
+    "possible_conditions": ["Flu", "Common Cold", "Malaria", "Dengue", "COVID-19", "Typhoid", "Pneumonia", "Meningitis", "Urinary Tract Infection"],
     "severity": "moderate",
     "basic_treatment": "Rest, stay hydrated, take fever-reducing medication if temperature is high",
-    "when_to_consult": "If fever persists for more than 3 days or is accompanied by severe symptoms"
+    "when_to_consult": "If fever persists for more than 3 days or is accompanied by severe symptoms",
+    "category": "General"
   },
   {
     "id": 2,
     "symptom": "Headache",
     "description": "Pain or discomfort in the head or scalp",
-    "possible_conditions": ["Migraine", "Tension Headache", "Dehydration", "Sinus Infection", "Hypertension"],
+    "possible_conditions": ["Migraine", "Tension Headache", "Dehydration", "Sinus Infection", "Hypertension", "Meningitis", "Brain Tumor", "Concussion"],
     "severity": "mild to moderate",
     "basic_treatment": "Rest in a quiet, dark room, stay hydrated, take over-the-counter pain relievers",
-    "when_to_consult": "If severe, sudden, or accompanied by confusion, stiff neck, or after head injury"
+    "when_to_consult": "If severe, sudden, or accompanied by confusion, stiff neck, or after head injury",
+    "category": "Neurological"
   },
   {
     "id": 3,
     "symptom": "Cough",
     "description": "Sudden expulsion of air from the lungs to clear airways",
-    "possible_conditions": ["Common Cold", "Bronchitis", "Pneumonia", "Asthma", "COVID-19", "Tuberculosis"],
+    "possible_conditions": ["Common Cold", "Bronchitis", "Pneumonia", "Asthma", "COVID-19", "Tuberculosis", "GERD", "Pulmonary Edema", "Lung Cancer"],
     "severity": "mild to severe",
     "basic_treatment": "Stay hydrated, use cough drops or honey (for adults), use a humidifier",
-    "when_to_consult": "If persistent for more than 2 weeks, produces thick green/yellow phlegm, or causes difficulty breathing"
+    "when_to_consult": "If persistent for more than 2 weeks, produces thick green/yellow phlegm, or causes difficulty breathing",
+    "category": "Respiratory"
   },
   {
     "id": 4,
     "symptom": "Fatigue",
     "description": "Extreme tiredness resulting from mental or physical exertion",
-    "possible_conditions": ["Anemia", "Depression", "Hypothyroidism", "Chronic Fatigue Syndrome", "Diabetes"],
+    "possible_conditions": ["Anemia", "Depression", "Hypothyroidism", "Chronic Fatigue Syndrome", "Diabetes", "Sleep Apnea", "Fibromyalgia", "Heart Disease", "Hepatitis"],
     "severity": "mild to severe",
     "basic_treatment": "Ensure adequate rest, maintain proper nutrition, engage in light physical activity",
-    "when_to_consult": "If persistent and interferes with daily activities or is accompanied by other symptoms"
+    "when_to_consult": "If persistent and interferes with daily activities or is accompanied by other symptoms",
+    "category": "General"
   },
   {
     "id": 5,
     "symptom": "Nausea",
     "description": "Sensation of discomfort in the stomach with an urge to vomit",
-    "possible_conditions": ["Food Poisoning", "Gastritis", "Migraine", "Pregnancy", "Motion Sickness", "Viral Infection"],
+    "possible_conditions": ["Food Poisoning", "Gastritis", "Migraine", "Pregnancy", "Motion Sickness", "Viral Infection", "Appendicitis", "Gallbladder Disease", "Pancreatitis"],
     "severity": "mild to moderate",
     "basic_treatment": "Eat smaller meals, avoid strong odors, stay hydrated with clear fluids",
-    "when_to_consult": "If severe, persistent, or accompanied by vomiting blood or severe abdominal pain"
+    "when_to_consult": "If severe, persistent, or accompanied by vomiting blood or severe abdominal pain",
+    "category": "Digestive"
   },
   {
     "id": 6,
     "symptom": "Shortness of Breath",
     "description": "Feeling of not getting enough air, difficulty breathing",
-    "possible_conditions": ["Asthma", "Pneumonia", "Heart Failure", "Anxiety", "COVID-19", "COPD"],
+    "possible_conditions": ["Asthma", "Pneumonia", "Heart Failure", "Anxiety", "COVID-19", "COPD", "Pulmonary Embolism", "Anemia", "Pneumothorax"],
     "severity": "moderate to severe",
     "basic_treatment": "Sit upright, practice deep breathing, use rescue medications if prescribed",
-    "when_to_consult": "If sudden onset, severe, or accompanied by chest pain, immediately seek medical attention"
+    "when_to_consult": "If sudden onset, severe, or accompanied by chest pain, immediately seek medical attention",
+    "category": "Respiratory"
   },
   {
     "id": 7,
     "symptom": "Chest Pain",
     "description": "Discomfort or pain in the chest area",
-    "possible_conditions": ["Heart Attack", "Angina", "Acid Reflux", "Muscle Strain", "Anxiety", "Pneumonia"],
+    "possible_conditions": ["Heart Attack", "Angina", "Acid Reflux", "Muscle Strain", "Anxiety", "Pneumonia", "Pulmonary Embolism", "Costochondritis", "Aortic Dissection"],
     "severity": "moderate to severe",
     "basic_treatment": "Rest, take prescribed medications for known conditions like acid reflux",
-    "when_to_consult": "If sudden, severe, or accompanied by sweating, nausea, or shortness of breath, seek emergency care"
+    "when_to_consult": "If sudden, severe, or accompanied by sweating, nausea, or shortness of breath, seek emergency care",
+    "category": "Cardiovascular"
   },
   {
     "id": 8,
     "symptom": "Dizziness",
     "description": "Feeling lightheaded, unsteady, or like the room is spinning",
-    "possible_conditions": ["Low Blood Pressure", "Dehydration", "Anemia", "Inner Ear Problems", "Low Blood Sugar"],
+    "possible_conditions": ["Low Blood Pressure", "Dehydration", "Anemia", "Inner Ear Problems", "Low Blood Sugar", "Stroke", "Arrhythmia", "Migraine", "Anxiety"],
     "severity": "mild to moderate",
     "basic_treatment": "Sit or lie down safely, stay hydrated, avoid sudden movements",
-    "when_to_consult": "If persistent, severe, recurrent, or accompanied by fainting or neurological symptoms"
+    "when_to_consult": "If persistent, severe, recurrent, or accompanied by fainting or neurological symptoms",
+    "category": "Neurological"
   },
   {
     "id": 9,
     "symptom": "Abdominal Pain",
     "description": "Pain felt between the chest and groin area",
-    "possible_conditions": ["Appendicitis", "Gastritis", "Irritable Bowel Syndrome", "Kidney Stones", "Pancreatitis"],
+    "possible_conditions": ["Appendicitis", "Gastritis", "Irritable Bowel Syndrome", "Kidney Stones", "Pancreatitis", "Gallstones", "Diverticulitis", "Ulcerative Colitis", "Ovarian Cyst"],
     "severity": "mild to severe",
     "basic_treatment": "Rest, over-the-counter pain relievers, avoid trigger foods",
-    "when_to_consult": "If severe, persistent, or accompanied by fever, vomiting, or inability to keep food down"
+    "when_to_consult": "If severe, persistent, or accompanied by fever, vomiting, or inability to keep food down",
+    "category": "Digestive"
   },
   {
     "id": 10,
     "symptom": "Rash",
     "description": "Area of irritated or swollen skin that changes its appearance or texture",
-    "possible_conditions": ["Allergic Reaction", "Eczema", "Psoriasis", "Chickenpox", "Contact Dermatitis"],
+    "possible_conditions": ["Allergic Reaction", "Eczema", "Psoriasis", "Chickenpox", "Contact Dermatitis", "Measles", "Shingles", "Hives", "Ringworm"],
     "severity": "mild to moderate",
     "basic_treatment": "Avoid irritants, use mild soaps, apply over-the-counter hydrocortisone cream",
-    "when_to_consult": "If covers large area, spreads rapidly, or is accompanied by fever or difficulty breathing"
+    "when_to_consult": "If covers large area, spreads rapidly, or is accompanied by fever or difficulty breathing",
+    "category": "Dermatological"
   },
   {
     "id": 11,
     "symptom": "Joint Pain",
     "description": "Discomfort, pain, or inflammation in any joint in the body",
-    "possible_conditions": ["Arthritis", "Gout", "Rheumatoid Arthritis", "Injury", "Lupus"],
+    "possible_conditions": ["Arthritis", "Gout", "Rheumatoid Arthritis", "Injury", "Lupus", "Lyme Disease", "Osteoarthritis", "Bursitis", "Tendinitis"],
     "severity": "mild to severe",
     "basic_treatment": "Rest affected joints, apply ice/heat, gentle stretching, over-the-counter pain relievers",
-    "when_to_consult": "If severe, accompanied by significant swelling, redness, or inability to use the joint"
+    "when_to_consult": "If severe, accompanied by significant swelling, redness, or inability to use the joint",
+    "category": "Musculoskeletal"
   },
   {
     "id": 12,
     "symptom": "Sore Throat",
     "description": "Pain, irritation, or scratchiness in the throat",
-    "possible_conditions": ["Strep Throat", "Common Cold", "Tonsillitis", "Laryngitis", "Allergies"],
+    "possible_conditions": ["Strep Throat", "Common Cold", "Tonsillitis", "Laryngitis", "Allergies", "Pharyngitis", "Mononucleosis", "Acid Reflux", "Epiglottitis"],
     "severity": "mild to moderate",
     "basic_treatment": "Gargle with warm salt water, drink warm liquids, use throat lozenges",
-    "when_to_consult": "If severe, persistent for more than a week, or accompanied by high fever or difficulty swallowing"
+    "when_to_consult": "If severe, persistent for more than a week, or accompanied by high fever or difficulty swallowing",
+    "category": "Respiratory"
   },
   {
     "id": 13,
     "symptom": "Back Pain",
     "description": "Pain felt anywhere along the spine or muscles in the back",
-    "possible_conditions": ["Muscle Strain", "Herniated Disc", "Sciatica", "Kidney Infection", "Osteoporosis"],
+    "possible_conditions": ["Muscle Strain", "Herniated Disc", "Sciatica", "Kidney Infection", "Osteoporosis", "Spinal Stenosis", "Scoliosis", "Ankylosing Spondylitis", "Fibromyalgia"],
     "severity": "mild to severe",
     "basic_treatment": "Rest, gentle stretching, over-the-counter pain relievers, heat/ice therapy",
-    "when_to_consult": "If severe, persists more than a few weeks, or is accompanied by numbness, weakness, or fever"
+    "when_to_consult": "If severe, persists more than a few weeks, or is accompanied by numbness, weakness, or fever",
+    "category": "Musculoskeletal"
   },
   {
     "id": 14,
     "symptom": "Diarrhea",
     "description": "Loose, watery stools occurring more frequently than normal",
-    "possible_conditions": ["Food Poisoning", "Viral Gastroenteritis", "Food Intolerance", "Irritable Bowel Syndrome", "Parasitic Infection"],
+    "possible_conditions": ["Food Poisoning", "Viral Gastroenteritis", "Food Intolerance", "Irritable Bowel Syndrome", "Parasitic Infection", "Crohn's Disease", "Ulcerative Colitis", "Celiac Disease", "Medication Side Effect"],
     "severity": "mild to severe",
     "basic_treatment": "Stay hydrated with clear fluids, eat bland foods, avoid dairy and high-fiber foods temporarily",
-    "when_to_consult": "If severe, lasts more than 2 days, or accompanied by high fever, severe abdominal pain, or bloody stools"
+    "when_to_consult": "If severe, lasts more than 2 days, or accompanied by high fever, severe abdominal pain, or bloody stools",
+    "category": "Digestive"
   },
   {
     "id": 15,
     "symptom": "Constipation",
     "description": "Infrequent bowel movements or difficulty passing stools",
-    "possible_conditions": ["Dehydration", "Low-Fiber Diet", "Irritable Bowel Syndrome", "Medications", "Hypothyroidism"],
+    "possible_conditions": ["Dehydration", "Low-Fiber Diet", "Irritable Bowel Syndrome", "Medications", "Hypothyroidism", "Colorectal Cancer", "Parkinson's Disease", "Diabetes", "Spinal Cord Injury"],
     "severity": "mild",
     "basic_treatment": "Increase fiber intake, stay hydrated, regular physical activity",
-    "when_to_consult": "If persistent for more than 2 weeks, accompanied by severe abdominal pain, or alternating with diarrhea"
+    "when_to_consult": "If persistent for more than 2 weeks, accompanied by severe abdominal pain, or alternating with diarrhea",
+    "category": "Digestive"
   },
   {
     "id": 16,
     "symptom": "Blurred Vision",
     "description": "Lack of sharpness of vision resulting in the inability to see fine details",
-    "possible_conditions": ["Eyestrain", "Migraine", "Diabetic Retinopathy", "Cataracts", "Glaucoma", "Hypertension"],
+    "possible_conditions": ["Eyestrain", "Migraine", "Diabetic Retinopathy", "Cataracts", "Glaucoma", "Hypertension", "Multiple Sclerosis", "Stroke", "Macular Degeneration"],
     "severity": "mild to severe",
     "basic_treatment": "Rest eyes, ensure proper lighting, use prescribed corrective lenses",
-    "when_to_consult": "If sudden onset, persistent, accompanied by eye pain, or only affecting one eye"
+    "when_to_consult": "If sudden onset, persistent, accompanied by eye pain, or only affecting one eye",
+    "category": "Ophthalmological"
   },
   {
     "id": 17,
     "symptom": "Swollen Lymph Nodes",
     "description": "Enlarged lymph nodes that may feel tender or painful",
-    "possible_conditions": ["Infection", "Common Cold", "Strep Throat", "Mononucleosis", "Lymphoma", "HIV"],
+    "possible_conditions": ["Infection", "Common Cold", "Strep Throat", "Mononucleosis", "Lymphoma", "HIV", "Cat Scratch Disease", "Tuberculosis", "Leukemia"],
     "severity": "mild to moderate",
     "basic_treatment": "Rest, over-the-counter pain relievers, warm compresses",
-    "when_to_consult": "If persistent for more than 2 weeks, unexplained, or accompanied by weight loss, night sweats, or fever"
+    "when_to_consult": "If persistent for more than 2 weeks, unexplained, or accompanied by weight loss, night sweats, or fever",
+    "category": "Immunological"
   },
   {
     "id": 18,
     "symptom": "Insomnia",
     "description": "Difficulty falling asleep or staying asleep",
-    "possible_conditions": ["Stress", "Anxiety", "Depression", "Sleep Apnea", "Hormonal Changes"],
+    "possible_conditions": ["Stress", "Anxiety", "Depression", "Sleep Apnea", "Hormonal Changes", "Caffeine Sensitivity", "Medications", "Restless Leg Syndrome", "Chronic Pain"],
     "severity": "mild to moderate",
     "basic_treatment": "Establish regular sleep schedule, create relaxing bedtime routine, limit caffeine and screen time before bed",
-    "when_to_consult": "If chronic (lasting more than 3 months) or significantly affecting daily life"
+    "when_to_consult": "If chronic (lasting more than 3 months) or significantly affecting daily life",
+    "category": "Neurological"
   },
   {
     "id": 19,
     "symptom": "Loss of Appetite",
     "description": "Reduced desire to eat for a period of time",
-    "possible_conditions": ["Depression", "Infection", "Digestive Conditions", "Medications", "Cancer"],
+    "possible_conditions": ["Depression", "Infection", "Digestive Conditions", "Medications", "Cancer", "Hepatitis", "Hypothyroidism", "Chronic Kidney Disease", "Heart Failure"],
     "severity": "mild to moderate",
     "basic_treatment": "Eat smaller, more frequent meals, focus on nutrient-dense foods, stay hydrated",
-    "when_to_consult": "If accompanied by significant weight loss, persistent for more than 2 weeks, or accompanied by other symptoms"
+    "when_to_consult": "If accompanied by significant weight loss, persistent for more than 2 weeks, or accompanied by other symptoms",
+    "category": "General"
   },
   {
     "id": 20,
     "symptom": "Frequent Urination",
     "description": "Passing urine more often than usual",
-    "possible_conditions": ["Urinary Tract Infection", "Diabetes", "Pregnancy", "Prostate Problems", "Bladder Infection"],
+    "possible_conditions": ["Urinary Tract Infection", "Diabetes", "Pregnancy", "Prostate Problems", "Bladder Infection", "Overactive Bladder", "Diuretic Medications", "Interstitial Cystitis", "Bladder Cancer"],
     "severity": "mild to moderate",
     "basic_treatment": "Stay hydrated, avoid caffeine and alcohol, practice good hygiene",
-    "when_to_consult": "If accompanied by pain during urination, blood in urine, fever, or lower abdominal pain"
+    "when_to_consult": "If accompanied by pain during urination, blood in urine, fever, or lower abdominal pain",
+    "category": "Urological"
+  },
+  {
+    "id": 21,
+    "symptom": "Weight Loss (Unexplained)",
+    "description": "Losing significant weight without trying",
+    "possible_conditions": ["Cancer", "Thyroid Disorders", "Diabetes", "Depression", "Inflammatory Bowel Disease", "Addison's Disease", "HIV/AIDS", "Tuberculosis", "Malabsorption Disorders"],
+    "severity": "moderate to severe",
+    "basic_treatment": "Ensure adequate nutrition, consult healthcare provider for proper evaluation",
+    "when_to_consult": "If weight loss exceeds 5% of body weight over 6-12 months without a known reason",
+    "category": "General"
+  },
+  {
+    "id": 22,
+    "symptom": "Swelling (Edema)",
+    "description": "Abnormal buildup of fluid in the body's tissues, causing swelling",
+    "possible_conditions": ["Heart Failure", "Kidney Disease", "Liver Disease", "Venous Insufficiency", "Lymphatic Obstruction", "Medication Side Effect", "Pregnancy", "Allergic Reaction", "Injury"],
+    "severity": "mild to severe",
+    "basic_treatment": "Elevate affected area, reduce salt intake, wear compression stockings if recommended",
+    "when_to_consult": "If sudden onset, painful, or accompanied by shortness of breath or chest pain",
+    "category": "Cardiovascular"
+  },
+  {
+    "id": 23,
+    "symptom": "Jaundice",
+    "description": "Yellowing of skin and whites of eyes",
+    "possible_conditions": ["Hepatitis", "Gallstones", "Cirrhosis", "Pancreatic Cancer", "Hemolytic Anemia", "Alcoholic Liver Disease", "Medication Side Effect", "Biliary Obstruction", "Newborn Jaundice"],
+    "severity": "moderate to severe",
+    "basic_treatment": "Depends on cause; avoid alcohol and hepatotoxic medications",
+    "when_to_consult": "Immediately, as jaundice indicates liver dysfunction requiring medical evaluation",
+    "category": "Digestive"
+  },
+  {
+    "id": 24,
+    "symptom": "Numbness or Tingling",
+    "description": "Loss of sensation or prickling feeling in any part of the body",
+    "possible_conditions": ["Diabetes", "Multiple Sclerosis", "Stroke", "Vitamin B12 Deficiency", "Pinched Nerve", "Carpal Tunnel Syndrome", "Peripheral Neuropathy", "Raynaud's Disease", "Guillain-Barré Syndrome"],
+    "severity": "mild to severe",
+    "basic_treatment": "Depends on cause; avoid pressure on affected areas, gentle stretching if nerve compression suspected",
+    "when_to_consult": "If sudden onset, affects one side of the body, or is accompanied by weakness or coordination problems",
+    "category": "Neurological"
+  },
+  {
+    "id": 25,
+    "symptom": "Hair Loss",
+    "description": "Excessive shedding of hair from the scalp or body",
+    "possible_conditions": ["Alopecia", "Thyroid Disorders", "Medications", "Stress", "Nutritional Deficiencies", "Hormonal Changes", "Autoimmune Disorders", "Fungal Infections", "Cancer Treatments"],
+    "severity": "mild",
+    "basic_treatment": "Gentle hair care, balanced diet rich in proteins and vitamins, stress management",
+    "when_to_consult": "If sudden, patchy, or accompanied by scalp problems like itching or redness",
+    "category": "Dermatological"
+  },
+  {
+    "id": 26,
+    "symptom": "Excessive Thirst",
+    "description": "Persistent, abnormal feeling of thirst even when drinking adequate fluids",
+    "possible_conditions": ["Diabetes", "Dehydration", "Diabetes Insipidus", "Medications", "Psychogenic Polydipsia", "Hypercalcemia", "Anemia", "Kidney Failure", "Sickle Cell Anemia"],
+    "severity": "mild to moderate",
+    "basic_treatment": "Stay hydrated, but seek medical attention to identify underlying cause",
+    "when_to_consult": "If accompanied by frequent urination, weight loss, or extreme fatigue",
+    "category": "Endocrine"
+  },
+  {
+    "id": 27,
+    "symptom": "Blood in Stool",
+    "description": "Presence of blood in bowel movements",
+    "possible_conditions": ["Hemorrhoids", "Anal Fissures", "Colorectal Cancer", "Inflammatory Bowel Disease", "Polyps", "Diverticular Disease", "Peptic Ulcer", "Gastritis", "Esophageal Varices"],
+    "severity": "moderate to severe",
+    "basic_treatment": "Increase fiber and fluid intake if constipation is the cause (for hemorrhoids)",
+    "when_to_consult": "Always consult a healthcare provider when blood is present in stool",
+    "category": "Digestive"
+  },
+  {
+    "id": 28,
+    "symptom": "Vomiting",
+    "description": "Forceful expulsion of stomach contents through the mouth",
+    "possible_conditions": ["Food Poisoning", "Viral Infection", "Appendicitis", "Migraine", "Concussion", "Medication Side Effect", "Intestinal Obstruction", "Pregnancy", "Gastroenteritis"],
+    "severity": "mild to severe",
+    "basic_treatment": "Sip clear fluids, avoid solid foods until vomiting subsides, gradually reintroduce bland foods",
+    "when_to_consult": "If persistent for more than 24 hours, contains blood, or accompanied by severe abdominal pain or dehydration",
+    "category": "Digestive"
+  },
+  {
+    "id": 29,
+    "symptom": "Tremors",
+    "description": "Involuntary, rhythmic muscle contraction causing shaking",
+    "possible_conditions": ["Parkinson's Disease", "Essential Tremor", "Multiple Sclerosis", "Anxiety", "Medication Side Effect", "Alcohol Withdrawal", "Hypoglycemia", "Thyroid Disorders", "Mercury Poisoning"],
+    "severity": "mild to severe",
+    "basic_treatment": "Avoid caffeine and other stimulants, get adequate rest, stress management techniques",
+    "when_to_consult": "If tremors interfere with daily activities or are accompanied by other neurological symptoms",
+    "category": "Neurological"
+  },
+  {
+    "id": 30,
+    "symptom": "Painful Urination",
+    "description": "Discomfort or burning sensation during urination",
+    "possible_conditions": ["Urinary Tract Infection", "Sexually Transmitted Infections", "Bladder Infection", "Kidney Stones", "Prostatitis", "Interstitial Cystitis", "Urethritis", "Yeast Infection", "Bladder Cancer"],
+    "severity": "mild to moderate",
+    "basic_treatment": "Increase fluid intake, especially water, avoid irritants like caffeine and alcohol",
+    "when_to_consult": "If accompanied by fever, blood in urine, or lower back pain",
+    "category": "Urological"
+  },
+  {
+    "id": 31,
+    "symptom": "Memory Problems",
+    "description": "Difficulty remembering information or events",
+    "possible_conditions": ["Alzheimer's Disease", "Dementia", "Depression", "Anxiety", "Vitamin B12 Deficiency", "Thyroid Disorders", "Medication Side Effect", "Sleep Disorders", "Stroke"],
+    "severity": "mild to severe",
+    "basic_treatment": "Mental exercises, adequate sleep, balanced diet rich in antioxidants, omega-3 fatty acids",
+    "when_to_consult": "If interfering with daily activities or worsening over time",
+    "category": "Neurological"
+  },
+  {
+    "id": 32,
+    "symptom": "Night Sweats",
+    "description": "Excessive sweating during sleep",
+    "possible_conditions": ["Infections", "Hormone Disorders", "Cancer", "Medications", "Hypoglycemia", "Anxiety", "Menopause", "Tuberculosis", "Lymphoma"],
+    "severity": "mild to moderate",
+    "basic_treatment": "Sleep in cool environment, use breathable bedding, avoid triggers like alcohol or spicy foods",
+    "when_to_consult": "If persistent or accompanied by fever, weight loss, or fatigue",
+    "category": "General"
+  },
+  {
+    "id": 33,
+    "symptom": "Tinnitus",
+    "description": "Ringing or buzzing sound in one or both ears",
+    "possible_conditions": ["Hearing Loss", "Ear Infection", "Meniere's Disease", "Acoustic Neuroma", "TMJ Disorders", "Head or Neck Injuries", "Medication Side Effect", "High Blood Pressure", "Earwax Blockage"],
+    "severity": "mild to moderate",
+    "basic_treatment": "Avoid loud noises, use white noise machines, stress management techniques",
+    "when_to_consult": "If sudden onset, accompanied by hearing loss, or affecting daily activities",
+    "category": "Ear, Nose, and Throat"
+  },
+  {
+    "id": 34,
+    "symptom": "Irregular Heartbeat",
+    "description": "Heart rhythm that is irregular, too fast, or too slow",
+    "possible_conditions": ["Arrhythmia", "Atrial Fibrillation", "Coronary Artery Disease", "Thyroid Disorders", "Electrolyte Imbalance", "Medication Side Effect", "Anxiety", "Cardiomyopathy", "Heart Valve Problems"],
+    "severity": "moderate to severe",
+    "basic_treatment": "Avoid caffeine and alcohol, practice stress management, take medications as prescribed",
+    "when_to_consult": "If accompanied by chest pain, shortness of breath, or dizziness, seek immediate medical attention",
+    "category": "Cardiovascular"
+  },
+  {
+    "id": 35,
+    "symptom": "Itching",
+    "description": "Irritating sensation that causes desire to scratch",
+    "possible_conditions": ["Allergic Reaction", "Dry Skin", "Eczema", "Psoriasis", "Hives", "Fungal Infection", "Parasites", "Liver Disease", "Kidney Disease"],
+    "severity": "mild to moderate",
+    "basic_treatment": "Use moisturizers, avoid hot showers, wear loose-fitting clothing, use mild soaps",
+    "when_to_consult": "If widespread, severe, or accompanied by rash or yellowing of skin",
+    "category": "Dermatological"
+  },
+  {
+    "id": 36,
+    "symptom": "Difficulty Swallowing",
+    "description": "Trouble moving food or liquid from mouth to stomach",
+    "possible_conditions": ["GERD", "Esophagitis", "Throat or Esophageal Cancer", "Neurological Disorders", "Scleroderma", "Achalasia", "Pharyngeal Diverticula", "Radiation Therapy Side Effect", "Stroke"],
+    "severity": "moderate to severe",
+    "basic_treatment": "Eat slowly, take smaller bites, avoid very hot or cold foods, stay upright after meals",
+    "when_to_consult": "If persistent, painful, or accompanied by weight loss or regurgitation",
+    "category": "Digestive"
+  },
+  {
+    "id": 37,
+    "symptom": "Bruising Easily",
+    "description": "Developing bruises from minor bumps or injuries",
+    "possible_conditions": ["Blood Disorders", "Leukemia", "Vitamin K Deficiency", "Liver Disease", "Medication Side Effect", "Von Willebrand Disease", "Hemophilia", "Cushing's Syndrome", "Aging"],
+    "severity": "mild to moderate",
+    "basic_treatment": "Protect vulnerable areas, ensure adequate nutrition",
+    "when_to_consult": "If bruises appear without injury or are accompanied by bleeding elsewhere",
+    "category": "Hematological"
+  },
+  {
+    "id": 38,
+    "symptom": "Hoarseness",
+    "description": "Abnormal change in voice, making it sound breathy, raspy, or strained",
+    "possible_conditions": ["Laryngitis", "Vocal Cord Nodules", "GERD", "Thyroid Issues", "Laryngeal Cancer", "Neurological Disorders", "Allergies", "Smoking", "Voice Overuse"],
+    "severity": "mild to moderate",
+    "basic_treatment": "Rest voice, stay hydrated, avoid irritants like smoking",
+    "when_to_consult": "If persists more than 2 weeks or is accompanied by pain, difficulty breathing, or trouble swallowing",
+    "category": "Ear, Nose, and Throat"
+  },
+  {
+    "id": 39,
+    "symptom": "Mood Changes",
+    "description": "Significant shifts in emotion or affect",
+    "possible_conditions": ["Depression", "Anxiety", "Bipolar Disorder", "Hormone Imbalance", "Thyroid Disorders", "Medication Side Effect", "Substance Abuse", "Grief", "Dementia"],
+    "severity": "mild to severe",
+    "basic_treatment": "Regular exercise, adequate sleep, stress management techniques, social support",
+    "when_to_consult": "If interfering with daily functioning or accompanied by thoughts of self-harm",
+    "category": "Psychological"
+  },
+  {
+    "id": 40,
+    "symptom": "Sensitivity to Light",
+    "description": "Discomfort or pain in eyes when exposed to light",
+    "possible_conditions": ["Migraine", "Conjunctivitis", "Corneal Abrasion", "Iritis", "Meningitis", "Concussion", "Dry Eye Syndrome", "Medication Side Effect", "Keratitis"],
+    "severity": "mild to moderate",
+    "basic_treatment": "Wear sunglasses, reduce screen time, use artificial tears if eyes are dry",
+    "when_to_consult": "If severe, sudden onset, or accompanied by eye pain, headache, or vision changes",
+    "category": "Ophthalmological"
   }
 ]

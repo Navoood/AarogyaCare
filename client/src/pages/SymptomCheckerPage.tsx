@@ -2,11 +2,23 @@ import React, { useState, useEffect } from 'react';
 import { SymptomSearch } from '@/components/symptom-checker/SymptomSearch';
 import { SelectedSymptoms } from '@/components/symptom-checker/SelectedSymptoms';
 import { SymptomResults } from '@/components/symptom-checker/SymptomResults';
-import { getAllSymptoms, Symptom, analyzeSymptoms, ConditionMatch } from '@/utils/symptomLogic';
+import { getAllSymptoms, analyzeSymptoms, ConditionMatch } from '@/utils/symptomLogic';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { ArrowLeft, Search, Activity, HelpCircle } from 'lucide-react';
+
+// Update Symptom type to include category field
+type Symptom = {
+  id: number;
+  symptom: string;
+  description: string;
+  possible_conditions: string[];
+  severity: string;
+  basic_treatment: string;
+  when_to_consult: string;
+  category?: string;
+};
 
 const SymptomCheckerPage = () => {
   const [symptoms, setSymptoms] = useState<Symptom[]>([]);
@@ -106,6 +118,7 @@ const SymptomCheckerPage = () => {
               <SymptomSearch 
                 symptoms={symptoms}
                 onSymptomSelect={handleSymptomSelect}
+                selectedSymptoms={selectedSymptoms}
               />
               
               {selectedSymptoms.length > 0 && (
