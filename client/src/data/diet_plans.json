@@ -1,0 +1,272 @@
+[
+  {
+    "id": 1,
+    "name": "Diabetic Diet",
+    "description": "A balanced meal plan to help manage blood sugar levels",
+    "forConditions": ["Diabetes", "Pre-diabetes", "Metabolic Syndrome"],
+    "mealPlan": {
+      "breakfast": "Steel-cut oats with cinnamon, berries, and a tablespoon of peanut butter",
+      "lunch": "Quinoa bowl with grilled chicken, mixed vegetables, and olive oil dressing",
+      "dinner": "Baked fish with roasted non-starchy vegetables and small portion of brown rice",
+      "snacks": ["Greek yogurt with nuts", "Celery with hummus"]
+    },
+    "recommendedFoods": [
+      "High-fiber vegetables (leafy greens, broccoli)",
+      "Whole grains (brown rice, quinoa)",
+      "Lean proteins (chicken, fish, tofu)",
+      "Healthy fats (avocado, nuts, olive oil)",
+      "Low-glycemic fruits (berries, apples)"
+    ],
+    "restrictedFoods": [
+      "Refined carbohydrates (white bread, pasta)",
+      "Sugary beverages and desserts",
+      "Processed foods with added sugars",
+      "Fruit juices and dried fruits",
+      "Full-fat dairy products"
+    ],
+    "mealTimingRecommendations": "Eat smaller meals at regular intervals to maintain stable blood sugar"
+  },
+  {
+    "id": 2,
+    "name": "Heart-Healthy Diet",
+    "description": "A diet designed to lower blood pressure and improve heart health",
+    "forConditions": ["Hypertension", "High Cholesterol", "Heart Disease"],
+    "mealPlan": {
+      "breakfast": "Overnight oats with flaxseeds, chia seeds, and berries",
+      "lunch": "Mediterranean salad with chickpeas, vegetables, olive oil and lemon dressing",
+      "dinner": "Grilled salmon with steamed vegetables and sweet potato",
+      "snacks": ["Unsalted almonds", "Apple with nut butter"]
+    },
+    "recommendedFoods": [
+      "Fruits and vegetables (aim for variety and color)",
+      "Whole grains (oats, brown rice, barley)",
+      "Lean proteins (fish rich in omega-3, legumes)",
+      "Healthy fats (olive oil, avocados, nuts)",
+      "Low-fat dairy or dairy alternatives"
+    ],
+    "restrictedFoods": [
+      "High-sodium processed foods",
+      "Foods high in saturated and trans fats",
+      "Red meat (limit to occasional consumption)",
+      "Sugar-sweetened beverages",
+      "Excessive alcohol"
+    ],
+    "mealTimingRecommendations": "Focus on consistent meal timing and portion control"
+  },
+  {
+    "id": 3,
+    "name": "Anti-Inflammatory Diet",
+    "description": "A nutritional approach to reduce inflammation in the body",
+    "forConditions": ["Arthritis", "Autoimmune Disorders", "Chronic Inflammation"],
+    "mealPlan": {
+      "breakfast": "Anti-inflammatory smoothie with turmeric, berries, spinach, and flaxseeds",
+      "lunch": "Colorful Buddha bowl with quinoa, avocado, roasted vegetables, and tahini dressing",
+      "dinner": "Turmeric-spiced lentil curry with vegetables and brown rice",
+      "snacks": ["Walnuts and berries", "Carrot sticks with hummus"]
+    },
+    "recommendedFoods": [
+      "Colorful fruits and vegetables (especially berries and leafy greens)",
+      "Fatty fish rich in omega-3 (salmon, mackerel)",
+      "Nuts and seeds (walnuts, flaxseeds, chia seeds)",
+      "Anti-inflammatory spices (turmeric, ginger)",
+      "Olive oil and avocados"
+    ],
+    "restrictedFoods": [
+      "Refined carbohydrates and sugars",
+      "Processed and fried foods",
+      "Red and processed meats",
+      "Dairy (for some individuals)",
+      "Alcohol and tobacco"
+    ],
+    "mealTimingRecommendations": "Focus on nutrient density rather than strict meal timing"
+  },
+  {
+    "id": 4,
+    "name": "Digestive Health Diet",
+    "description": "A gut-friendly diet to support digestive system health",
+    "forConditions": ["IBS", "GERD", "Digestive Disorders"],
+    "mealPlan": {
+      "breakfast": "Soaked and cooked oats with ripe banana and a small amount of cinnamon",
+      "lunch": "Well-cooked rice with steamed vegetables and baked chicken",
+      "dinner": "Kitchari (mung beans and rice) with gentle spices",
+      "snacks": ["Ripe banana", "Plain yogurt with honey"]
+    },
+    "recommendedFoods": [
+      "Easily digestible foods (well-cooked vegetables, ripe fruits)",
+      "Probiotic-rich foods (yogurt, fermented vegetables)",
+      "Soluble fiber (oats, bananas)",
+      "Hydrating foods and beverages",
+      "Small, frequent meals"
+    ],
+    "restrictedFoods": [
+      "Spicy, fried, and fatty foods",
+      "Common trigger foods (onion, garlic, caffeine for some)",
+      "Gas-producing vegetables for some (cauliflower, cabbage)",
+      "Acidic foods for GERD (citrus, tomatoes)",
+      "Alcohol and carbonated beverages"
+    ],
+    "mealTimingRecommendations": "Eat smaller meals more frequently, avoid eating close to bedtime"
+  },
+  {
+    "id": 5,
+    "name": "Weight Management Diet",
+    "description": "A balanced approach to healthy weight management",
+    "forConditions": ["Obesity", "Overweight", "Metabolic Health"],
+    "mealPlan": {
+      "breakfast": "Vegetable omelet with two eggs and a small serving of whole grain toast",
+      "lunch": "Hearty lentil soup with side salad and olive oil dressing",
+      "dinner": "Grilled chicken or tofu with roasted vegetables and quinoa",
+      "snacks": ["Greek yogurt with berries", "Handful of mixed nuts"]
+    },
+    "recommendedFoods": [
+      "High-volume, low-calorie foods (vegetables, broth-based soups)",
+      "Lean proteins (poultry, fish, legumes, tofu)",
+      "Fiber-rich foods (vegetables, fruits, whole grains)",
+      "Healthy fats in moderation (avocado, nuts, olive oil)",
+      "Plenty of water and unsweetened beverages"
+    ],
+    "restrictedFoods": [
+      "Calorie-dense processed foods",
+      "Added sugars and sweetened beverages",
+      "Refined grains and carbohydrates",
+      "Fried foods and unhealthy fats",
+      "Excessive alcohol consumption"
+    ],
+    "mealTimingRecommendations": "Consider intermittent fasting approaches under professional guidance"
+  },
+  {
+    "id": 6,
+    "name": "Bone Health Diet",
+    "description": "A diet rich in nutrients to support strong bones",
+    "forConditions": ["Osteoporosis", "Osteopenia", "Bone Fractures"],
+    "mealPlan": {
+      "breakfast": "Greek yogurt parfait with granola and fruit",
+      "lunch": "Sardine or tofu salad with leafy greens and tahini dressing",
+      "dinner": "Calcium-rich vegetable curry with tofu and brown rice",
+      "snacks": ["Cottage cheese with fruit", "Almonds and seeds"]
+    },
+    "recommendedFoods": [
+      "Calcium-rich foods (dairy or fortified alternatives)",
+      "Vitamin D sources (fatty fish, egg yolks, fortified foods)",
+      "Magnesium-rich foods (leafy greens, nuts, seeds)",
+      "Vitamin K sources (dark leafy greens)",
+      "Foods with boron (fruits, vegetables, nuts)"
+    ],
+    "restrictedFoods": [
+      "Excessive caffeine",
+      "High-sodium processed foods",
+      "Carbonated beverages (especially colas)",
+      "Excessive alcohol",
+      "Very high protein diets"
+    ],
+    "mealTimingRecommendations": "Distribute calcium intake throughout the day for optimal absorption"
+  },
+  {
+    "id": 7,
+    "name": "Renal-Friendly Diet",
+    "description": "A diet adapted for those with kidney health concerns",
+    "forConditions": ["Kidney Disease", "Kidney Stones", "Renal Insufficiency"],
+    "mealPlan": {
+      "breakfast": "Low-potassium fruit with egg whites and toast",
+      "lunch": "Rice with lean protein and low-potassium vegetables",
+      "dinner": "Pasta with small portion of protein and allowed vegetables",
+      "snacks": ["Apple or berries", "Rice cakes"]
+    },
+    "recommendedFoods": [
+      "Lower potassium fruits (apples, berries)",
+      "Lower potassium vegetables (green beans, carrots)",
+      "Moderate protein sources",
+      "Rice, noodles, bread (as allowed)",
+      "Herbs and spices (instead of salt)"
+    ],
+    "restrictedFoods": [
+      "High-potassium foods (bananas, potatoes, tomatoes)",
+      "High-phosphorus foods (dairy, nuts, whole grains)",
+      "High-sodium foods and added salt",
+      "Excessive protein (especially red meat)",
+      "Dark colas and chocolate"
+    ],
+    "mealTimingRecommendations": "Maintain consistent intake and follow fluid restrictions if prescribed"
+  },
+  {
+    "id": 8,
+    "name": "Gluten-Free Diet",
+    "description": "A diet excluding gluten for those with gluten sensitivity or celiac disease",
+    "forConditions": ["Celiac Disease", "Gluten Sensitivity", "Wheat Allergy"],
+    "mealPlan": {
+      "breakfast": "Rice porridge or gluten-free oats with fruits and seeds",
+      "lunch": "Rice bowl with proteins and vegetables",
+      "dinner": "Grilled fish or meat with potatoes and vegetables",
+      "snacks": ["Rice cakes with nut butter", "Fruit and yogurt"]
+    },
+    "recommendedFoods": [
+      "Naturally gluten-free grains (rice, millet, amaranth)",
+      "Fresh fruits and vegetables",
+      "Unprocessed meats, fish, and poultry",
+      "Legumes and lentils",
+      "Dairy products (if tolerated)"
+    ],
+    "restrictedFoods": [
+      "Wheat, barley, rye, and traditional oats",
+      "Most conventional breads, pastas, and baked goods",
+      "Many processed foods and sauces containing gluten",
+      "Beer and malt beverages",
+      "Any food with hidden gluten ingredients"
+    ],
+    "mealTimingRecommendations": "Focus on well-balanced meals with proper nutrition rather than timing"
+  },
+  {
+    "id": 9,
+    "name": "Low FODMAP Diet",
+    "description": "A specialized diet to manage IBS and related digestive issues",
+    "forConditions": ["IBS", "Functional Digestive Disorders", "SIBO"],
+    "mealPlan": {
+      "breakfast": "Low FODMAP fruits with lactose-free yogurt and allowed seeds",
+      "lunch": "Rice with grilled chicken and low FODMAP vegetables",
+      "dinner": "Grilled fish with potatoes and permitted vegetables",
+      "snacks": ["Rice cakes with peanut butter", "Lactose-free yogurt"]
+    },
+    "recommendedFoods": [
+      "Low FODMAP fruits (strawberries, oranges, grapes)",
+      "Low FODMAP vegetables (carrots, cucumbers, lettuce)",
+      "Lactose-free dairy or alternatives",
+      "Proteins (meat, fish, eggs, tofu)",
+      "Rice, quinoa, oats"
+    ],
+    "restrictedFoods": [
+      "High FODMAP fruits (apples, pears, watermelon)",
+      "High FODMAP vegetables (onions, garlic, mushrooms)",
+      "Wheat, rye and high-fructan grains",
+      "Legumes and pulses",
+      "High lactose dairy products"
+    ],
+    "mealTimingRecommendations": "Regular meal timing helps maintain digestive regularity"
+  },
+  {
+    "id": 10,
+    "name": "Traditional Indian Ayurvedic Diet",
+    "description": "A holistic approach to eating based on individual constitution",
+    "forConditions": ["General Health", "Digestive Balance", "Mind-Body Harmony"],
+    "mealPlan": {
+      "breakfast": "Stewed seasonal fruits or warm kitchari",
+      "lunch": "Main meal - mixed vegetable curry, dal, small amount of rice or chapati",
+      "dinner": "Light meal - vegetable soup or khichdi (light rice and lentil dish)",
+      "snacks": ["Fresh seasonal fruits", "Handful of soaked almonds"]
+    },
+    "recommendedFoods": [
+      "Cooked, warm foods appropriate for your dosha",
+      "Seasonal and local produce",
+      "Spices for digestion (cumin, coriander, turmeric)",
+      "Ghee in moderation",
+      "Fresh, sattvic (pure) foods"
+    ],
+    "restrictedFoods": [
+      "Processed and canned foods",
+      "Excessive cold or frozen foods",
+      "Leftover or reheated foods",
+      "Incompatible food combinations",
+      "Foods inappropriate for individual dosha"
+    ],
+    "mealTimingRecommendations": "Largest meal at midday when digestive fire is strongest"
+  }
+]

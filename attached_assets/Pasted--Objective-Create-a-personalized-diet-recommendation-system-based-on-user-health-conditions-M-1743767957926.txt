@@ -1,0 +1,56 @@
+🔹 Objective:
+Create a personalized diet recommendation system based on user health conditions.
+💡 MUST LOOK & FUNCTION LIKE AI, BUT WITHOUT USING API KEYS!
+
+🛠 How It Should Work:
+✅ Users select their health conditions & dietary preferences.
+✅ The system matches symptoms to diet recommendations from a pre-built database.
+✅ Uses probability-based logic & predefined rules to suggest the best meal plans.
+✅ Provides interactive visuals (charts/tables) using ShadCN components.
+✅ Ensures smooth routing & database integration for saving user preferences.
+
+🔹 Key Implementation Details:
+1️⃣ Update the Database with Diet Recommendations
+Add a diet_plans.json file in the database.
+
+Store pre-mapped health conditions → diet recommendations.
+
+Include sample meal plans for diabetes, hypertension, obesity, heart health, etc.
+
+2️⃣ Build the UI with ShadCN for a Sleek Look
+Create a Smart Diet Plan Page (/diet-plans).
+
+Add a checkbox-based health condition selection.
+
+Use a ShadCN card layout to display meal recommendations.
+
+Ensure the diet results are visually appealing using Tailwind styles.
+
+3️⃣ Implement the Logic for Personalized Diet Plans
+Use predefined matching logic instead of an external API.
+
+Assign weights & probabilities to different meal plans based on user input.
+
+Ensure users get different plans based on selected health issues.
+
+4️⃣ Allow Users to Save & Modify Their Plans
+Store selected diet plans in the database for easy retrieval.
+
+Allow users to customize their diet plan (swap meals, change portions).
+
+5️⃣ Ensure Smooth Navigation & Perfect Routing
+✅ Clicking on Smart Diet Plans in the homepage must open the correct page.
+✅ Users should be able to go back & modify inputs without losing progress.
+✅ Ensure no 404 errors & proper redirection to /diet-plans.
+
+🔥 Final Instructions:
+
+Ensure the Smart Diet Plans feature is fully functional & AI-like.
+
+Use only database-driven logic, NO API KEYS.
+
+Keep the UI clean, interactive, and visually appealing with ShadCN components.
+
+Make sure routing is flawless & no features are broken!
+
+🚀 MAKE IT WORK PERFECTLY LIKE AI – WITHOUT AI! 🚀

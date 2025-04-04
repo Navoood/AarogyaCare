@@ -1,8 +1,10 @@
 import Layout from "@/components/layout/Layout";
 import DietPlans from "@/components/diet-plans/DietPlans";
+import SmartDietRecommendation from "@/components/diet-plans/SmartDietRecommendation";
 import { useLanguage } from "@/context/LanguageContext";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Leaf, Brain, Utensils } from "lucide-react";
 
 export default function DietPlansPage() {
   const { t } = useLanguage();
@@ -11,145 +13,136 @@ export default function DietPlansPage() {
     <Layout title={t("dietPlans")}>
       <div className="max-w-6xl mx-auto">
         <div className="mb-6">
-          <h1 className="text-2xl font-bold mb-2">Diet Plans</h1>
+          <h1 className="text-2xl font-bold mb-2">Smart Diet Plans</h1>
           <p className="text-gray-600">
-            Explore diet plans tailored to different health conditions and nutritional needs.
-            A balanced diet is essential for maintaining good health and managing various conditions.
+            Get personalized diet recommendations based on your health conditions and dietary preferences.
+            Our smart system uses advanced algorithms to match your needs with the most suitable diet plans.
           </p>
         </div>
         
-        <Tabs defaultValue="all-plans" className="mb-6">
+        <Tabs defaultValue="personalized" className="mb-6">
           <TabsList>
+            <TabsTrigger value="personalized">Personalized Recommendations</TabsTrigger>
             <TabsTrigger value="all-plans">All Diet Plans</TabsTrigger>
-            <TabsTrigger value="recommended">Recommended For You</TabsTrigger>
-            <TabsTrigger value="condition-specific">Condition Specific</TabsTrigger>
+            <TabsTrigger value="condition-specific">By Health Condition</TabsTrigger>
           </TabsList>
+          
+          <TabsContent value="personalized">
+            <SmartDietRecommendation />
+          </TabsContent>
           
           <TabsContent value="all-plans">
             <DietPlans />
-          </TabsContent>
-          
-          <TabsContent value="recommended">
-            <div className="mb-6">
-              <Card className="mb-6">
-                <CardHeader>
-                  <CardTitle>Personalized Diet Recommendations</CardTitle>
-                  <CardDescription>
-                    Based on your health profile and recent check-ups
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-4">
-                    <div className="flex items-start">
-                      <div className="bg-primary-100 text-primary-600 p-2 rounded-md mr-3">
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                        </svg>
-                      </div>
-                      <div>
-                        <h3 className="font-medium">Include more fiber in your diet</h3>
-                        <p className="text-sm text-gray-600 mt-1">
-                          Aim for 25-30g of fiber daily from sources like whole grains, 
-                          fruits, vegetables, and legumes.
-                        </p>
-                      </div>
-                    </div>
-                    
-                    <div className="flex items-start">
-                      <div className="bg-primary-100 text-primary-600 p-2 rounded-md mr-3">
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                        </svg>
-                      </div>
-                      <div>
-                        <h3 className="font-medium">Reduce sodium intake</h3>
-                        <p className="text-sm text-gray-600 mt-1">
-                          Limit processed foods and added salt to help manage your blood pressure.
-                        </p>
-                      </div>
-                    </div>
-                    
-                    <div className="flex items-start">
-                      <div className="bg-primary-100 text-primary-600 p-2 rounded-md mr-3">
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                        </svg>
-                      </div>
-                      <div>
-                        <h3 className="font-medium">Stay hydrated</h3>
-                        <p className="text-sm text-gray-600 mt-1">
-                          Drink at least 8 glasses of water daily, especially before meals.
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-              
-              <DietPlans />
-            </div>
           </TabsContent>
           
           <TabsContent value="condition-specific">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
               <Card className="cursor-pointer hover:shadow-md transition-shadow">
                 <CardHeader>
-                  <CardTitle>Diabetes Management</CardTitle>
-                  <CardDescription>Low glycemic index foods</CardDescription>
+                  <div className="flex items-center space-x-2">
+                    <div className="bg-blue-50 text-blue-600 p-2 rounded-md">
+                      <Brain className="h-5 w-5" />
+                    </div>
+                    <CardTitle>Diabetes Management</CardTitle>
+                  </div>
+                  <CardDescription>Low glycemic index foods with balanced carbohydrates</CardDescription>
                 </CardHeader>
-                <CardFooter>
-                  <p className="text-sm text-primary-600">View diet plans →</p>
-                </CardFooter>
+                <CardContent>
+                  <p className="text-sm text-gray-600">
+                    Plans focused on stable blood sugar, regular meal timing, and portion control.
+                  </p>
+                </CardContent>
               </Card>
               
               <Card className="cursor-pointer hover:shadow-md transition-shadow">
                 <CardHeader>
-                  <CardTitle>Heart Health</CardTitle>
+                  <div className="flex items-center space-x-2">
+                    <div className="bg-red-50 text-red-600 p-2 rounded-md">
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                      </svg>
+                    </div>
+                    <CardTitle>Heart Health</CardTitle>
+                  </div>
                   <CardDescription>Low sodium, heart-healthy options</CardDescription>
                 </CardHeader>
-                <CardFooter>
-                  <p className="text-sm text-primary-600">View diet plans →</p>
-                </CardFooter>
+                <CardContent>
+                  <p className="text-sm text-gray-600">
+                    Diet plans emphasizing foods that lower cholesterol and reduce blood pressure.
+                  </p>
+                </CardContent>
               </Card>
               
               <Card className="cursor-pointer hover:shadow-md transition-shadow">
                 <CardHeader>
-                  <CardTitle>Digestive Health</CardTitle>
+                  <div className="flex items-center space-x-2">
+                    <div className="bg-green-50 text-green-600 p-2 rounded-md">
+                      <Leaf className="h-5 w-5" />
+                    </div>
+                    <CardTitle>Digestive Health</CardTitle>
+                  </div>
                   <CardDescription>High fiber, gut-friendly foods</CardDescription>
                 </CardHeader>
-                <CardFooter>
-                  <p className="text-sm text-primary-600">View diet plans →</p>
-                </CardFooter>
+                <CardContent>
+                  <p className="text-sm text-gray-600">
+                    Focus on prebiotic, probiotic, and easily digestible foods for optimal gut health.
+                  </p>
+                </CardContent>
               </Card>
               
               <Card className="cursor-pointer hover:shadow-md transition-shadow">
                 <CardHeader>
-                  <CardTitle>Weight Management</CardTitle>
+                  <div className="flex items-center space-x-2">
+                    <div className="bg-amber-50 text-amber-600 p-2 rounded-md">
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3" />
+                      </svg>
+                    </div>
+                    <CardTitle>Weight Management</CardTitle>
+                  </div>
                   <CardDescription>Balanced calorie-controlled plans</CardDescription>
                 </CardHeader>
-                <CardFooter>
-                  <p className="text-sm text-primary-600">View diet plans →</p>
-                </CardFooter>
+                <CardContent>
+                  <p className="text-sm text-gray-600">
+                    Sustainable approaches to healthy weight through nutritionally dense foods.
+                  </p>
+                </CardContent>
               </Card>
               
               <Card className="cursor-pointer hover:shadow-md transition-shadow">
                 <CardHeader>
-                  <CardTitle>Bone Health</CardTitle>
+                  <div className="flex items-center space-x-2">
+                    <div className="bg-purple-50 text-purple-600 p-2 rounded-md">
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                      </svg>
+                    </div>
+                    <CardTitle>Bone Health</CardTitle>
+                  </div>
                   <CardDescription>Calcium and vitamin D rich foods</CardDescription>
                 </CardHeader>
-                <CardFooter>
-                  <p className="text-sm text-primary-600">View diet plans →</p>
-                </CardFooter>
+                <CardContent>
+                  <p className="text-sm text-gray-600">
+                    Diets to strengthen bones and prevent osteoporosis through essential nutrients.
+                  </p>
+                </CardContent>
               </Card>
               
               <Card className="cursor-pointer hover:shadow-md transition-shadow">
                 <CardHeader>
-                  <CardTitle>Immune Support</CardTitle>
-                  <CardDescription>Nutrient-dense immunity boosting foods</CardDescription>
+                  <div className="flex items-center space-x-2">
+                    <div className="bg-indigo-50 text-indigo-600 p-2 rounded-md">
+                      <Utensils className="h-5 w-5" />
+                    </div>
+                    <CardTitle>Traditional Indian</CardTitle>
+                  </div>
+                  <CardDescription>Ayurvedic principles for balanced health</CardDescription>
                 </CardHeader>
-                <CardFooter>
-                  <p className="text-sm text-primary-600">View diet plans →</p>
-                </CardFooter>
+                <CardContent>
+                  <p className="text-sm text-gray-600">
+                    Time-tested traditional diet recommendations based on Ayurvedic principles.
+                  </p>
+                </CardContent>
               </Card>
             </div>
             

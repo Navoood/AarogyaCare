@@ -6,6 +6,7 @@ import RegisterPage from "./pages/RegisterPage";
 import SymptomCheckerPage from "./pages/SymptomCheckerPage";
 import DoctorsPage from "./pages/DoctorsPage";
 import DoctorProfilePage from "./pages/DoctorProfilePage";
+import DietPlansPage from "./pages/DietPlansPage";
 import Layout from "./components/layout/Layout";
 import { AuthProvider } from "./context/AuthContext";
 import { LanguageProvider } from "./context/LanguageContext";
@@ -37,9 +38,7 @@ function Router() {
       <Route path="/doctors" component={DoctorsPage} />
       <Route path="/doctor/:id" component={DoctorProfilePage} />
       <Route path="/symptom-checker" component={SymptomCheckerPage} />
-      <Route path="/diet-plans">
-        {() => <PlaceholderPage title="Smart Diet Plans" />}
-      </Route>
+      <Route path="/diet-plans" component={DietPlansPage} />
       <Route path="/consultations">
         {() => <PlaceholderPage title="Telemedicine Consultations" />}
       </Route>
