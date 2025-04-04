@@ -1,0 +1,95 @@
+✅ Display detailed information on government health schemes (source: WHO & official sources).
+✅ Include high-quality images for each scheme.
+✅ Use ShadCN components for a sleek, colorful, and interactive UI.
+✅ Ensure perfect routing – no broken pages or missing content.
+✅ Store scheme details in a database (JSON format) instead of using an API.
+
+🔹 File-wise Implementation Details:
+1️⃣ Database – Store Health Schemes Data
+📌 File: database/health_schemes.json
+
+Create a JSON file to store details of at least 10+ health schemes.
+
+Each scheme must include:
+
+id: Unique identifier
+
+name: Scheme title
+
+description: Short summary
+
+eligibility: Who can apply
+
+benefits: Key advantages
+
+application_process: How to apply
+
+official_link: Government/WHO source
+
+image_url: A relevant image
+
+Ensure data is structured properly for easy retrieval.
+
+2️⃣ Backend – API Route to Fetch Health Schemes
+📌 File: server/routes/healthSchemes.js
+
+Create an API route to fetch schemes from the database.
+
+Implement search functionality by name & eligibility.
+
+Ensure the response is optimized for performance (limit to top 10 results).
+
+3️⃣ Frontend – UI to Display Health Schemes
+📌 File: components/HealthSchemesCard.js
+
+Create a ShadCN-based card for each scheme.
+
+Display title, image, and short description.
+
+Add a "Read More" button to expand full details.
+
+Include smooth animations & colorful visuals for engagement.
+
+📌 File: pages/HealthSchemes.js
+
+Fetch data from health_schemes.json via the API.
+
+Show a grid layout of all schemes using HealthSchemesCard.js.
+
+Implement search & filter options (e.g., schemes for seniors, women, etc.).
+
+Add pagination or infinite scroll to improve user experience.
+
+Ensure seamless dark/light mode toggle with ShadCN.
+
+4️⃣ Homepage – Show Featured Schemes
+📌 File: pages/Home.js
+
+Display random 3-4 health schemes from health_schemes.json.
+
+Ensure clicking “View All” redirects correctly to /health-schemes.
+
+5️⃣ Routing – Ensure Perfect Navigation
+📌 File: router/index.js
+
+Add the route for /health-schemes.
+
+Ensure no 404 errors, broken links, or incorrect paths.
+
+6️⃣ Enhancements for Better UX
+✅ Bookmark Feature: Allow users to save schemes for later reference.
+✅ Comparison Mode: Enable side-by-side comparisons of schemes.
+✅ Multilingual Support: Translate scheme details into multiple languages.
+✅ Dark/Light Mode: Implement a toggle using ShadCN components.
+
+🔥 Final Instructions:
+
+Ensure the Government Health Schemes feature is fully functional & AI-like.
+
+Use only database-driven logic, NO API KEYS.
+
+Make it visually stunning with images, colors, and smooth animations.
+
+Ensure routing is flawless & all articles load perfectly!
+
+🚀 MAKE IT WORK PERFECTLY LIKE AI – WITHOUT AI! 🚀

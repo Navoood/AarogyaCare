@@ -1,434 +1,428 @@
-import { useState, useEffect } from "react";
-import { useLanguage } from "@/context/LanguageContext";
-import healthSchemesData from "@/data/health_schemes.json";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { useToast } from "@/hooks/use-toast";
-import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import React, { useState } from 'react';
+import { HealthScheme } from './types';
+import { useLanguage } from '../../context/LanguageContext';
+import { useLocalStorage } from '../../hooks/use-local-storage';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { X, Check, MinusCircle, Info, AlertTriangle } from 'lucide-react';
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { Check, X, Plus, Trash2, FileDown, ArrowLeftRight } from "lucide-react";
-import { Separator } from "@/components/ui/separator";
-import { HealthScheme } from "./types";
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
-export default function SchemeComparison() {
+// Import health schemes data and utilities
+import healthSchemesData from '../../data/health_schemes.json';
+import { normalizeHealthSchemeData } from './utils';
+
+const SchemeComparison: React.FC = () => {
   const { language } = useLanguage();
-  const { toast } = useToast();
-  const [schemes, setSchemes] = useState<HealthScheme[]>([]);
-  const [selectedSchemes, setSelectedSchemes] = useState<HealthScheme[]>([]);
-  const [selectedSchemeId, setSelectedSchemeId] = useState<string>("");
+  const [bookmarkedSchemes] = useLocalStorage<{id: string, dateBookmarked: string}[]>('bookmarked-schemes', []);
+  const [selectedSchemes, setSelectedSchemes] = useState<string[]>([]);
   
-  // Fetch all schemes
-  useEffect(() => {
-    setSchemes(healthSchemesData as HealthScheme[]);
-  }, []);
+  // Get all schemes and bookmarked schemes
+  const allSchemes = normalizeHealthSchemeData(healthSchemesData);
+  const bookmarkedSchemesList = allSchemes.filter(scheme => 
+    bookmarkedSchemes.some(bookmark => bookmark.id === scheme.id)
+  );
   
-  // Handle adding a scheme to comparison
-  const addSchemeToComparison = () => {
-    if (!selectedSchemeId) return;
-    
-    // Find the selected scheme
-    const scheme = schemes.find(s => s.id === selectedSchemeId);
-    if (!scheme) return;
-    
-    // Check if the scheme is already in the comparison
-    if (selectedSchemes.some(s => s.id === selectedSchemeId)) {
-      toast({
-        title: "Already Added",
-        description: "This scheme is already in your comparison.",
-        variant: "destructive",
-      });
-      return;
+  // Add a scheme to comparison
+  const addScheme = (schemeId: string) => {
+    if (selectedSchemes.length < 3 && !selectedSchemes.includes(schemeId)) {
+      setSelectedSchemes([...selectedSchemes, schemeId]);
     }
-    
-    // Add scheme to comparison (max 3)
-    if (selectedSchemes.length >= 3) {
-      toast({
-        title: "Maximum Schemes Reached",
-        description: "You can compare up to 3 schemes at a time. Remove one to add another.",
-        variant: "destructive",
-      });
-      return;
-    }
-    
-    setSelectedSchemes([...selectedSchemes, scheme]);
-    setSelectedSchemeId("");
-    
-    toast({
-      title: "Scheme Added",
-      description: "The scheme has been added to your comparison.",
-    });
   };
   
-  // Handle removing a scheme from comparison
-  const removeSchemeFromComparison = (schemeId: string) => {
-    setSelectedSchemes(selectedSchemes.filter(s => s.id !== schemeId));
-    toast({
-      title: "Scheme Removed",
-      description: "The scheme has been removed from your comparison.",
-    });
+  // Remove a scheme from comparison
+  const removeScheme = (schemeId: string) => {
+    setSelectedSchemes(selectedSchemes.filter(id => id !== schemeId));
   };
   
-  // Helper function to get translated name
-  const getLocalizedName = (scheme: HealthScheme) => {
-    if (language !== "english" && scheme.languages[language]?.name) {
-      return scheme.languages[language].name;
+  // Get schemes to compare
+  const schemesToCompare = selectedSchemes.map(id => 
+    allSchemes.find(scheme => scheme.id === id)
+  ).filter((scheme): scheme is HealthScheme => scheme !== undefined);
+  
+  // Get localized content
+  const getLocalizedContent = (scheme: HealthScheme) => {
+    if (language !== 'english' && scheme.languages[language]) {
+      return {
+        name: scheme.languages[language]?.name || scheme.name,
+        shortDescription: scheme.languages[language]?.shortDescription || scheme.shortDescription
+      };
     }
-    return scheme.name;
+    return {
+      name: scheme.name,
+      shortDescription: scheme.shortDescription
+    };
   };
   
-  // Helper function to get translated description
-  const getLocalizedDescription = (scheme: HealthScheme) => {
-    if (language !== "english" && scheme.languages[language]?.shortDescription) {
-      return scheme.languages[language].shortDescription;
-    }
-    return scheme.shortDescription;
-  };
-  
-  // Prepare the comparison data for PDF/print export
-  const downloadComparisonAsPdf = () => {
-    if (selectedSchemes.length === 0) {
-      toast({
-        title: "No Schemes Selected",
-        description: "Please add at least one scheme to generate a comparison report.",
-        variant: "destructive",
-      });
-      return;
-    }
-    
-    const printWindow = window.open('', '_blank');
-    if (!printWindow) return;
-    
-    const content = `
-      <html>
-        <head>
-          <title>Health Schemes Comparison</title>
-          <style>
-            body { font-family: Arial, sans-serif; line-height: 1.6; padding: 20px; }
-            h1 { color: #1d4ed8; text-align: center; margin-bottom: 30px; }
-            table { width: 100%; border-collapse: collapse; margin-bottom: 30px; }
-            th { background-color: #e0e7ff; padding: 10px; text-align: left; border: 1px solid #d1d5db; }
-            td { padding: 10px; border: 1px solid #d1d5db; vertical-align: top; }
-            .scheme-name { font-weight: bold; font-size: 18px; }
-            .category { display: inline-block; background: #f3f4f6; padding: 2px 8px; border-radius: 12px; margin: 2px; font-size: 12px; }
-            .footer { margin-top: 30px; font-size: 12px; color: #64748b; border-top: 1px solid #e2e8f0; padding-top: 10px; text-align: center; }
-          </style>
-        </head>
-        <body>
-          <h1>Health Schemes Comparison</h1>
-          
-          <table>
-            <tr>
-              <th style="width: 180px;">Criteria</th>
-              ${selectedSchemes.map(scheme => `
-                <th class="scheme-name">${getLocalizedName(scheme)}</th>
-              `).join('')}
-            </tr>
-            
-            <tr>
-              <td><strong>Description</strong></td>
-              ${selectedSchemes.map(scheme => `
-                <td>${getLocalizedDescription(scheme)}</td>
-              `).join('')}
-            </tr>
-            
-            <tr>
-              <td><strong>Categories</strong></td>
-              ${selectedSchemes.map(scheme => `
-                <td>
-                  ${scheme.category.map(cat => `
-                    <span class="category">${cat.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}</span>
-                  `).join('')}
-                </td>
-              `).join('')}
-            </tr>
-            
-            <tr>
-              <td><strong>Coverage</strong></td>
-              ${selectedSchemes.map(scheme => `
-                <td>${scheme.coverage}</td>
-              `).join('')}
-            </tr>
-            
-            <tr>
-              <td><strong>Eligibility</strong></td>
-              ${selectedSchemes.map(scheme => `
-                <td>
-                  <ul>
-                    ${scheme.eligibility.map(item => `<li>${item}</li>`).join('')}
-                  </ul>
-                </td>
-              `).join('')}
-            </tr>
-            
-            <tr>
-              <td><strong>Benefits</strong></td>
-              ${selectedSchemes.map(scheme => `
-                <td>
-                  <ul>
-                    ${scheme.benefits.map(item => `<li>${item}</li>`).join('')}
-                  </ul>
-                </td>
-              `).join('')}
-            </tr>
-            
-            <tr>
-              <td><strong>Application Process</strong></td>
-              ${selectedSchemes.map(scheme => `
-                <td>
-                  <ol>
-                    ${scheme.applicationProcess.map(item => `<li>${item}</li>`).join('')}
-                  </ol>
-                </td>
-              `).join('')}
-            </tr>
-            
-            <tr>
-              <td><strong>Contact Information</strong></td>
-              ${selectedSchemes.map(scheme => `
-                <td>
-                  <p>Helpline: ${scheme.contactInformation.helpline}</p>
-                  <p>Email: ${scheme.contactInformation.email}</p>
-                  <p>Website: ${scheme.contactInformation.website}</p>
-                </td>
-              `).join('')}
-            </tr>
-          </table>
-          
-          <div class="footer">
-            <p>Comparison generated from AAROGYA Health Platform on ${new Date().toLocaleDateString()}</p>
-            <p>For the most up-to-date information, please visit the official websites of each scheme.</p>
-          </div>
-        </body>
-      </html>
-    `;
-    
-    printWindow.document.open();
-    printWindow.document.write(content);
-    printWindow.document.close();
-    
-    // Wait for images to load before printing
-    setTimeout(() => {
-      printWindow.print();
-    }, 500);
-  };
+  // Function to render a cell with a list
+  const renderListCell = (items: string[]) => (
+    <ul className="list-disc pl-5 space-y-1 text-sm">
+      {items.map((item, index) => (
+        <li key={index}>{item}</li>
+      ))}
+    </ul>
+  );
   
   return (
-    <div className="space-y-6">
-      <div className="flex flex-col md:flex-row gap-4">
-        {/* Scheme Selector */}
-        <div className="flex-1 flex flex-col md:flex-row gap-2">
-          <Select value={selectedSchemeId} onValueChange={setSelectedSchemeId}>
-            <SelectTrigger className="flex-1">
-              <SelectValue placeholder="Select a scheme to compare" />
-            </SelectTrigger>
-            <SelectContent>
-              {schemes.map((scheme) => (
-                <SelectItem key={scheme.id} value={scheme.id}>
-                  {getLocalizedName(scheme)}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-          
-          <Button 
-            onClick={addSchemeToComparison} 
-            disabled={!selectedSchemeId || selectedSchemes.length >= 3}
-            className="shrink-0"
-          >
-            <Plus className="mr-2 h-4 w-4" />
-            Add to Comparison
-          </Button>
-        </div>
+    <div className="container mx-auto py-8">
+      <div className="mb-8">
+        <h2 className="text-3xl font-bold mb-6">Compare Health Schemes</h2>
         
-        {/* Action Buttons */}
-        <div className="flex gap-2">
-          <Button 
-            variant="outline" 
-            onClick={downloadComparisonAsPdf} 
-            disabled={selectedSchemes.length === 0}
-            className="shrink-0"
-          >
-            <FileDown className="mr-2 h-4 w-4" />
-            Export Comparison
-          </Button>
-          
-          <Button 
-            variant="secondary" 
-            onClick={() => setSelectedSchemes([])} 
-            disabled={selectedSchemes.length === 0}
-            className="shrink-0"
-          >
-            <Trash2 className="mr-2 h-4 w-4" />
-            Clear All
-          </Button>
-        </div>
-      </div>
-      
-      {selectedSchemes.length > 0 ? (
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-lg flex items-center">
-              <ArrowLeftRight className="mr-2 h-5 w-5 text-primary" />
-              Comparing {selectedSchemes.length} Health {selectedSchemes.length === 1 ? 'Scheme' : 'Schemes'}
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <ScrollArea className="w-full">
-              <div className="min-w-[1000px]">
-                {/* Schemes Header */}
-                <div className="grid grid-cols-[200px_repeat(auto-fill,minmax(250px,1fr))] gap-4 mb-4">
-                  <div className="font-medium text-center">Criteria</div>
-                  {selectedSchemes.map((scheme) => (
-                    <div key={scheme.id} className="relative pb-8">
-                      <div className="font-medium text-lg text-center mb-1 text-primary">
-                        {getLocalizedName(scheme)}
-                      </div>
-                      <div className="text-sm text-center text-muted-foreground mb-2 line-clamp-2">
-                        {getLocalizedDescription(scheme)}
-                      </div>
-                      <div className="flex flex-wrap justify-center gap-1 mb-2">
-                        {scheme.category.map((cat) => (
-                          <Badge key={cat} variant="outline" className="bg-primary-50 text-primary-700">
-                            {cat.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}
-                          </Badge>
-                        ))}
-                      </div>
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        className="absolute bottom-0 left-1/2 transform -translate-x-1/2 text-muted-foreground hover:text-destructive"
-                        onClick={() => removeSchemeFromComparison(scheme.id)}
-                      >
-                        <Trash2 className="h-3.5 w-3.5 mr-1" />
-                        Remove
-                      </Button>
-                    </div>
-                  ))}
+        {selectedSchemes.length === 0 ? (
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Info className="h-5 w-5 text-primary" />
+                How to Compare Schemes
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="mb-4">Select up to 3 health schemes to compare their features side by side.</p>
+              <div className="flex flex-col space-y-4">
+                <div className="flex items-center gap-4">
+                  <div className="bg-primary/10 p-3 rounded-full">
+                    <span className="text-primary font-bold">1</span>
+                  </div>
+                  <p>Select schemes from the dropdown below or from your bookmarked schemes</p>
                 </div>
-                
-                <Separator className="mb-4" />
-                
-                {/* Coverage Comparison */}
-                <div className="grid grid-cols-[200px_repeat(auto-fill,minmax(250px,1fr))] gap-4 mb-4">
-                  <div className="font-medium">Coverage</div>
-                  {selectedSchemes.map((scheme) => (
-                    <div key={`coverage-${scheme.id}`} className="text-sm">
-                      {scheme.coverage}
-                    </div>
-                  ))}
+                <div className="flex items-center gap-4">
+                  <div className="bg-primary/10 p-3 rounded-full">
+                    <span className="text-primary font-bold">2</span>
+                  </div>
+                  <p>View side-by-side comparison of benefits, eligibility, and more</p>
                 </div>
-                
-                <Separator className="mb-4" />
-                
-                {/* Eligibility Comparison */}
-                <div className="grid grid-cols-[200px_repeat(auto-fill,minmax(250px,1fr))] gap-4 mb-4">
-                  <div className="font-medium">Eligibility</div>
-                  {selectedSchemes.map((scheme) => (
-                    <div key={`eligibility-${scheme.id}`}>
-                      <ul className="text-sm space-y-2 list-disc pl-5">
-                        {scheme.eligibility.map((item, index) => (
-                          <li key={index}>{item}</li>
-                        ))}
-                      </ul>
-                    </div>
-                  ))}
-                </div>
-                
-                <Separator className="mb-4" />
-                
-                {/* Benefits Comparison */}
-                <div className="grid grid-cols-[200px_repeat(auto-fill,minmax(250px,1fr))] gap-4 mb-4">
-                  <div className="font-medium">Benefits</div>
-                  {selectedSchemes.map((scheme) => (
-                    <div key={`benefits-${scheme.id}`}>
-                      <ul className="text-sm space-y-2 list-disc pl-5">
-                        {scheme.benefits.map((item, index) => (
-                          <li key={index}>{item}</li>
-                        ))}
-                      </ul>
-                    </div>
-                  ))}
-                </div>
-                
-                <Separator className="mb-4" />
-                
-                {/* Application Process Comparison */}
-                <div className="grid grid-cols-[200px_repeat(auto-fill,minmax(250px,1fr))] gap-4 mb-4">
-                  <div className="font-medium">Application Process</div>
-                  {selectedSchemes.map((scheme) => (
-                    <div key={`process-${scheme.id}`}>
-                      <ol className="text-sm space-y-2 list-decimal pl-5">
-                        {scheme.applicationProcess.map((item, index) => (
-                          <li key={index}>{item}</li>
-                        ))}
-                      </ol>
-                    </div>
-                  ))}
-                </div>
-                
-                <Separator className="mb-4" />
-                
-                {/* Contact Information Comparison */}
-                <div className="grid grid-cols-[200px_repeat(auto-fill,minmax(250px,1fr))] gap-4">
-                  <div className="font-medium">Contact Information</div>
-                  {selectedSchemes.map((scheme) => (
-                    <div key={`contact-${scheme.id}`} className="text-sm space-y-2">
-                      <div>
-                        <span className="font-medium">Helpline:</span> {scheme.contactInformation.helpline}
-                      </div>
-                      <div>
-                        <span className="font-medium">Email:</span> {scheme.contactInformation.email}
-                      </div>
-                      <div>
-                        <span className="font-medium">Website:</span>{" "}
-                        <a
-                          href={scheme.contactInformation.website}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-primary hover:underline"
-                        >
-                          Visit Official Website
-                        </a>
-                      </div>
-                    </div>
-                  ))}
+                <div className="flex items-center gap-4">
+                  <div className="bg-primary/10 p-3 rounded-full">
+                    <span className="text-primary font-bold">3</span>
+                  </div>
+                  <p>Make informed decisions about which health schemes best suit your needs</p>
                 </div>
               </div>
-              <ScrollBar orientation="horizontal" />
-            </ScrollArea>
-          </CardContent>
-        </Card>
-      ) : (
-        <div className="text-center py-12 border rounded-md bg-muted/20">
-          <div className="mx-auto w-16 h-16 rounded-full bg-muted flex items-center justify-center mb-4">
-            <ArrowLeftRight className="h-6 w-6 text-muted-foreground" />
+            </CardContent>
+          </Card>
+        ) : (
+          <Card className="mb-6">
+            <CardContent className="pt-6">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                {selectedSchemes.map((schemeId, index) => {
+                  const scheme = allSchemes.find(s => s.id === schemeId);
+                  if (!scheme) return null;
+                  
+                  const localizedContent = getLocalizedContent(scheme);
+                  
+                  return (
+                    <div key={scheme.id} className="relative">
+                      <Card className="h-full">
+                        <Button 
+                          variant="ghost" 
+                          size="icon" 
+                          className="absolute top-2 right-2"
+                          onClick={() => removeScheme(scheme.id)}
+                        >
+                          <X className="h-4 w-4" />
+                        </Button>
+                        <CardHeader className="pb-2 pt-6">
+                          <CardTitle className="text-lg">{localizedContent.name}</CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                          <div className="h-20 overflow-hidden mb-4">
+                            <img 
+                              src={scheme.imageUrl} 
+                              alt={scheme.name} 
+                              className="w-full h-full object-contain"
+                            />
+                          </div>
+                          <p className="text-sm text-muted-foreground line-clamp-3">
+                            {localizedContent.shortDescription}
+                          </p>
+                        </CardContent>
+                      </Card>
+                    </div>
+                  );
+                })}
+                
+                {Array.from({ length: 3 - selectedSchemes.length }).map((_, index) => (
+                  <div key={`empty-${index}`} className="border-2 border-dashed rounded-md p-4 flex items-center justify-center">
+                    <Select onValueChange={addScheme}>
+                      <SelectTrigger className="w-full">
+                        <SelectValue placeholder="Add scheme to compare" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {allSchemes
+                          .filter(scheme => !selectedSchemes.includes(scheme.id))
+                          .map(scheme => (
+                            <SelectItem key={scheme.id} value={scheme.id}>
+                              {scheme.name}
+                            </SelectItem>
+                          ))
+                        }
+                      </SelectContent>
+                    </Select>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+        )}
+        
+        {selectedSchemes.length > 0 && (
+          <Tabs defaultValue="details" className="w-full">
+            <TabsList className="grid grid-cols-4 mb-4">
+              <TabsTrigger value="details">Basic Details</TabsTrigger>
+              <TabsTrigger value="eligibility">Eligibility</TabsTrigger>
+              <TabsTrigger value="benefits">Benefits</TabsTrigger>
+              <TabsTrigger value="application">How to Apply</TabsTrigger>
+            </TabsList>
+            
+            <TabsContent value="details">
+              <Card>
+                <CardContent className="pt-6">
+                  <ScrollArea className="max-w-full">
+                    <Table>
+                      <TableHeader>
+                        <TableRow>
+                          <TableHead className="w-36">Feature</TableHead>
+                          {schemesToCompare.map(scheme => (
+                            <TableHead key={scheme.id}>{getLocalizedContent(scheme).name}</TableHead>
+                          ))}
+                        </TableRow>
+                      </TableHeader>
+                      <TableBody>
+                        <TableRow>
+                          <TableCell className="font-medium">Coverage</TableCell>
+                          {schemesToCompare.map(scheme => (
+                            <TableCell key={scheme.id}>{scheme.coverage}</TableCell>
+                          ))}
+                        </TableRow>
+                        <TableRow>
+                          <TableCell className="font-medium">Categories</TableCell>
+                          {schemesToCompare.map(scheme => (
+                            <TableCell key={scheme.id}>
+                              {scheme.category.join(', ')}
+                            </TableCell>
+                          ))}
+                        </TableRow>
+                        <TableRow>
+                          <TableCell className="font-medium">
+                            <div className="flex items-center gap-1">
+                              Contact
+                              <TooltipProvider>
+                                <Tooltip>
+                                  <TooltipTrigger>
+                                    <Info className="h-4 w-4 text-muted-foreground" />
+                                  </TooltipTrigger>
+                                  <TooltipContent>
+                                    <p>Primary contact information</p>
+                                  </TooltipContent>
+                                </Tooltip>
+                              </TooltipProvider>
+                            </div>
+                          </TableCell>
+                          {schemesToCompare.map(scheme => (
+                            <TableCell key={scheme.id}>
+                              <div className="space-y-2 text-sm">
+                                <div><span className="font-medium">Helpline:</span> {scheme.contactInformation.helpline}</div>
+                                <div><span className="font-medium">Website:</span> {scheme.contactInformation.website}</div>
+                              </div>
+                            </TableCell>
+                          ))}
+                        </TableRow>
+                      </TableBody>
+                    </Table>
+                  </ScrollArea>
+                </CardContent>
+              </Card>
+            </TabsContent>
+            
+            <TabsContent value="eligibility">
+              <Card>
+                <CardContent className="pt-6">
+                  <ScrollArea className="max-w-full">
+                    <Table>
+                      <TableHeader>
+                        <TableRow>
+                          <TableHead className="w-36">Eligibility</TableHead>
+                          {schemesToCompare.map(scheme => (
+                            <TableHead key={scheme.id}>{getLocalizedContent(scheme).name}</TableHead>
+                          ))}
+                        </TableRow>
+                      </TableHeader>
+                      <TableBody>
+                        {schemesToCompare.reduce((maxEligibility, scheme) => 
+                          Math.max(maxEligibility, scheme.eligibility.length), 0
+                        ) > 0 && (
+                          <TableRow>
+                            <TableCell className="font-medium">Criteria</TableCell>
+                            {schemesToCompare.map(scheme => (
+                              <TableCell key={scheme.id}>{renderListCell(scheme.eligibility)}</TableCell>
+                            ))}
+                          </TableRow>
+                        )}
+                      </TableBody>
+                    </Table>
+                  </ScrollArea>
+                </CardContent>
+              </Card>
+            </TabsContent>
+            
+            <TabsContent value="benefits">
+              <Card>
+                <CardContent className="pt-6">
+                  <ScrollArea className="max-w-full">
+                    <Table>
+                      <TableHeader>
+                        <TableRow>
+                          <TableHead className="w-36">Benefits</TableHead>
+                          {schemesToCompare.map(scheme => (
+                            <TableHead key={scheme.id}>{getLocalizedContent(scheme).name}</TableHead>
+                          ))}
+                        </TableRow>
+                      </TableHeader>
+                      <TableBody>
+                        {schemesToCompare.reduce((maxBenefits, scheme) => 
+                          Math.max(maxBenefits, scheme.benefits.length), 0
+                        ) > 0 && (
+                          <TableRow>
+                            <TableCell className="font-medium">Key Benefits</TableCell>
+                            {schemesToCompare.map(scheme => (
+                              <TableCell key={scheme.id}>{renderListCell(scheme.benefits)}</TableCell>
+                            ))}
+                          </TableRow>
+                        )}
+                      </TableBody>
+                    </Table>
+                  </ScrollArea>
+                </CardContent>
+              </Card>
+            </TabsContent>
+            
+            <TabsContent value="application">
+              <Card>
+                <CardContent className="pt-6">
+                  <ScrollArea className="max-w-full">
+                    <Table>
+                      <TableHeader>
+                        <TableRow>
+                          <TableHead className="w-36">Application</TableHead>
+                          {schemesToCompare.map(scheme => (
+                            <TableHead key={scheme.id}>{getLocalizedContent(scheme).name}</TableHead>
+                          ))}
+                        </TableRow>
+                      </TableHeader>
+                      <TableBody>
+                        {schemesToCompare.reduce((maxApplication, scheme) => 
+                          Math.max(maxApplication, scheme.applicationProcess.length), 0
+                        ) > 0 && (
+                          <TableRow>
+                            <TableCell className="font-medium">Process</TableCell>
+                            {schemesToCompare.map(scheme => (
+                              <TableCell key={scheme.id}>{renderListCell(scheme.applicationProcess)}</TableCell>
+                            ))}
+                          </TableRow>
+                        )}
+                        <TableRow>
+                          <TableCell className="font-medium">Official Links</TableCell>
+                          {schemesToCompare.map(scheme => (
+                            <TableCell key={scheme.id}>
+                              <div className="space-y-2 text-sm">
+                                {Object.entries(scheme.officialLinks).map(([key, url]) => (
+                                  <div key={key}>
+                                    <div className="font-medium capitalize">
+                                      {key.replace(/([A-Z])/g, ' $1').trim()}:
+                                    </div>
+                                    <a 
+                                      href={url} 
+                                      target="_blank" 
+                                      rel="noopener noreferrer" 
+                                      className="text-primary hover:underline truncate block"
+                                    >
+                                      {url.replace(/^https?:\/\//, '')}
+                                    </a>
+                                  </div>
+                                ))}
+                              </div>
+                            </TableCell>
+                          ))}
+                        </TableRow>
+                      </TableBody>
+                    </Table>
+                  </ScrollArea>
+                </CardContent>
+              </Card>
+            </TabsContent>
+          </Tabs>
+        )}
+      </div>
+      
+      {bookmarkedSchemesList.length > 0 && (
+        <div className="mt-8">
+          <h3 className="text-xl font-bold mb-4">Your Bookmarked Schemes</h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            {bookmarkedSchemesList.map(scheme => {
+              const localizedContent = getLocalizedContent(scheme);
+              const isSelected = selectedSchemes.includes(scheme.id);
+              
+              return (
+                <Card 
+                  key={scheme.id} 
+                  className={`cursor-pointer hover:shadow-md transition-shadow ${
+                    isSelected ? 'border-primary' : ''
+                  }`}
+                >
+                  <CardHeader className="p-4 pb-2">
+                    <CardTitle className="text-md line-clamp-1">{localizedContent.name}</CardTitle>
+                  </CardHeader>
+                  <CardContent className="p-4 pt-0">
+                    <p className="text-sm text-muted-foreground line-clamp-2 mb-3">
+                      {localizedContent.shortDescription}
+                    </p>
+                    <Button
+                      variant={isSelected ? "default" : "outline"}
+                      size="sm"
+                      className="w-full"
+                      onClick={() => isSelected ? removeScheme(scheme.id) : addScheme(scheme.id)}
+                      disabled={selectedSchemes.length >= 3 && !isSelected}
+                    >
+                      {isSelected ? (
+                        <>
+                          <Check className="mr-1 h-4 w-4" />
+                          Added to Comparison
+                        </>
+                      ) : (
+                        selectedSchemes.length >= 3 ? (
+                          <>
+                            <AlertTriangle className="mr-1 h-4 w-4" />
+                            Maximum 3 Schemes
+                          </>
+                        ) : (
+                          "Add to Comparison"
+                        )
+                      )}
+                    </Button>
+                  </CardContent>
+                </Card>
+              );
+            })}
           </div>
-          <h3 className="text-lg font-medium mb-2">No schemes selected for comparison</h3>
-          <p className="text-muted-foreground max-w-md mx-auto mb-6">
-            Select up to three health schemes to compare their benefits, eligibility criteria, and application processes side by side.
-          </p>
-          <Button variant="outline" disabled={schemes.length === 0} onClick={() => {
-            if (schemes.length > 0) {
-              // Add first scheme automatically for demonstration
-              setSelectedSchemes([schemes[0]]);
-              toast({
-                title: "First Scheme Added",
-                description: "The first scheme has been added to your comparison for demonstration.",
-              });
-            }
-          }}>
-            <Plus className="mr-2 h-4 w-4" />
-            Add First Scheme
-          </Button>
         </div>
       )}
     </div>
   );
-}
+};
+
+export default SchemeComparison;

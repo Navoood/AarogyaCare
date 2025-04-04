@@ -1,3 +1,4 @@
+// Type for Health Scheme data
 export interface HealthScheme {
   id: string;
   name: string;
@@ -12,16 +13,28 @@ export interface HealthScheme {
     helpline: string;
     email: string;
   };
-  officialLinks: {
-    mainWebsite: string;
-    [key: string]: string;
-  };
+  officialLinks: Record<string, string>;
   languages: {
-    [key: string]: {
-      name: string;
-      shortDescription: string;
+    [lang: string]: {
+      name?: string;
+      shortDescription?: string;
     };
   };
   imageUrl: string;
   featured: boolean;
 }
+
+// Type for bookmarked scheme
+export interface BookmarkedScheme {
+  id: string;
+  dateBookmarked: string;
+}
+
+// View mode for health schemes display
+export type ViewMode = 'grid' | 'list';
+
+// Sort options for health schemes
+export type SortOption = 'featured' | 'name';
+
+// Language options for health schemes
+export type LanguageOption = 'english' | 'hindi' | 'tamil' | 'gujarati' | 'kannada';

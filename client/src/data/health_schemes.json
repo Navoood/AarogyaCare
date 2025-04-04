@@ -2,265 +2,281 @@
   {
     "id": "pmjay",
     "name": "Pradhan Mantri Jan Arogya Yojana (PM-JAY)",
-    "shortDescription": "A flagship health insurance scheme providing coverage of ₹5 lakhs per family per year for secondary and tertiary care hospitalization.",
-    "category": ["health-insurance", "government-scheme", "national-level"],
-    "coverage": "Up to ₹5 lakhs per family per year",
+    "shortDescription": "Health insurance scheme providing coverage up to ₹5 lakhs per family per year for secondary and tertiary care hospitalization.",
+    "category": ["Insurance", "National", "Low Income"],
+    "coverage": "All secondary and tertiary hospitalizations with coverage up to ₹5 lakhs per family per year",
     "eligibility": [
-      "Families identified based on deprivation categories in rural areas",
-      "Defined occupational categories in urban areas",
-      "All families included in the SECC database",
+      "Families identified based on deprivation and occupational criteria from SECC 2011 database",
+      "All families included in the RSBY program",
       "No restriction on family size, age, or pre-existing conditions"
     ],
     "benefits": [
-      "Cashless and paperless access at point of service",
-      "Coverage for 3 days of pre-hospitalization and 15 days post-hospitalization expenses",
-      "All pre-existing diseases covered from day one",
-      "Coverage for 1,950+ medical procedures including surgeries, medical treatments, and daycare",
-      "No restriction on family size, age or gender"
+      "Cashless and paperless access to services at empaneled hospitals",
+      "Coverage for pre and post-hospitalization expenses",
+      "No restriction on family size or age",
+      "Coverage for 3 days pre-hospitalization and 15 days post-hospitalization expenses",
+      "Transportation allowance for specific cases"
     ],
     "applicationProcess": [
-      "Check eligibility using your mobile number, SECC ID, Ration Card, or Aadhaar",
-      "Visit the nearest empanelled hospital or PM-JAY registration center with identification",
-      "Submit required documents for verification",
-      "Receive your e-card after verification",
-      "Use the e-card to avail cashless treatment at any empanelled hospital"
+      "Check eligibility through PM-JAY portal or mobile app",
+      "Visit nearest empaneled hospital with appropriate ID proof",
+      "Get verified through biometric authentication",
+      "Receive e-card for availing benefits"
     ],
     "contactInformation": {
-      "website": "https://pmjay.gov.in",
-      "helpline": "14555 or 1800-111-565",
-      "email": "pmjay@nha.gov.in"
+      "website": "pmjay.gov.in",
+      "helpline": "14555",
+      "email": "support@pmjay.gov.in"
     },
     "officialLinks": {
       "mainWebsite": "https://pmjay.gov.in",
-      "hospitalList": "https://hospitals.pmjay.gov.in",
-      "eligibilityCheck": "https://mera.pmjay.gov.in/search/login"
+      "hospitalList": "https://pmjay.gov.in/hospitals/empanelled-hospitals",
+      "eligibilityCheck": "https://pmjay.gov.in/beneficiary/eligibility"
     },
     "languages": {
       "hindi": {
-        "name": "प्रधानमंत्री जन आरोग्य योजना (पीएम-जेएवाई)",
-        "shortDescription": "माध्यमिक और तृतीयक अस्पताल में भर्ती के लिए प्रति परिवार प्रति वर्ष ₹5 लाख का कवरेज प्रदान करने वाली एक प्रमुख स्वास्थ्य बीमा योजना।"
+        "name": "प्रधानमंत्री जन आरोग्य योजना",
+        "shortDescription": "प्रति परिवार प्रति वर्ष ₹5 लाख तक का स्वास्थ्य बीमा कवरेज प्रदान करने वाली योजना।"
       },
       "tamil": {
-        "name": "பிரதான் மந்திரி ஜன் ஆரோக்கியா யோஜனா (பிஎம்-ஜேஏவை)",
-        "shortDescription": "இரண்டாம் மற்றும் மூன்றாம் நிலை மருத்துவமனைச் சேர்க்கைக்கு ஒரு குடும்பத்திற்கு ஒரு வருடத்திற்கு ₹5 லட்சம் காப்பீடு வழங்கும் முன்னணி சுகாதார காப்பீட்டுத் திட்டம்."
+        "name": "பிரதமர் ஜன் ஆரோக்யா திட்டம்",
+        "shortDescription": "குடும்பத்திற்கு ஆண்டுக்கு ₹5 லட்சம் வரை மருத்துவக் காப்பீடு வழங்கும் திட்டம்."
+      },
+      "gujarati": {
+        "name": "પ્રધાનમંત્રી જન આરોગ્ય યોજના",
+        "shortDescription": "દર વર્ષે પરિવાર દીઠ ₹5 લાખ સુધીનું આરોગ્ય વીમા કવરેજ પ્રદાન કરતી યોજના."
       }
     },
-    "imageUrl": "https://www.nhp.gov.in/NHPfiles/pmjay_banner.jpg",
+    "imageUrl": "https://pmjay.gov.in/sites/default/files/2019-09/Ayushman%20Logo%20with%20AB-PMJAY%20%281%29_0.png",
     "featured": true
   },
   {
-    "id": "ayushman-bharat",
-    "name": "Ayushman Bharat Health Infrastructure Mission",
-    "shortDescription": "A major initiative to develop capacities of health systems and institutions across the continuum of care at all levels to prepare health systems to respond effectively to current and future pandemics/disasters.",
-    "category": ["health-infrastructure", "government-scheme", "national-level"],
-    "coverage": "Pan-India coverage with focus on rural, tribal, and urban slum areas",
+    "id": "jssk",
+    "name": "Janani Shishu Suraksha Karyakram (JSSK)",
+    "shortDescription": "Initiative to provide completely free and cashless services to pregnant women and sick newborns in government health institutions.",
+    "category": ["Maternal Health", "Child Health", "National"],
+    "coverage": "All pregnant women and newborns (up to 30 days after birth) are eligible for free services at government health institutions",
     "eligibility": [
-      "All citizens benefitting from improved public health infrastructure",
-      "Special focus on underserved areas including rural and tribal regions",
-      "Urban slums and areas with poor health indicators"
+      "All pregnant women",
+      "All sick newborns (up to 30 days after birth)"
     ],
     "benefits": [
-      "Establishment of critical care hospital blocks in 602 districts",
-      "Integrated Public Health Labs in all districts",
-      "Block Public Health Units in 3,382 blocks",
-      "5 Regional National Centers for Disease Control",
-      "20 Metropolitan Health Surveillance Units",
-      "Strengthened diagnostic capacity and research"
+      "Free delivery services including cesarean section",
+      "Free drugs and consumables",
+      "Free diagnostics and blood transfusion if required",
+      "Free diet during stay at the health institutions",
+      "Free transport between home and health institutions",
+      "Free transport between facilities in case of referral",
+      "Exemption from all user charges"
     ],
     "applicationProcess": [
-      "This is an infrastructure development scheme, not an individual application-based program",
-      "Citizens benefit from improved healthcare infrastructure automatically",
-      "For information, visit the official website or contact local health authorities"
+      "Visit nearest government healthcare facility",
+      "No formal application required - services provided to all pregnant women and newborns",
+      "Present any government ID for registration purposes"
     ],
     "contactInformation": {
-      "website": "https://www.nhp.gov.in",
+      "website": "nhm.gov.in",
       "helpline": "1800-180-1104",
-      "email": "abhim-mohfw@gov.in"
+      "email": "jssk-mohfw@gov.in"
     },
     "officialLinks": {
-      "mainWebsite": "https://www.nhp.gov.in/ayushman-bharat-pradhan-mantri-jan-arogya-yojana_pg",
-      "operationalGuidelines": "https://main.mohfw.gov.in/sites/default/files/PM-JAY%20Guideline.pdf"
+      "mainWebsite": "https://nhm.gov.in/index1.php?lang=1&level=3&sublinkid=842&lid=308",
+      "guidelines": "https://nhm.gov.in/images/pdf/programmes/jssk/guidelines/implementation_guidelines_jssk.pdf"
     },
     "languages": {
       "hindi": {
-        "name": "आयुष्मान भारत स्वास्थ्य अवसंरचना मिशन",
-        "shortDescription": "वर्तमान और भविष्य की महामारियों/आपदाओं का प्रभावी ढंग से जवाब देने के लिए स्वास्थ्य प्रणालियों को तैयार करने हेतु सभी स्तरों पर देखभाल के निरंतरता के माध्यम से स्वास्थ्य प्रणालियों और संस्थानों की क्षमताओं को विकसित करने के लिए एक प्रमुख पहल।"
+        "name": "जननी शिशु सुरक्षा कार्यक्रम",
+        "shortDescription": "सरकारी स्वास्थ्य संस्थानों में गर्भवती महिलाओं और बीमार नवजात शिशुओं को पूरी तरह से मुफ्त और नकदी रहित सेवाएं प्रदान करने की पहल।"
+      },
+      "tamil": {
+        "name": "ஜனனி சிசு சுரக்ஷா காரியக்ரம்",
+        "shortDescription": "அரசு மருத்துவமனைகளில் கர்ப்பிணிப் பெண்களுக்கும் நோயுற்ற குழந்தைகளுக்கும் முற்றிலும் இலவச சேவைகளை வழங்கும் திட்டம்."
       }
     },
-    "imageUrl": "https://www.nhp.gov.in/NHPfiles/health_infrastructure.jpg",
-    "featured": true
+    "imageUrl": "https://nhsrcindia.org/sites/default/files/2022-01/JSSK.jpg",
+    "featured": false
   },
   {
     "id": "rbsk",
     "name": "Rashtriya Bal Swasthya Karyakram (RBSK)",
-    "shortDescription": "A child health screening and early intervention program aimed at early identification and treatment of 4 Ds - Defects at birth, Diseases, Deficiencies, and Developmental delays including disabilities.",
-    "category": ["child-health", "government-scheme", "national-level", "screening"],
-    "coverage": "All children from birth to 18 years of age",
+    "shortDescription": "Child health screening and early intervention program for children from birth to 18 years to detect and manage 4Ds - Defects, Deficiencies, Diseases, and Developmental delays.",
+    "category": ["Child Health", "National", "Preventive Care"],
+    "coverage": "All children from birth to 18 years of age for early detection and treatment of selected health conditions",
     "eligibility": [
-      "All newborns born at public health facilities and home",
-      "All children enrolled in Anganwadi centers",
-      "All government and government-aided school children"
+      "All children from birth to 18 years of age",
+      "Priority to children in anganwadis and government/government-aided schools"
     ],
     "benefits": [
-      "Screening for health conditions, defects at birth, diseases, deficiencies, and developmental delays",
-      "Early detection and management of health conditions",
+      "Free health screening for birth defects, diseases, deficiencies, and developmental delays",
       "Free treatment including surgeries at tertiary level",
-      "Referral support and treatment",
-      "Mobile health teams visiting schools and anganwadis"
+      "Follow-up treatment and management",
+      "Child health screening record cards",
+      "Referral support and treatment"
     ],
     "applicationProcess": [
-      "No separate application needed as screening is conducted at healthcare facilities, anganwadis, and schools",
-      "Children identified with health conditions during screening are referred to appropriate facilities",
-      "For surgeries, children are referred to empanelled hospitals",
-      "Parents can contact nearest PHC, CHC or District Early Intervention Center for more information"
+      "No formal application required",
+      "Mobile health teams visit anganwadis and schools",
+      "Children identified with health conditions are referred to appropriate health facilities"
     ],
     "contactInformation": {
-      "website": "https://nhm.gov.in/index1.php?lang=1&level=4&sublinkid=1190&lid=583",
+      "website": "nhm.gov.in",
       "helpline": "1800-180-1104",
       "email": "rbsk-mohfw@gov.in"
     },
     "officialLinks": {
       "mainWebsite": "https://nhm.gov.in/index1.php?lang=1&level=4&sublinkid=1190&lid=583",
-      "guidelines": "https://nhm.gov.in/images/pdf/programmes/RBSK/Resource_Documents/RBSK_DEIC_Training_Module.pdf"
+      "operationalGuidelines": "https://nhm.gov.in/images/pdf/programmes/RBSK/Operational_Guidelines/Operational%20Guidelines_RBSK.pdf"
     },
     "languages": {
       "hindi": {
-        "name": "राष्ट्रीय बाल स्वास्थ्य कार्यक्रम (आरबीएसके)",
-        "shortDescription": "जन्म के समय विकृति, बीमारियों, कमियों और विकासात्मक देरी सहित विकलांगता - 4 डी के शीघ्र पहचान और उपचार पर लक्षित एक बाल स्वास्थ्य स्क्रीनिंग और प्रारंभिक हस्तक्षेप कार्यक्रम।"
+        "name": "राष्ट्रीय बाल स्वास्थ्य कार्यक्रम",
+        "shortDescription": "जन्म से 18 वर्ष तक के बच्चों के लिए स्वास्थ्य जांच और जल्दी हस्तक्षेप कार्यक्रम, जिससे 4Ds - विकार, कमियां, बीमारियां और विकासात्मक देरी का पता लगाया जा सके।"
+      },
+      "gujarati": {
+        "name": "રાષ્ટ્રીય બાળ સ્વાસ્થ્ય કાર્યક્રમ",
+        "shortDescription": "જન્મથી 18 વર્ષ સુધીના બાળકો માટે આરોગ્ય તપાસ અને વહેલી દખલ કાર્યક્રમ, જેથી 4Ds - ખામીઓ, ઉણપો, રોગો અને વિકાસમાં વિલંબનું નિદાન અને સંચાલન કરી શકાય."
       }
     },
-    "imageUrl": "https://www.nhp.gov.in/NHPfiles/child_health.jpg",
+    "imageUrl": "https://nhm.gov.in/images/picture/RBSK-Logo.jpg",
     "featured": false
   },
   {
-    "id": "jssk",
-    "name": "Janani Shishu Suraksha Karyakram (JSSK)",
-    "shortDescription": "A scheme that entitles all pregnant women delivering in public health institutions to absolutely free and no expense delivery including caesarean section, along with free transport and care for sick infants.",
-    "category": ["maternal-health", "child-health", "government-scheme", "national-level"],
-    "coverage": "All pregnant women and sick newborns up to 30 days after birth",
+    "id": "nhps",
+    "name": "National Health Protection Scheme (NHPS)",
+    "shortDescription": "Comprehensive health insurance scheme providing coverage up to ₹5 lakhs per family per year for secondary and tertiary care hospitalization.",
+    "category": ["Insurance", "National", "All Demographics"],
+    "coverage": "Comprehensive coverage for hospitalization expenses with coverage up to ₹5 lakhs per family per year",
     "eligibility": [
-      "All pregnant women going to government health institutions for delivery",
-      "All sick newborns accessing public health institutions for treatment up to 30 days after birth",
-      "No income or documentation requirements"
+      "All citizens with priority to economically weaker sections",
+      "No restriction on family size, age, or pre-existing conditions",
+      "Special provisions for senior citizens"
     ],
     "benefits": [
-      "Free delivery (normal or cesarean) at public health institutions",
-      "Free medicines and consumables during delivery and post-delivery complications",
-      "Free diagnostics and blood transfusion if required",
-      "Free diet during stay at the health institutions",
-      "Free transport from home to health institution, between facilities in case of referral, and drop back home",
-      "Exemption from all user charges"
+      "Cashless and paperless access to services at empaneled hospitals",
+      "Coverage for pre and post-hospitalization expenses",
+      "No restriction on family size or age",
+      "Coverage for 3 days pre-hospitalization and 15 days post-hospitalization expenses",
+      "Transportation allowance"
     ],
     "applicationProcess": [
-      "No formal application process is required",
-      "Pregnant women can directly visit the nearest government healthcare facility",
-      "Register at the facility by providing basic identity information",
-      "For transport services, contact the local ASHA worker or call 108/102 ambulance services"
+      "Register through the official portal",
+      "Submit required documentation for verification",
+      "Receive health card for availing benefits",
+      "Use the card at any empaneled hospital for cashless treatment"
     ],
     "contactInformation": {
-      "website": "https://nhm.gov.in/index1.php?lang=1&level=3&sublinkid=841&lid=309",
-      "helpline": "1800-180-1104",
-      "email": "jssk-mohfw@gov.in"
+      "website": "nhps.gov.in",
+      "helpline": "1800-11-4477",
+      "email": "info@nhps.gov.in"
     },
     "officialLinks": {
-      "mainWebsite": "https://nhm.gov.in/index1.php?lang=1&level=3&sublinkid=841&lid=309",
-      "operational_Framework": "https://nhm.gov.in/images/pdf/programmes/maternal-health/guidelines/guidelines_for_jssk.pdf"
+      "mainWebsite": "https://www.nhp.gov.in/",
+      "faq": "https://www.nhp.gov.in/faq"
     },
     "languages": {
       "hindi": {
-        "name": "जननी शिशु सुरक्षा कार्यक्रम (जेएसएसके)",
-        "shortDescription": "एक योजना जो सार्वजनिक स्वास्थ्य संस्थानों में प्रसव कराने वाली सभी गर्भवती महिलाओं को बिल्कुल मुफ्त और बिना किसी खर्च के सिजेरियन सेक्शन सहित प्रसव का अधिकार देती है, साथ ही बीमार शिशुओं के लिए मुफ्त परिवहन और देखभाल भी प्रदान करती है।"
+        "name": "राष्ट्रीय स्वास्थ्य सुरक्षा योजना",
+        "shortDescription": "व्यापक स्वास्थ्य बीमा योजना जो प्रति परिवार प्रति वर्ष ₹5 लाख तक का कवरेज प्रदान करती है।"
+      },
+      "tamil": {
+        "name": "தேசிய சுகாதார பாதுகாப்பு திட்டம்",
+        "shortDescription": "ஆண்டுக்கு ₹5 லட்சம் வரை விரிவான மருத்துவ காப்பீடு வழங்கும் திட்டம்."
+      },
+      "kannada": {
+        "name": "ರಾಷ್ಟ್ರೀಯ ಆರೋಗ್ಯ ರಕ್ಷಣೆ ಯೋಜನೆ",
+        "shortDescription": "ಕುಟುಂಬಕ್ಕೆ ವರ್ಷಕ್ಕೆ ₹5 ಲಕ್ಷದವರೆಗೆ ಸಮಗ್ರ ಆರೋಗ್ಯ ವಿಮೆ ಒದಗಿಸುವ ಯೋಜನೆ."
       }
     },
-    "imageUrl": "https://www.nhp.gov.in/NHPfiles/maternal_health.jpg",
-    "featured": false
-  },
-  {
-    "id": "nhm",
-    "name": "National Health Mission (NHM)",
-    "shortDescription": "An umbrella program focusing on universal access to health care through strengthening health systems, institutions, and capabilities of both rural and urban areas.",
-    "category": ["health-infrastructure", "government-scheme", "national-level", "rural-health", "urban-health"],
-    "coverage": "Pan-India coverage including both rural and urban areas",
-    "eligibility": [
-      "All citizens benefitting from improved public health infrastructure and services",
-      "Special focus on rural areas (NRHM) and urban areas (NUHM)",
-      "Emphasis on marginalized groups, women, and children"
-    ],
-    "benefits": [
-      "Improved access to quality health services",
-      "Strengthened health infrastructure including Sub-Centers, PHCs, and CHCs",
-      "Reduced out-of-pocket expenditure on healthcare",
-      "Comprehensive primary health care through Health and Wellness Centers",
-      "Disease control programs for TB, Malaria, Blindness, etc.",
-      "Maternal and child health initiatives",
-      "Free emergency response services (108 Ambulance)"
-    ],
-    "applicationProcess": [
-      "This is a systemic health improvement program, not an individual application-based scheme",
-      "Citizens benefit from improved healthcare services automatically",
-      "For specific services, visit the nearest public health facility",
-      "Connect with local ASHA workers for healthcare guidance in rural areas"
-    ],
-    "contactInformation": {
-      "website": "https://nhm.gov.in",
-      "helpline": "1800-180-1104",
-      "email": "nhm-mohfw@gov.in"
-    },
-    "officialLinks": {
-      "mainWebsite": "https://nhm.gov.in",
-      "faq": "https://nhm.gov.in/index1.php?lang=1&level=1&sublinkid=1211&lid=193"
-    },
-    "languages": {
-      "hindi": {
-        "name": "राष्ट्रीय स्वास्थ्य मिशन (एनएचएम)",
-        "shortDescription": "स्वास्थ्य प्रणालियों, संस्थानों और ग्रामीण और शहरी दोनों क्षेत्रों की क्षमताओं को मजबूत करके स्वास्थ्य देखभाल तक सार्वभौमिक पहुंच पर ध्यान केंद्रित करने वाला एक व्यापक कार्यक्रम।"
-      }
-    },
-    "imageUrl": "https://www.nhp.gov.in/NHPfiles/NHM.jpg",
+    "imageUrl": "https://www.nic.in/wp-content/uploads/2020/10/Ayushman-Bharat.jpg",
     "featured": true
   },
   {
-    "id": "npcdcs",
-    "name": "National Programme for Prevention and Control of Cancer, Diabetes, Cardiovascular Diseases & Stroke (NPCDCS)",
-    "shortDescription": "A program aimed at addressing the growing burden of non-communicable diseases (NCDs) by providing early diagnosis, management, and referral for chronic conditions.",
-    "category": ["disease-control", "government-scheme", "national-level", "chronic-disease"],
-    "coverage": "All citizens, especially those at risk of NCDs",
+    "id": "pmsby",
+    "name": "Pradhan Mantri Suraksha Bima Yojana (PMSBY)",
+    "shortDescription": "Accident insurance scheme offering coverage for accidental death and disability for a premium of just ₹12 per year.",
+    "category": ["Insurance", "National", "Accident Coverage"],
+    "coverage": "Coverage for accidental death and disability with a sum insured of ₹2 lakhs for accidental death",
     "eligibility": [
-      "All citizens can access NCD screening and treatment services",
-      "Focus on population above 30 years for screening",
-      "Special emphasis on high risk individuals with family history or risk factors"
+      "All Indian citizens between 18-70 years of age",
+      "Must have a bank account",
+      "Should be willing to enroll and authorize auto-debit"
     ],
     "benefits": [
-      "Free screening for diabetes, hypertension, and common cancers",
-      "Early diagnosis and management of NCDs",
-      "Subsidized treatment for cancer, diabetes, CVDs, and stroke",
-      "Lifestyle counseling and health promotion",
-      "NCD clinics at district and CHC levels",
-      "Tertiary care support for advanced cases",
-      "Palliative care for terminal stage patients"
+      "₹2 lakhs for accidental death",
+      "₹2 lakhs for total and irrecoverable loss of both eyes or loss of use of both hands or feet",
+      "₹1 lakh for total and irrecoverable loss of one eye or loss of use of one hand or foot",
+      "Annual premium of just ₹12"
     ],
     "applicationProcess": [
-      "Visit your nearest health facility (Sub-center, PHC, CHC) for NCD screening",
-      "Screening camps are also organized periodically in communities",
-      "If diagnosed, register at the NCD clinic for regular follow-up",
-      "Severe cases are referred to district hospitals or tertiary centers with support"
+      "Fill up the enrollment form at any bank branch or through online banking",
+      "Authorize auto-debit of premium from bank account",
+      "Receive confirmation of enrollment"
     ],
     "contactInformation": {
-      "website": "https://main.mohfw.gov.in/Major-Programmes/non-communicable-diseases-injury-trauma/Non-Communicable-Disease-II/National-Programme-for-Prevention-and-Control-of-Cancer-Diabetes-Cardiovascular-diseases-and-Stroke-NPCDCS",
-      "helpline": "1800-180-1104",
-      "email": "npcdcs-mohfw@gov.in"
+      "website": "jansuraksha.gov.in",
+      "helpline": "1800-110-001",
+      "email": "pmsby-help@gov.in"
     },
     "officialLinks": {
-      "mainWebsite": "https://main.mohfw.gov.in/Major-Programmes/non-communicable-diseases-injury-trauma/Non-Communicable-Disease-II/National-Programme-for-Prevention-and-Control-of-Cancer-Diabetes-Cardiovascular-diseases-and-Stroke-NPCDCS",
-      "operational_Framework": "https://main.mohfw.gov.in/sites/default/files/Operational%20Guidelines%20of%20NPCDCS%20%28Revised%20-%202013-17%29_1.pdf"
+      "mainWebsite": "https://www.jansuraksha.gov.in/",
+      "operational_Framework": "https://www.jansuraksha.gov.in/Files/PMSBY/English/Operational%20Framework%20PMSBY%20English.pdf"
     },
     "languages": {
       "hindi": {
-        "name": "कैंसर, मधुमेह, हृदय रोग और स्ट्रोक की रोकथाम और नियंत्रण के लिए राष्ट्रीय कार्यक्रम (एनपीसीडीसीएस)",
-        "shortDescription": "पुरानी स्थितियों के लिए प्रारंभिक निदान, प्रबंधन और रेफरल प्रदान करके गैर-संचारी रोगों (एनसीडी) के बढ़ते बोझ को संबोधित करने के उद्देश्य से एक कार्यक्रम।"
+        "name": "प्रधानमंत्री सुरक्षा बीमा योजना",
+        "shortDescription": "केवल ₹12 प्रति वर्ष के प्रीमियम पर दुर्घटना मृत्यु और विकलांगता के लिए कवरेज प्रदान करने वाली दुर्घटना बीमा योजना।"
+      },
+      "gujarati": {
+        "name": "પ્રધાનમંત્રી સુરક્ષા બીમા યોજના",
+        "shortDescription": "માત્ર ₹12 વાર્ષિક પ્રીમિયમ પર અકસ્માત મૃત્યુ અને વિકલાંગતા માટે કવરેજ આપતી યોજના."
       }
     },
-    "imageUrl": "https://www.nhp.gov.in/NHPfiles/NCD_clinic.jpg",
+    "imageUrl": "https://www.jansuraksha.gov.in/images/PMSBY.jpg",
     "featured": false
+  },
+  {
+    "id": "ayushman",
+    "name": "Ayushman Bharat Health and Wellness Centres",
+    "shortDescription": "Comprehensive primary healthcare centers providing free essential drugs, diagnostic services, and universal health coverage with focus on wellness.",
+    "category": ["Primary Care", "National", "Wellness"],
+    "coverage": "Comprehensive primary healthcare including maternal and child health services, non-communicable diseases, and basic ENT care",
+    "eligibility": [
+      "All citizens can access services at Health and Wellness Centres",
+      "Special focus on rural and underprivileged areas"
+    ],
+    "benefits": [
+      "Free essential drugs and diagnostic services",
+      "Maternal and child health services",
+      "Screening and management of non-communicable diseases",
+      "Basic ENT care, oral health, and geriatric care",
+      "Mental health services",
+      "First aid and emergency care"
+    ],
+    "applicationProcess": [
+      "No formal application required",
+      "Visit the nearest Health and Wellness Centre",
+      "Register with basic ID proof for follow-up services"
+    ],
+    "contactInformation": {
+      "website": "ab-hwc.nhp.gov.in",
+      "helpline": "1800-111-565",
+      "email": "hwc-support@gov.in"
+    },
+    "officialLinks": {
+      "mainWebsite": "https://ab-hwc.nhp.gov.in/",
+      "operationalGuidelines": "https://ab-hwc.nhp.gov.in/document/operational_guidelines_for_comprehensive_primary_health_care_through_hwc.pdf"
+    },
+    "languages": {
+      "hindi": {
+        "name": "आयुष्मान भारत स्वास्थ्य और कल्याण केंद्र",
+        "shortDescription": "व्यापक प्राथमिक स्वास्थ्य देखभाल केंद्र जो मुफ्त आवश्यक दवाएं, नैदानिक सेवाएं और सार्वभौमिक स्वास्थ्य कवरेज प्रदान करते हैं।"
+      },
+      "kannada": {
+        "name": "ಆಯುಷ್ಮಾನ್ ಭಾರತ್ ಆರೋಗ್ಯ ಮತ್ತು ಯೋಗಕ್ಷೇಮ ಕೇಂದ್ರಗಳು",
+        "shortDescription": "ಉಚಿತ ಔಷಧಿಗಳು, ರೋಗನಿರ್ಣಯ ಸೇವೆಗಳು ಮತ್ತು ಸಾರ್ವತ್ರಿಕ ಆರೋಗ್ಯ ರಕ್ಷಣೆಯನ್ನು ಒದಗಿಸುವ ಸಮಗ್ರ ಪ್ರಾಥಮಿಕ ಆರೋಗ್ಯ ಕೇಂದ್ರಗಳು."
+      }
+    },
+    "imageUrl": "https://nhm.gov.in/New_Updates_2018/Brochure_on_HWC.jpg",
+    "featured": true
   }
 ]
