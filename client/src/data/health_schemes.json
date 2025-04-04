@@ -1,0 +1,505 @@
+[
+  {
+    "id": "pmjay",
+    "name": "Pradhan Mantri Jan Arogya Yojana (PM-JAY)",
+    "shortDescription": "The world's largest health insurance scheme providing coverage of ₹5 lakh per family per year for secondary and tertiary care hospitalization.",
+    "category": ["national", "low-income", "all-ages"],
+    "coverage": "₹5 lakh per family per year",
+    "eligibility": [
+      "Families identified based on deprivation and occupational criteria from SECC 2011 database",
+      "All families included in the RSBY database that do not feature in the SECC database",
+      "No restriction on family size, age or gender"
+    ],
+    "benefits": [
+      "Cashless and paperless access to quality healthcare services",
+      "Coverage for 3 days pre-hospitalization and 15 days post-hospitalization expenses",
+      "No restrictions on family size, age or pre-existing conditions",
+      "All pre-existing diseases covered from day one",
+      "Coverage for 1,393 procedures including medical treatments, surgeries and day care procedures"
+    ],
+    "applicationProcess": [
+      "Check eligibility through PMJAY website (mera.pmjay.gov.in) or helpline (14555)",
+      "Visit nearest Ayushman Bharat empanelled hospital with valid ID proof",
+      "Verification through biometric authentication",
+      "Generate e-card at empanelled hospitals or Common Service Centres"
+    ],
+    "contactInformation": {
+      "website": "https://pmjay.gov.in",
+      "helpline": "1800-111-565",
+      "email": "info@pmjay.gov.in"
+    },
+    "officialLinks": {
+      "mainWebsite": "https://pmjay.gov.in",
+      "eligibilityCheck": "https://mera.pmjay.gov.in",
+      "hospitalList": "https://hospitals.pmjay.gov.in"
+    },
+    "languages": {
+      "english": {
+        "name": "Pradhan Mantri Jan Arogya Yojana (PM-JAY)",
+        "shortDescription": "The world's largest health insurance scheme providing coverage of ₹5 lakh per family per year for secondary and tertiary care hospitalization."
+      },
+      "hindi": {
+        "name": "प्रधानमंत्री जन आरोग्य योजना (पीएम-जेएवाई)",
+        "shortDescription": "विश्व की सबसे बड़ी स्वास्थ्य बीमा योजना जो माध्यमिक और तृतीयक अस्पताल में भर्ती के लिए प्रति परिवार प्रति वर्ष 5 लाख रुपये का कवरेज प्रदान करती है।"
+      }
+    },
+    "imageUrl": "https://www.nhp.gov.in/NHPfiles/pmjay.png",
+    "featured": true
+  },
+  {
+    "id": "ayushman-bharat",
+    "name": "Ayushman Bharat Health and Wellness Centres",
+    "shortDescription": "Comprehensive primary healthcare through Health and Wellness Centers delivering an expanded range of services closer to communities.",
+    "category": ["national", "all-income", "all-ages", "primary-care"],
+    "coverage": "Comprehensive primary healthcare services",
+    "eligibility": [
+      "All citizens, regardless of income or social status",
+      "Focus on underserved and remote areas"
+    ],
+    "benefits": [
+      "Free essential drugs and diagnostic services",
+      "Maternal and child health services",
+      "Non-communicable disease management",
+      "Basic oral, ophthalmic, ENT care",
+      "Mental health services",
+      "First aid and emergency services",
+      "Yoga sessions and wellness activities"
+    ],
+    "applicationProcess": [
+      "No formal application required",
+      "Visit nearest Health and Wellness Centre with any identity document",
+      "Register for ABHA (Ayushman Bharat Health Account) for digital health records"
+    ],
+    "contactInformation": {
+      "website": "https://ab-hwc.nhp.gov.in",
+      "helpline": "1800-111-565",
+      "email": "abhwc@gov.in"
+    },
+    "officialLinks": {
+      "mainWebsite": "https://ab-hwc.nhp.gov.in",
+      "locator": "https://ndhm.gov.in/find-hwc"
+    },
+    "languages": {
+      "english": {
+        "name": "Ayushman Bharat Health and Wellness Centres",
+        "shortDescription": "Comprehensive primary healthcare through Health and Wellness Centers delivering an expanded range of services closer to communities."
+      },
+      "hindi": {
+        "name": "आयुष्मान भारत स्वास्थ्य और कल्याण केंद्र",
+        "shortDescription": "स्वास्थ्य और कल्याण केंद्रों के माध्यम से व्यापक प्राथमिक स्वास्थ्य देखभाल जो समुदायों के करीब सेवाओं की विस्तारित श्रृंखला प्रदान करती है।"
+      }
+    },
+    "imageUrl": "https://www.nhp.gov.in/NHPfiles/health_wellness.jpg",
+    "featured": true
+  },
+  {
+    "id": "jssk",
+    "name": "Janani Shishu Suraksha Karyakram (JSSK)",
+    "shortDescription": "Entitles all pregnant women delivering in public health institutions to absolutely free delivery including cesarean section and free transport.",
+    "category": ["national", "women", "children", "maternal"],
+    "coverage": "Free delivery and post-natal care services",
+    "eligibility": [
+      "All pregnant women delivering in public health facilities",
+      "All sick newborns accessing public health institutions for treatment up to 30 days after birth",
+      "No income criteria"
+    ],
+    "benefits": [
+      "Free delivery including cesarean section",
+      "Free drugs and consumables",
+      "Free diagnostics and blood transfusion if needed",
+      "Free diet during stay in the health institutions",
+      "Free transport from home to health institution, between facilities, and back home",
+      "Exemption from all user charges"
+    ],
+    "applicationProcess": [
+      "No formal application process",
+      "Visit nearest government health facility during pregnancy",
+      "Register for Antenatal Check-ups",
+      "All benefits provided at the time of delivery and post-delivery care"
+    ],
+    "contactInformation": {
+      "website": "https://nhm.gov.in/index1.php?lang=1&level=3&sublinkid=842&lid=308",
+      "helpline": "102 (Ambulance)",
+      "email": "jssk-mohfw@gov.in"
+    },
+    "officialLinks": {
+      "mainWebsite": "https://nhm.gov.in/index1.php?lang=1&level=3&sublinkid=842&lid=308",
+      "guidelines": "https://nhm.gov.in/images/pdf/programmes/maternal-health/guidelines/guidelines_for_jssk.pdf"
+    },
+    "languages": {
+      "english": {
+        "name": "Janani Shishu Suraksha Karyakram (JSSK)",
+        "shortDescription": "Entitles all pregnant women delivering in public health institutions to absolutely free delivery including cesarean section and free transport."
+      },
+      "hindi": {
+        "name": "जननी शिशु सुरक्षा कार्यक्रम (जेएसएसके)",
+        "shortDescription": "सार्वजनिक स्वास्थ्य संस्थानों में प्रसव कराने वाली सभी गर्भवती महिलाओं को सिजेरियन सेक्शन और मुफ्त परिवहन सहित पूरी तरह से मुफ्त प्रसव का अधिकार देता है।"
+      }
+    },
+    "imageUrl": "https://nhm.gov.in/New_Updates_2018/NHM_Components/RMNCH_MH_Guidelines/Schemes/JSSK-2.jpg",
+    "featured": false
+  },
+  {
+    "id": "pmsby",
+    "name": "Pradhan Mantri Suraksha Bima Yojana (PMSBY)",
+    "shortDescription": "Accident insurance scheme offering coverage for accidental death and disability for just ₹20 per year.",
+    "category": ["national", "all-income", "adults"],
+    "coverage": "₹2 lakh for accidental death and full disability; ₹1 lakh for partial disability",
+    "eligibility": [
+      "All Indian citizens aged 18-70 years with a bank account",
+      "Must opt for auto-debit facility"
+    ],
+    "benefits": [
+      "Coverage for accidental death and disability",
+      "Low premium of just ₹20 per annum",
+      "Auto-renewal option available",
+      "Simple claims process"
+    ],
+    "applicationProcess": [
+      "Visit any bank branch or post office",
+      "Fill up the enrollment form",
+      "Submit with annual premium of ₹20",
+      "Link bank account for auto-debit facility"
+    ],
+    "contactInformation": {
+      "website": "https://www.jansuraksha.gov.in/",
+      "helpline": "1800-110-001",
+      "email": "pmsby-scheme@gov.in"
+    },
+    "officialLinks": {
+      "mainWebsite": "https://www.jansuraksha.gov.in/",
+      "faq": "https://www.jansuraksha.gov.in/Files/PMSBY/English/FAQ_PMSBY_English.pdf"
+    },
+    "languages": {
+      "english": {
+        "name": "Pradhan Mantri Suraksha Bima Yojana (PMSBY)",
+        "shortDescription": "Accident insurance scheme offering coverage for accidental death and disability for just ₹20 per year."
+      },
+      "hindi": {
+        "name": "प्रधानमंत्री सुरक्षा बीमा योजना (पीएमएसबीवाई)",
+        "shortDescription": "महज ₹20 प्रति वर्ष में दुर्घटना मृत्यु और विकलांगता के लिए कवरेज प्रदान करने वाली दुर्घटना बीमा योजना।"
+      }
+    },
+    "imageUrl": "https://www.jansuraksha.gov.in/images/PMSBY%20Front%20Page%20Pic.jpg",
+    "featured": false
+  },
+  {
+    "id": "pmjjby",
+    "name": "Pradhan Mantri Jeevan Jyoti Bima Yojana (PMJJBY)",
+    "shortDescription": "Life insurance scheme offering a renewable one-year term life cover of ₹2 lakh to all subscribing bank account holders for a premium of ₹330 per annum.",
+    "category": ["national", "all-income", "adults"],
+    "coverage": "₹2 lakh in case of death due to any reason",
+    "eligibility": [
+      "All Indian citizens aged 18-50 years with a bank account",
+      "Must opt for auto-debit facility"
+    ],
+    "benefits": [
+      "Life coverage of ₹2 lakh in case of death due to any reason",
+      "Low premium of ₹330 per annum",
+      "Auto-renewal option available",
+      "Simple documentation for claims"
+    ],
+    "applicationProcess": [
+      "Visit any bank branch or post office",
+      "Fill up the enrollment form",
+      "Submit with annual premium of ₹330",
+      "Link bank account for auto-debit facility"
+    ],
+    "contactInformation": {
+      "website": "https://www.jansuraksha.gov.in/",
+      "helpline": "1800-110-001",
+      "email": "pmjjby-scheme@gov.in"
+    },
+    "officialLinks": {
+      "mainWebsite": "https://www.jansuraksha.gov.in/",
+      "faq": "https://www.jansuraksha.gov.in/Files/PMJJBY/English/FAQ_PMJJBY_English.pdf"
+    },
+    "languages": {
+      "english": {
+        "name": "Pradhan Mantri Jeevan Jyoti Bima Yojana (PMJJBY)",
+        "shortDescription": "Life insurance scheme offering a renewable one-year term life cover of ₹2 lakh to all subscribing bank account holders for a premium of ₹330 per annum."
+      },
+      "hindi": {
+        "name": "प्रधानमंत्री जीवन ज्योति बीमा योजना (पीएमजेजेबीवाई)",
+        "shortDescription": "जीवन बीमा योजना जो ₹330 प्रति वर्ष के प्रीमियम के लिए सभी ग्राहक बैंक खाताधारकों को ₹2 लाख का नवीकरणीय एक वर्ष का जीवन कवर प्रदान करती है।"
+      }
+    },
+    "imageUrl": "https://www.jansuraksha.gov.in/images/PMJJBY%20Front%20Page%20Pic.jpg",
+    "featured": false
+  },
+  {
+    "id": "rbsk",
+    "name": "Rashtriya Bal Swasthya Karyakram (RBSK)",
+    "shortDescription": "Child health screening and early intervention services for children from birth to 18 years covering 4Ds - Defects, Diseases, Deficiencies and Developmental delays.",
+    "category": ["national", "children", "all-income"],
+    "coverage": "Comprehensive healthcare for children from birth to 18 years",
+    "eligibility": [
+      "All children from birth to 18 years",
+      "Focus on early detection and intervention for childhood diseases",
+      "No income criteria"
+    ],
+    "benefits": [
+      "Screening for 30+ health conditions organized under 4Ds: Defects at birth, Diseases, Deficiencies, and Developmental delays including disabilities",
+      "Free treatment including surgery for health conditions covered under the program",
+      "Follow-up treatment and management",
+      "Referral support and treatment at tertiary level"
+    ],
+    "applicationProcess": [
+      "No formal application process",
+      "Screening conducted at birth sites, anganwadis, and government schools",
+      "Mobile health teams visit communities for screening",
+      "Treatment provided through District Early Intervention Centers"
+    ],
+    "contactInformation": {
+      "website": "https://nhm.gov.in/index1.php?lang=1&level=4&sublinkid=1190&lid=583",
+      "helpline": "1800-180-1104",
+      "email": "rbsk-mohfw@gov.in"
+    },
+    "officialLinks": {
+      "mainWebsite": "https://nhm.gov.in/index1.php?lang=1&level=4&sublinkid=1190&lid=583",
+      "operationalGuidelines": "https://nhm.gov.in/images/pdf/programmes/RBSK/Operational_Guidelines/Operational%20Guidelines_RBSK.pdf"
+    },
+    "languages": {
+      "english": {
+        "name": "Rashtriya Bal Swasthya Karyakram (RBSK)",
+        "shortDescription": "Child health screening and early intervention services for children from birth to 18 years covering 4Ds - Defects, Diseases, Deficiencies and Developmental delays."
+      },
+      "hindi": {
+        "name": "राष्ट्रीय बाल स्वास्थ्य कार्यक्रम (आरबीएसके)",
+        "shortDescription": "जन्म से 18 वर्ष तक के बच्चों के लिए बाल स्वास्थ्य जांच और प्रारंभिक हस्तक्षेप सेवाएं जो 4डी - दोष, बीमारियां, कमियां और विकासात्मक देरी को कवर करती हैं।"
+      }
+    },
+    "imageUrl": "https://nhm.gov.in/New_Updates_2018/NHM_Components/RBSK/images/RBSK_banner.jpg",
+    "featured": false
+  },
+  {
+    "id": "npcdcs",
+    "name": "National Programme for Prevention and Control of Cancer, Diabetes, Cardiovascular Diseases and Stroke (NPCDCS)",
+    "shortDescription": "Prevents and controls major NCDs through health promotion, early diagnosis, management and referral to higher healthcare facilities.",
+    "category": ["national", "all-ages", "all-income", "ncd"],
+    "coverage": "Prevention, screening and management services for non-communicable diseases",
+    "eligibility": [
+      "All citizens, particularly those above 30 years of age",
+      "Special focus on early screening and prevention",
+      "No income criteria"
+    ],
+    "benefits": [
+      "Free screening for common NCDs including diabetes, hypertension and common cancers",
+      "Timely diagnosis and referral to higher facilities for specialized treatment",
+      "Health promotion activities for behavior change",
+      "Access to NCD Clinics at Community Health Centers and District Hospitals",
+      "Home-based care for elderly and disabled",
+      "Palliative care services"
+    ],
+    "applicationProcess": [
+      "No formal application required",
+      "Visit nearest health facility (Sub-center, Primary Health Center, or NCD clinic)",
+      "Undergo screening for hypertension, diabetes, oral cancer, breast cancer and cervical cancer"
+    ],
+    "contactInformation": {
+      "website": "https://dghs.gov.in/content/1363_3_NationalProgrammePreventionControl.aspx",
+      "helpline": "1800-180-1104",
+      "email": "npcdcs-mohfw@gov.in"
+    },
+    "officialLinks": {
+      "mainWebsite": "https://dghs.gov.in/content/1363_3_NationalProgrammePreventionControl.aspx",
+      "operationalGuidelines": "https://main.mohfw.gov.in/sites/default/files/Operational%20Guidelines%20of%20NPCDCS%20%28Revised%20-%202013-17%29_1.pdf"
+    },
+    "languages": {
+      "english": {
+        "name": "National Programme for Prevention and Control of Cancer, Diabetes, Cardiovascular Diseases and Stroke (NPCDCS)",
+        "shortDescription": "Prevents and controls major NCDs through health promotion, early diagnosis, management and referral to higher healthcare facilities."
+      },
+      "hindi": {
+        "name": "कैंसर, मधुमेह, हृदय रोग और स्ट्रोक की रोकथाम और नियंत्रण के लिए राष्ट्रीय कार्यक्रम (एनपीसीडीसीएस)",
+        "shortDescription": "स्वास्थ्य संवर्धन, प्रारंभिक निदान, प्रबंधन और उच्च स्वास्थ्य सुविधाओं के लिए रेफरल के माध्यम से प्रमुख एनसीडी को रोकता है और नियंत्रित करता है।"
+      }
+    },
+    "imageUrl": "https://dghs.gov.in/WriteReadData/userfiles/file/NPCDCS_Poster_April2023_finalS.jpg",
+    "featured": false
+  },
+  {
+    "id": "nmhp",
+    "name": "National Mental Health Programme (NMHP)",
+    "shortDescription": "Aims to ensure the availability and accessibility of minimum mental healthcare for all, particularly the vulnerable and underprivileged sections of the population.",
+    "category": ["national", "all-ages", "all-income", "mental-health"],
+    "coverage": "Prevention, treatment and rehabilitation services for mental disorders",
+    "eligibility": [
+      "All citizens requiring mental health services",
+      "Special focus on vulnerable and underprivileged population",
+      "No income criteria"
+    ],
+    "benefits": [
+      "Free treatment for mental health disorders at government facilities",
+      "Integration of mental health with primary healthcare",
+      "Early detection and treatment of mental disorders",
+      "Rehabilitation services for persons with mental illness",
+      "Promotion of positive mental health through IEC activities",
+      "Free essential psychiatric drugs"
+    ],
+    "applicationProcess": [
+      "No formal application required",
+      "Visit nearest health facility or District Mental Health Programme center",
+      "Mental health services provided at various levels from primary to tertiary care"
+    ],
+    "contactInformation": {
+      "website": "https://dghs.gov.in/content/1350_3_NationalMentalHealthProgramme.aspx",
+      "helpline": "1800-599-0019 (Kiran - Mental Health Rehabilitation Helpline)",
+      "email": "nmhp-mohfw@gov.in"
+    },
+    "officialLinks": {
+      "mainWebsite": "https://dghs.gov.in/content/1350_3_NationalMentalHealthProgramme.aspx",
+      "operational_Framework": "https://nhm.gov.in/images/pdf/programmes/NMHP/Operational_Guidelines_for_NMHP.pdf"
+    },
+    "languages": {
+      "english": {
+        "name": "National Mental Health Programme (NMHP)",
+        "shortDescription": "Aims to ensure the availability and accessibility of minimum mental healthcare for all, particularly the vulnerable and underprivileged sections of the population."
+      },
+      "hindi": {
+        "name": "राष्ट्रीय मानसिक स्वास्थ्य कार्यक्रम (एनएमएचपी)",
+        "shortDescription": "सभी के लिए, विशेष रूप से जनसंख्या के कमजोर और वंचित वर्गों के लिए न्यूनतम मानसिक स्वास्थ्य देखभाल की उपलब्धता और पहुंच सुनिश्चित करने का लक्ष्य रखता है।"
+      }
+    },
+    "imageUrl": "https://dghs.gov.in/WriteReadData/userfiles/file/Mental%20Health%20english%20Poster%20(1).jpg",
+    "featured": false
+  },
+  {
+    "id": "rsby",
+    "name": "Rashtriya Swasthya Bima Yojana (RSBY)",
+    "shortDescription": "Health insurance scheme for BPL families providing cashless insurance for hospitalization in public and private hospitals.",
+    "category": ["national", "low-income", "all-ages"],
+    "coverage": "₹30,000 per family per annum for hospitalization expenses",
+    "eligibility": [
+      "Below Poverty Line (BPL) families as per state BPL list",
+      "Unorganized sector workers: building and construction workers, street vendors, beedi workers, domestic workers, etc.",
+      "MGNREGA workers who have worked for more than 15 days during the preceding financial year"
+    ],
+    "benefits": [
+      "Cashless insurance for hospitalization",
+      "Coverage up to ₹30,000 per family per annum",
+      "Transportation allowance of ₹100 per hospitalization with maximum of ₹1,000 per year",
+      "Coverage for most diseases requiring hospitalization",
+      "Pre-existing conditions covered from day one",
+      "Access to both public and private hospitals"
+    ],
+    "applicationProcess": [
+      "Check name in the BPL list at local government offices",
+      "Attend enrollment station during enrollment drive with required documents",
+      "Pay ₹30 as registration fee and receive smart card",
+      "Renewal is required annually"
+    ],
+    "contactInformation": {
+      "website": "https://www.rsby.gov.in/",
+      "helpline": "1800-180-1104",
+      "email": "rsby-mohfw@gov.in"
+    },
+    "officialLinks": {
+      "mainWebsite": "https://www.rsby.gov.in/",
+      "guidelines": "https://www.rsby.gov.in/docs/RSBY%20Guidelines%202016.pdf"
+    },
+    "languages": {
+      "english": {
+        "name": "Rashtriya Swasthya Bima Yojana (RSBY)",
+        "shortDescription": "Health insurance scheme for BPL families providing cashless insurance for hospitalization in public and private hospitals."
+      },
+      "hindi": {
+        "name": "राष्ट्रीय स्वास्थ्य बीमा योजना (आरएसबीवाई)",
+        "shortDescription": "बीपीएल परिवारों के लिए स्वास्थ्य बीमा योजना जो सार्वजनिक और निजी अस्पतालों में अस्पताल में भर्ती के लिए कैशलेस बीमा प्रदान करती है।"
+      }
+    },
+    "imageUrl": "https://www.rsby.gov.in/Images/1-RSBY_banner.jpg",
+    "featured": false
+  },
+  {
+    "id": "nikshay-poshan-yojana",
+    "name": "Nikshay Poshan Yojana (NPY)",
+    "shortDescription": "Provides nutritional support to TB patients through Direct Benefit Transfer (DBT) of ₹500 per month for the duration of TB treatment.",
+    "category": ["national", "tb-patients", "all-income"],
+    "coverage": "₹500 per month nutritional support during TB treatment",
+    "eligibility": [
+      "All TB patients notified on or after 1st April 2018",
+      "Both public and privately treated patients",
+      "Patient must be notified in the Nikshay portal",
+      "Must have bank account and Aadhaar card (with exceptions for certain states)"
+    ],
+    "benefits": [
+      "Direct Benefit Transfer of ₹500 per month for nutritional support",
+      "Incentive continues throughout the treatment duration (6-8 months for drug-sensitive TB, 24 months for drug-resistant TB)",
+      "Payment made directly to patient's bank account",
+      "Additional support under TB Harega Desh Jeetega campaign"
+    ],
+    "applicationProcess": [
+      "Get diagnosed and notified as TB patient by healthcare provider",
+      "Healthcare provider or TB Health Visitor will register patient in Nikshay portal",
+      "Provide bank account details and Aadhaar number to the healthcare provider",
+      "Benefits transferred directly to bank account"
+    ],
+    "contactInformation": {
+      "website": "https://nikshay.in/",
+      "helpline": "1800-11-6666",
+      "email": "nikshay@ntep.gov.in"
+    },
+    "officialLinks": {
+      "mainWebsite": "https://tbcindia.gov.in/",
+      "guidelines": "https://tbcindia.gov.in/WriteReadData/Nikshay%20Poshan%20Yojana%20Guidance%20document.pdf"
+    },
+    "languages": {
+      "english": {
+        "name": "Nikshay Poshan Yojana (NPY)",
+        "shortDescription": "Provides nutritional support to TB patients through Direct Benefit Transfer (DBT) of ₹500 per month for the duration of TB treatment."
+      },
+      "hindi": {
+        "name": "निक्षय पोषण योजना (एनपीवाई)",
+        "shortDescription": "टीबी उपचार की अवधि के लिए प्रति माह ₹500 के प्रत्यक्ष लाभ अंतरण (डीबीटी) के माध्यम से टीबी रोगियों को पोषण संबंधी सहायता प्रदान करता है।"
+      }
+    },
+    "imageUrl": "https://tbcindia.gov.in/thefiles/npy.jpg",
+    "featured": false
+  },
+  {
+    "id": "nvbdcp",
+    "name": "National Vector Borne Disease Control Programme (NVBDCP)",
+    "shortDescription": "Prevents and controls vector-borne diseases such as Malaria, Dengue, Chikungunya, Japanese Encephalitis, Kala-azar and Lymphatic Filariasis.",
+    "category": ["national", "all-ages", "all-income", "disease-control"],
+    "coverage": "Prevention, diagnosis and treatment of vector-borne diseases",
+    "eligibility": [
+      "All citizens at risk of vector-borne diseases",
+      "Special focus on high endemic areas",
+      "No income criteria"
+    ],
+    "benefits": [
+      "Free diagnosis and treatment for vector-borne diseases at public health facilities",
+      "Vector control measures such as indoor residual spraying, distribution of insecticide-treated bed nets",
+      "Early detection and prompt treatment of cases",
+      "Mass drug administration for prevention of lymphatic filariasis",
+      "Awareness campaigns for prevention of vector-borne diseases"
+    ],
+    "applicationProcess": [
+      "No formal application required",
+      "Visit nearest health facility for diagnosis and treatment",
+      "Participate in community level prevention activities"
+    ],
+    "contactInformation": {
+      "website": "https://nvbdcp.gov.in/",
+      "helpline": "1800-180-1104",
+      "email": "nvbdcp-mohfw@gov.in"
+    },
+    "officialLinks": {
+      "mainWebsite": "https://nvbdcp.gov.in/",
+      "guidelines": "https://nvbdcp.gov.in/Doc/Programme-Guidelines-NVBDCP-2022.pdf"
+    },
+    "languages": {
+      "english": {
+        "name": "National Vector Borne Disease Control Programme (NVBDCP)",
+        "shortDescription": "Prevents and controls vector-borne diseases such as Malaria, Dengue, Chikungunya, Japanese Encephalitis, Kala-azar and Lymphatic Filariasis."
+      },
+      "hindi": {
+        "name": "राष्ट्रीय वेक्टर जनित रोग नियंत्रण कार्यक्रम (एनवीबीडीसीपी)",
+        "shortDescription": "मलेरिया, डेंगू, चिकनगुनिया, जापानी इंसेफेलाइटिस, काला-अजार और लिम्फैटिक फाइलेरिएसिस जैसे वेक्टर जनित रोगों को रोकता और नियंत्रित करता है।"
+      }
+    },
+    "imageUrl": "https://nvbdcp.gov.in/WriteReadData/l892s/logo.jpg",
+    "featured": false
+  }
+]

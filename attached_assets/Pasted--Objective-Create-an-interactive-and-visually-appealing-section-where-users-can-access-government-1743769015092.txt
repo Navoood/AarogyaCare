@@ -1,0 +1,61 @@
+🔹 Objective:
+Create an interactive and visually appealing section where users can access government health schemes.
+💡 MUST LOOK & FUNCTION LIKE AI, BUT WITHOUT USING API KEYS!
+
+🛠 How It Should Work:
+✅ Display detailed information on government health schemes (source: WHO & official sources).
+✅ Include high-quality images for each scheme.
+✅ Use ShadCN components for a sleek, colorful, and interactive UI.
+✅ Ensure perfect routing – no broken pages or missing content.
+✅ Store scheme details in a database (JSON format) instead of using an API.
+
+🔹 Key Implementation Details:
+1️⃣ Create a Structured Database for Health Schemes
+Store health_schemes.json in the database.
+
+Include details like scheme name, eligibility, benefits, application process, and official links.
+
+Preload at least 10+ schemes covering different demographics (low-income families, seniors, rural areas, etc.).
+
+Add an image URL for each scheme (fetch from WHO or government portals).
+
+2️⃣ Build an Interactive UI with ShadCN Components
+Create a Government Health Schemes Page (/health-schemes).
+
+Use ShadCN cards for each scheme, displaying title, image, and a short description.
+
+Clicking a card should expand to show full details with a Read More option.
+
+Add search & filter options (e.g., schemes for women, elderly, children).
+
+Ensure smooth animations & colorful visuals for engagement.
+
+3️⃣ Implement Dynamic Content Loading (Without API Keys)
+Fetch data from the JSON database instead of an external API.
+
+Display random featured schemes on the homepage for dynamic engagement.
+
+Use pagination or infinite scroll to load more schemes interactively.
+
+4️⃣ Enhance User Experience with Interactive Features
+✅ Bookmark feature – Allow users to save schemes for later reference.
+✅ Comparison mode – Enable users to compare different schemes side by side.
+✅ Multilingual support – Display scheme information in multiple languages based on user selection.
+✅ Dark/Light Mode Toggle – Ensure seamless theme switching with ShadCN.
+
+5️⃣ Ensure Smooth Navigation & Perfect Routing
+✅ Clicking on Government Health Schemes in the homepage must open the correct page.
+✅ Users should be able to return to the homepage without losing progress.
+✅ Ensure no 404 errors & proper redirection to /health-schemes.
+
+🔥 Final Instructions:
+
+Ensure the Government Health Schemes feature is fully functional & AI-like.
+
+Use only database-driven logic, NO API KEYS.
+
+Make it visually stunning with images, colors, and smooth animations.
+
+Ensure routing is flawless & all articles load perfectly!
+
+🚀 MAKE IT WORK PERFECTLY LIKE AI – WITHOUT AI! 🚀

@@ -5,8 +5,10 @@ type Language = "english" | "hindi" | "tamil" | "telugu" | "bengali" | "marathi"
 
 interface LanguageContextType {
   currentLanguage: Language;
+  language: Language; // For compatibility with health schemes components
   translations: Record<string, string>;
   changeLanguage: (language: Language) => void;
+  setLanguage: (language: Language) => void; // For compatibility with health schemes components
   t: (key: string) => string;
   availableLanguages: Language[];
 }
@@ -152,8 +154,10 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     <LanguageContext.Provider
       value={{
         currentLanguage,
+        language: currentLanguage, // For compatibility with health schemes components
         translations,
         changeLanguage,
+        setLanguage: changeLanguage, // For compatibility with health schemes components
         t,
         availableLanguages,
       }}

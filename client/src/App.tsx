@@ -7,6 +7,7 @@ import SymptomCheckerPage from "./pages/SymptomCheckerPage";
 import DoctorsPage from "./pages/DoctorsPage";
 import DoctorProfilePage from "./pages/DoctorProfilePage";
 import DietPlansPage from "./pages/DietPlansPage";
+import HealthSchemesPage from "./pages/HealthSchemesPage";
 import Layout from "./components/layout/Layout";
 import { AuthProvider } from "./context/AuthContext";
 import { LanguageProvider } from "./context/LanguageContext";
@@ -51,9 +52,7 @@ function Router() {
       <Route path="/emergency">
         {() => <PlaceholderPage title="Emergency SOS Alerts" />}
       </Route>
-      <Route path="/health-schemes">
-        {() => <PlaceholderPage title="Government Health Schemes" />}
-      </Route>
+      <Route path="/health-schemes" component={HealthSchemesPage} />
       <Route path="/language">
         {() => <PlaceholderPage title="Language Settings" />}
       </Route>
