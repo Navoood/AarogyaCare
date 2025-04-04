@@ -1,16 +1,290 @@
-import express, { type Express, Request, Response } from "express";
+import express, { type Express, Request, Response, NextFunction } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import session from "express-session";
 import MemoryStore from "memorystore";
 import { WebSocketServer, WebSocket } from "ws";
-import { insertUserSchema, insertForumPostSchema, insertForumReplySchema, insertChatMessageSchema } from "@shared/schema";
+import { insertUserSchema, insertForumPostSchema, insertForumReplySchema, insertChatMessageSchema, userRoles } from "@shared/schema";
 import { z } from "zod";
 
 const MemoryStoreSession = MemoryStore(session);
 
 // WebSocket connections by userId
 const userConnections = new Map<number, WebSocket>();
+
+// Sample doctor data for seeding
+const sampleDoctors = [
+  {
+    user: {
+      username: "dr_singh",
+      password: "password123",
+      email: "dr.singh@aarogya.com",
+      fullName: "Dr. Arun Singh",
+      role: userRoles.DOCTOR,
+      phone: "9876543001",
+      address: "123 Medical Plaza, Delhi",
+      language: "hindi"
+    },
+    profile: {
+      specialization: "Cardiologist",
+      experience: 15,
+      hospital: "AIIMS Delhi",
+      qualification: "MD (Cardiology), MBBS",
+      location: "Delhi",
+      isAvailable: true,
+      rating: 48,
+      reviewCount: 120,
+      consultationFee: 1000
+    }
+  },
+  {
+    user: {
+      username: "dr_sharma",
+      password: "password123",
+      email: "dr.sharma@aarogya.com",
+      fullName: "Dr. Ravi Sharma",
+      role: userRoles.DOCTOR,
+      phone: "9876543002",
+      address: "456 Health Lane, Mumbai",
+      language: "english"
+    },
+    profile: {
+      specialization: "Neurologist",
+      experience: 12,
+      hospital: "Lilavati Hospital",
+      qualification: "MD (Neurology), MBBS",
+      location: "Mumbai",
+      isAvailable: true,
+      rating: 47,
+      reviewCount: 98,
+      consultationFee: 1200
+    }
+  },
+  {
+    user: {
+      username: "dr_patel",
+      password: "password123",
+      email: "dr.patel@aarogya.com",
+      fullName: "Dr. Meera Patel",
+      role: userRoles.DOCTOR,
+      phone: "9876543003",
+      address: "789 Care Street, Bangalore",
+      language: "english"
+    },
+    profile: {
+      specialization: "Pediatrics",
+      experience: 10,
+      hospital: "Manipal Hospital",
+      qualification: "MD (Pediatrics), MBBS",
+      location: "Bangalore",
+      isAvailable: false,
+      rating: 49,
+      reviewCount: 150,
+      consultationFee: 900
+    }
+  },
+  {
+    user: {
+      username: "dr_gupta",
+      password: "password123",
+      email: "dr.gupta@aarogya.com",
+      fullName: "Dr. Sanjeev Gupta",
+      role: userRoles.DOCTOR,
+      phone: "9876543004",
+      address: "101 Wellness Road, Chennai",
+      language: "tamil"
+    },
+    profile: {
+      specialization: "Orthopedic",
+      experience: 18,
+      hospital: "Apollo Hospital",
+      qualification: "MS (Orthopedics), MBBS",
+      location: "Chennai",
+      isAvailable: true,
+      rating: 50,
+      reviewCount: 200,
+      consultationFee: 1500
+    }
+  },
+  {
+    user: {
+      username: "dr_joshi",
+      password: "password123",
+      email: "dr.joshi@aarogya.com",
+      fullName: "Dr. Anita Joshi",
+      role: userRoles.DOCTOR,
+      phone: "9876543005",
+      address: "234 Health Drive, Kolkata",
+      language: "bengali"
+    },
+    profile: {
+      specialization: "Gynecologist",
+      experience: 14,
+      hospital: "AMRI Hospital",
+      qualification: "MD (Obstetrics & Gynecology), MBBS",
+      location: "Kolkata",
+      isAvailable: true,
+      rating: 46,
+      reviewCount: 180,
+      consultationFee: 1100
+    }
+  },
+  {
+    user: {
+      username: "dr_reddy",
+      password: "password123",
+      email: "dr.reddy@aarogya.com",
+      fullName: "Dr. Priya Reddy",
+      role: userRoles.DOCTOR,
+      phone: "9876543006",
+      address: "567 Rural Health Center, Hyderabad",
+      language: "telugu"
+    },
+    profile: {
+      specialization: "General Medicine",
+      experience: 8,
+      hospital: "Yashoda Hospital",
+      qualification: "MD (General Medicine), MBBS",
+      location: "Rural",
+      isAvailable: true,
+      rating: 45,
+      reviewCount: 75,
+      consultationFee: 500
+    }
+  },
+  {
+    user: {
+      username: "dr_kumar",
+      password: "password123",
+      email: "dr.kumar@aarogya.com",
+      fullName: "Dr. Rajesh Kumar",
+      role: userRoles.DOCTOR,
+      phone: "9876543007",
+      address: "890 Rural Clinic, Bihar",
+      language: "hindi"
+    },
+    profile: {
+      specialization: "General Medicine",
+      experience: 6,
+      hospital: "Rural Health Center",
+      qualification: "MBBS",
+      location: "Rural",
+      isAvailable: true,
+      rating: 44,
+      reviewCount: 50,
+      consultationFee: 300
+    }
+  },
+  {
+    user: {
+      username: "dr_chatterjee",
+      password: "password123",
+      email: "dr.chatterjee@aarogya.com",
+      fullName: "Dr. Amit Chatterjee",
+      role: userRoles.DOCTOR,
+      phone: "9876543008",
+      address: "123 Wellness Avenue, Delhi",
+      language: "hindi"
+    },
+    profile: {
+      specialization: "Cardiologist",
+      experience: 20,
+      hospital: "Fortis Hospital",
+      qualification: "DM (Cardiology), MD, MBBS",
+      location: "Delhi",
+      isAvailable: false,
+      rating: 49,
+      reviewCount: 220,
+      consultationFee: 2000
+    }
+  },
+  {
+    user: {
+      username: "dr_roy",
+      password: "password123",
+      email: "dr.roy@aarogya.com",
+      fullName: "Dr. Sunita Roy",
+      role: userRoles.DOCTOR,
+      phone: "9876543009",
+      address: "456 Health Campus, Mumbai",
+      language: "marathi"
+    },
+    profile: {
+      specialization: "Dermatologist",
+      experience: 9,
+      hospital: "Kokilaben Hospital",
+      qualification: "MD (Dermatology), MBBS",
+      location: "Mumbai",
+      isAvailable: true,
+      rating: 47,
+      reviewCount: 130,
+      consultationFee: 1200
+    }
+  },
+  {
+    user: {
+      username: "dr_verma",
+      password: "password123",
+      email: "dr.verma@aarogya.com",
+      fullName: "Dr. Deepak Verma",
+      role: userRoles.DOCTOR,
+      phone: "9876543010",
+      address: "789 Medical Street, Chandigarh",
+      language: "punjabi"
+    },
+    profile: {
+      specialization: "Ophthalmologist",
+      experience: 11,
+      hospital: "PGI Chandigarh",
+      qualification: "MS (Ophthalmology), MBBS",
+      location: "Chandigarh",
+      isAvailable: true,
+      rating: 46,
+      reviewCount: 110,
+      consultationFee: 800
+    }
+  }
+];
+
+// Middleware to seed doctors if none exist
+async function ensureDoctorsExist(req: Request, res: Response, next: NextFunction) {
+  try {
+    const doctors = await storage.getAllDoctors();
+    
+    if (doctors.length === 0) {
+      console.log('No doctors found in database. Seeding doctors...');
+      await seedDoctors();
+      console.log('Doctor seeding completed.');
+    }
+    
+    next();
+  } catch (error) {
+    console.error('Error checking/seeding doctors:', error);
+    next(); // Continue anyway to not block the request flow
+  }
+}
+
+// Function to seed doctors into the database
+async function seedDoctors() {
+  for (const doctorData of sampleDoctors) {
+    try {
+      // Check if user already exists
+      const existingUser = await storage.getUserByUsername(doctorData.user.username);
+      if (!existingUser) {
+        // Create user
+        const user = await storage.createUser(doctorData.user);
+        
+        // Create doctor profile
+        await storage.createDoctorProfile({
+          ...doctorData.profile,
+          userId: user.id
+        });
+      }
+    } catch (error) {
+      console.error(`Error seeding doctor ${doctorData.user.username}:`, error);
+    }
+  }
+}
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // Set up session middleware
@@ -138,8 +412,21 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
   
+  // Initialize database with sample data
+  app.get("/api/seed", async (req, res) => {
+    try {
+      // Seed doctors
+      await seedDoctors();
+      
+      res.json({ message: "Database seeded successfully" });
+    } catch (error) {
+      console.error('Error seeding database:', error);
+      res.status(500).json({ message: "Error seeding database" });
+    }
+  });
+  
   // Doctor routes
-  app.get("/api/doctors", async (req, res) => {
+  app.get("/api/doctors", ensureDoctorsExist, async (req, res) => {
     try {
       const specialization = req.query.specialization as string | undefined;
       const location = req.query.location as string | undefined;
@@ -175,7 +462,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
   
   // Get top available doctors
-  app.get("/api/doctors/available", async (req, res) => {
+  app.get("/api/doctors/available", ensureDoctorsExist, async (req, res) => {
     try {
       const limit = req.query.limit ? parseInt(req.query.limit as string) : 5;
       
@@ -185,7 +472,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       doctors = doctors.filter(doctor => doctor.isAvailable);
       
       // Sort by rating (highest first)
-      doctors.sort((a, b) => b.rating - a.rating);
+      doctors.sort((a, b) => (b.rating || 0) - (a.rating || 0));
       
       // Limit to requested number
       doctors = doctors.slice(0, limit);
@@ -196,7 +483,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
   
-  app.get("/api/doctors/:id", async (req, res) => {
+  app.get("/api/doctors/:id", ensureDoctorsExist, async (req, res) => {
     try {
       const doctorId = parseInt(req.params.id);
       const doctor = await storage.getDoctorProfile(doctorId);
