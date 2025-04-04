@@ -19,35 +19,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Bookmark, BookmarkCheck, LayoutGrid, List, Search } from "lucide-react";
-
-// Define the HealthScheme type
-interface HealthScheme {
-  id: string;
-  name: string;
-  shortDescription: string;
-  category: string[];
-  coverage: string;
-  eligibility: string[];
-  benefits: string[];
-  applicationProcess: string[];
-  contactInformation: {
-    website: string;
-    helpline: string;
-    email: string;
-  };
-  officialLinks: {
-    mainWebsite: string;
-    [key: string]: string;
-  };
-  languages: {
-    [key: string]: {
-      name: string;
-      shortDescription: string;
-    };
-  };
-  imageUrl: string;
-  featured: boolean;
-}
+import { HealthScheme } from "./types";
 
 interface HealthSchemesProps {
   viewMode: "grid" | "list";
@@ -70,35 +42,50 @@ export default function HealthSchemes({ viewMode, onViewModeChange, filterBookma
   // Effect to filter schemes based on search, category, and bookmarks
   useEffect(() => {
     let result = [...healthSchemesData] as HealthScheme[];
-
+    
+    // Filter by bookmarks if required
+    if (filterBookmarked) {
+      result = result.filter((scheme) => bookmarkedSchemes.includes(scheme.id));
+    }
+    
+    // Filter by category if selected
+    if (categoryFilter && categoryFilter !== "all") {
+      result = result.filter((scheme) => scheme.category.includes(categoryFilter));
+    }
+    
     // Filter by search query
     if (searchQuery) {
       const query = searchQuery.toLowerCase();
-      result = result.filter(scheme => {
-        const nameMatch = scheme.languages[language]?.name.toLowerCase().includes(query) || 
-                          scheme.name.toLowerCase().includes(query);
-        const descMatch = scheme.languages[language]?.shortDescription.toLowerCase().includes(query) || 
-                          scheme.shortDescription.toLowerCase().includes(query);
-        const categoryMatch = scheme.category.some(cat => cat.toLowerCase().includes(query));
+      result = result.filter((scheme) => {
+        // Get translated name and description if available
+        const name = language !== "english" && scheme.languages[language]?.name
+          ? scheme.languages[language].name 
+          : scheme.name;
+        const description = language !== "english" && scheme.languages[language]?.shortDescription
+          ? scheme.languages[language].shortDescription
+          : scheme.shortDescription;
         
-        return nameMatch || descMatch || categoryMatch;
+        return (
+          name.toLowerCase().includes(query) ||
+          description.toLowerCase().includes(query) ||
+          scheme.category.some(cat => cat.toLowerCase().includes(query)) ||
+          scheme.eligibility.some(item => item.toLowerCase().includes(query)) ||
+          scheme.benefits.some(item => item.toLowerCase().includes(query))
+        );
       });
     }
     
-    // Filter by category
-    if (categoryFilter !== "all") {
-      result = result.filter(scheme => 
-        scheme.category.includes(categoryFilter)
-      );
-    }
-    
-    // Filter by bookmarks if requested
-    if (filterBookmarked) {
-      result = result.filter(scheme => bookmarkedSchemes.includes(scheme.id));
-    }
-    
     setFilteredSchemes(result);
-  }, [searchQuery, categoryFilter, language, bookmarkedSchemes, filterBookmarked]);
+  }, [searchQuery, categoryFilter, bookmarkedSchemes, filterBookmarked, language]);
+  
+  // Get categories for filter dropdown
+  const getUniqueCategories = () => {
+    const categories = new Set<string>();
+    healthSchemesData.forEach((scheme: any) => {
+      scheme.category.forEach((cat: string) => categories.add(cat));
+    });
+    return Array.from(categories).sort();
+  };
   
   // Toggle bookmark status for a scheme
   const toggleBookmark = (schemeId: string, event: React.MouseEvent) => {
@@ -124,14 +111,21 @@ export default function HealthSchemes({ viewMode, onViewModeChange, filterBookma
     setSelectedScheme(scheme);
     setIsDetailOpen(true);
   };
-
-  // Get categories for filter dropdown
-  const getUniqueCategories = () => {
-    const categories = new Set<string>();
-    healthSchemesData.forEach((scheme: HealthScheme) => {
-      scheme.category.forEach(cat => categories.add(cat));
-    });
-    return Array.from(categories).sort();
+  
+  // Helper function to get translated name
+  const getLocalizedName = (scheme: HealthScheme) => {
+    if (language !== "english" && scheme.languages[language]?.name) {
+      return scheme.languages[language].name;
+    }
+    return scheme.name;
+  };
+  
+  // Helper function to get translated description
+  const getLocalizedDescription = (scheme: HealthScheme) => {
+    if (language !== "english" && scheme.languages[language]?.shortDescription) {
+      return scheme.languages[language].shortDescription;
+    }
+    return scheme.shortDescription;
   };
   
   return (
@@ -165,148 +159,144 @@ export default function HealthSchemes({ viewMode, onViewModeChange, filterBookma
           </SelectContent>
         </Select>
         
-        <div className="flex space-x-1">
-          <Button
-            variant={viewMode === "grid" ? "default" : "outline"}
-            size="icon"
+        <div className="flex items-center border rounded-md p-1">
+          <Button 
+            variant={viewMode === "grid" ? "default" : "ghost"} 
+            size="sm" 
+            className="px-2"
             onClick={() => onViewModeChange("grid")}
-            className="h-10 w-10"
           >
             <LayoutGrid className="h-4 w-4" />
           </Button>
-          <Button
-            variant={viewMode === "list" ? "default" : "outline"}
-            size="icon"
+          <Button 
+            variant={viewMode === "list" ? "default" : "ghost"} 
+            size="sm" 
+            className="px-2"
             onClick={() => onViewModeChange("list")}
-            className="h-10 w-10"
           >
             <List className="h-4 w-4" />
           </Button>
         </div>
       </div>
       
-      {/* Results count */}
-      <div className="text-sm text-muted-foreground">
-        Found {filteredSchemes.length} scheme{filteredSchemes.length !== 1 ? 's' : ''} 
-        {categoryFilter !== 'all' && ` in category: ${categoryFilter.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}`}
-        {filterBookmarked && ' in your bookmarks'}
-      </div>
-      
-      {/* Schemes Grid or List */}
+      {/* Schemes Display */}
       {filteredSchemes.length > 0 ? (
         viewMode === "grid" ? (
+          // Grid View
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredSchemes.map((scheme) => (
               <Card 
-                key={scheme.id}
-                className="overflow-hidden hover:shadow-md transition-all cursor-pointer group"
+                key={scheme.id} 
+                className="overflow-hidden border hover:border-primary/50 transition-all cursor-pointer group"
                 onClick={() => handleSchemeClick(scheme)}
               >
-                <div className="w-full h-40 overflow-hidden relative">
+                <div className="relative h-36">
                   <img 
                     src={scheme.imageUrl} 
-                    alt={scheme.languages[language]?.name || scheme.name}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform"
+                    alt={scheme.name} 
+                    className="w-full h-full object-cover transition-transform group-hover:scale-105"
                     onError={(e) => {
-                      (e.target as HTMLImageElement).src = "https://www.nhp.gov.in/NHPfiles/health_wellness.jpg";
+                      const target = e.target as HTMLImageElement;
+                      target.src = "https://www.nhp.gov.in/NHPfiles/health_wellness.jpg"; // Fallback image
                     }}
                   />
-                  <button 
-                    className="absolute top-2 right-2 p-1.5 bg-white/80 hover:bg-white rounded-full z-10 transition-colors"
+                  <Button 
+                    variant="ghost" 
+                    size="icon" 
+                    className="absolute top-2 right-2 bg-background/80 backdrop-blur-sm hover:bg-background/90"
                     onClick={(e) => toggleBookmark(scheme.id, e)}
                   >
                     {bookmarkedSchemes.includes(scheme.id) ? (
-                      <BookmarkCheck className="h-5 w-5 text-primary" />
+                      <BookmarkCheck className="h-4 w-4 text-primary" />
                     ) : (
-                      <Bookmark className="h-5 w-5 text-muted-foreground" />
+                      <Bookmark className="h-4 w-4" />
                     )}
-                  </button>
+                  </Button>
                 </div>
-                <CardHeader className="pb-2">
-                  <CardTitle className="line-clamp-1">
-                    {scheme.languages[language]?.name || scheme.name}
-                  </CardTitle>
+                <CardHeader className="py-3">
+                  <CardTitle className="text-base line-clamp-1">{getLocalizedName(scheme)}</CardTitle>
                   <CardDescription className="line-clamp-2">
-                    {scheme.languages[language]?.shortDescription || scheme.shortDescription}
+                    {getLocalizedDescription(scheme)}
                   </CardDescription>
                 </CardHeader>
-                <CardContent className="pb-2">
-                  <ScrollArea className="whitespace-nowrap pb-2">
-                    <div className="flex gap-2">
-                      {scheme.category.map((cat) => (
-                        <Badge key={cat} variant="outline" className="bg-primary-50 text-primary-700 hover:bg-primary-100">
-                          {cat.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}
-                        </Badge>
-                      ))}
-                    </div>
-                    <ScrollBar orientation="horizontal" />
-                  </ScrollArea>
+                <CardContent className="py-0">
+                  <div className="flex flex-wrap gap-1 mb-2">
+                    {scheme.category.map((cat) => (
+                      <Badge key={cat} variant="outline" className="bg-primary-50 text-primary-700 hover:bg-primary-100">
+                        {cat.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}
+                      </Badge>
+                    ))}
+                  </div>
+                  <div className="text-sm text-muted-foreground mt-2">
+                    <strong>Coverage:</strong> {scheme.coverage}
+                  </div>
                 </CardContent>
-                <CardFooter className="pt-0">
-                  <Button variant="secondary" className="w-full text-sm">
-                    View Details
+                <CardFooter className="pt-2 pb-3">
+                  <Button variant="secondary" className="text-sm w-full">
+                    View Full Details
                   </Button>
                 </CardFooter>
               </Card>
             ))}
           </div>
         ) : (
+          // List View
           <div className="space-y-4">
             {filteredSchemes.map((scheme) => (
               <Card 
-                key={scheme.id}
-                className="hover:shadow-md transition-all cursor-pointer overflow-hidden"
+                key={scheme.id} 
+                className="overflow-hidden hover:border-primary/50 transition-all cursor-pointer"
                 onClick={() => handleSchemeClick(scheme)}
               >
-                <div className="md:flex">
-                  <div className="md:w-1/4 h-40 md:h-auto overflow-hidden">
+                <div className="flex flex-col md:flex-row">
+                  <div className="relative w-full md:w-1/4 h-32 md:h-auto">
                     <img 
                       src={scheme.imageUrl} 
-                      alt={scheme.languages[language]?.name || scheme.name}
+                      alt={scheme.name} 
                       className="w-full h-full object-cover"
                       onError={(e) => {
-                        (e.target as HTMLImageElement).src = "https://www.nhp.gov.in/NHPfiles/health_wellness.jpg";
+                        const target = e.target as HTMLImageElement;
+                        target.src = "https://www.nhp.gov.in/NHPfiles/health_wellness.jpg"; // Fallback image
                       }}
                     />
+                    <Button 
+                      variant="ghost" 
+                      size="icon" 
+                      className="absolute top-2 right-2 bg-background/80 backdrop-blur-sm hover:bg-background/90"
+                      onClick={(e) => toggleBookmark(scheme.id, e)}
+                    >
+                      {bookmarkedSchemes.includes(scheme.id) ? (
+                        <BookmarkCheck className="h-4 w-4 text-primary" />
+                      ) : (
+                        <Bookmark className="h-4 w-4" />
+                      )}
+                    </Button>
                   </div>
-                  <div className="flex flex-col md:w-3/4">
-                    <CardHeader className="pb-2 flex flex-row justify-between items-start">
+                  
+                  <div className="flex-1 p-4">
+                    <h3 className="text-lg font-semibold mb-2">{getLocalizedName(scheme)}</h3>
+                    <p className="text-muted-foreground mb-3 line-clamp-2">
+                      {getLocalizedDescription(scheme)}
+                    </p>
+                    
+                    <div className="flex flex-wrap gap-1 mb-3">
+                      {scheme.category.map((cat) => (
+                        <Badge key={cat} variant="outline" className="bg-primary-50 text-primary-700 hover:bg-primary-100">
+                          {cat.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}
+                        </Badge>
+                      ))}
+                    </div>
+                    
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                       <div>
-                        <CardTitle>
-                          {scheme.languages[language]?.name || scheme.name}
-                        </CardTitle>
-                        <CardDescription className="line-clamp-2">
-                          {scheme.languages[language]?.shortDescription || scheme.shortDescription}
-                        </CardDescription>
+                        <span className="text-sm font-medium block">Coverage:</span>
+                        <span className="text-sm">{scheme.coverage}</span>
                       </div>
-                      <button 
-                        className="p-1.5 bg-muted hover:bg-muted/80 rounded-full z-10 transition-colors ml-2 mt-1"
-                        onClick={(e) => toggleBookmark(scheme.id, e)}
-                      >
-                        {bookmarkedSchemes.includes(scheme.id) ? (
-                          <BookmarkCheck className="h-5 w-5 text-primary" />
-                        ) : (
-                          <Bookmark className="h-5 w-5 text-muted-foreground" />
-                        )}
-                      </button>
-                    </CardHeader>
-                    <CardContent className="pb-2 flex-grow">
-                      <div className="flex flex-wrap gap-2 mb-2">
-                        {scheme.category.map((cat) => (
-                          <Badge key={cat} variant="outline" className="bg-primary-50 text-primary-700 hover:bg-primary-100">
-                            {cat.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}
-                          </Badge>
-                        ))}
+                      <div>
+                        <span className="text-sm font-medium block">Contact:</span>
+                        <span className="text-sm">{scheme.contactInformation.helpline}</span>
                       </div>
-                      <div className="text-sm text-muted-foreground mt-2">
-                        <strong>Coverage:</strong> {scheme.coverage}
-                      </div>
-                    </CardContent>
-                    <CardFooter className="pt-0">
-                      <Button variant="secondary" className="text-sm">
-                        View Full Details
-                      </Button>
-                    </CardFooter>
+                    </div>
                   </div>
                 </div>
               </Card>
@@ -327,31 +317,22 @@ export default function HealthSchemes({ viewMode, onViewModeChange, filterBookma
               variant="outline" 
               className="mt-4"
               onClick={() => {
-                if (filterBookmarked) {
-                  // Go to all schemes tab if there are no bookmarked schemes
-                  const allTab = document.querySelector('[data-value="all-schemes"]');
-                  if (allTab) {
-                    (allTab as HTMLElement).click();
-                  }
-                }
+                setCategoryFilter("all");
+                setSearchQuery("");
               }}
             >
-              Browse All Schemes
+              View All Schemes
             </Button>
           )}
         </div>
       )}
       
-      {/* Scheme Detail Dialog */}
-      {selectedScheme && (
-        <SchemeDetailDialog 
-          scheme={selectedScheme}
-          isOpen={isDetailOpen}
-          onClose={() => setIsDetailOpen(false)}
-          isBookmarked={bookmarkedSchemes.includes(selectedScheme.id)}
-          onToggleBookmark={() => toggleBookmark(selectedScheme.id, { stopPropagation: () => {} } as any)}
-        />
-      )}
+      {/* Detail Dialog */}
+      <SchemeDetailDialog
+        scheme={selectedScheme}
+        isOpen={isDetailOpen}
+        onClose={() => setIsDetailOpen(false)}
+      />
     </div>
   );
 }

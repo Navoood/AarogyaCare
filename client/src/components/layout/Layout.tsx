@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "wouter";
 import { useAuth } from "../../context/AuthContext";
-import { useLanguage } from "../../context/LanguageContext";
+import { useLanguage, type Language } from "../../context/LanguageContext";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -33,8 +33,13 @@ interface LayoutProps {
 export default function Layout({ children }: LayoutProps) {
   const [isOpen, setIsOpen] = useState(false);
   const { user, logout } = useAuth();
-  const { currentLanguage, changeLanguage, availableLanguages } = useLanguage();
+  const { language, setLanguage, isRtl } = useLanguage();
   const [location, setLocation] = useLocation();
+  
+  // Define available languages
+  const availableLanguages: Language[] = [
+    "english", "hindi", "tamil", "telugu", "bengali", "marathi"
+  ];
   const [isMobile, setIsMobile] = useState(false);
 
   // Check if mobile on initial load and when window resizes
@@ -124,8 +129,8 @@ export default function Layout({ children }: LayoutProps) {
                 {availableLanguages.map((lang) => (
                   <DropdownMenuItem 
                     key={lang} 
-                    onClick={() => changeLanguage(lang)}
-                    className={currentLanguage === lang ? "bg-muted" : ""}
+                    onClick={() => setLanguage(lang)}
+                    className={language === lang ? "bg-muted" : ""}
                   >
                     {lang.charAt(0).toUpperCase() + lang.slice(1)}
                   </DropdownMenuItem>
@@ -234,10 +239,10 @@ export default function Layout({ children }: LayoutProps) {
                   {availableLanguages.map((lang) => (
                     <Button 
                       key={lang} 
-                      variant={currentLanguage === lang ? "default" : "ghost"}
+                      variant={language === lang ? "default" : "ghost"}
                       size="sm"
                       onClick={() => {
-                        changeLanguage(lang);
+                        setLanguage(lang);
                         setIsOpen(false);
                       }}
                       className="justify-start"
