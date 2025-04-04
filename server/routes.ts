@@ -944,7 +944,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           
           // Send to the receiver if online
           const receiverWs = userConnections.get(receiverId);
-          if (receiverWs && receiverWs.readyState === WebSocket.OPEN) {
+          if (receiverWs && receiverWs.readyState === 1) { // WebSocket.OPEN is 1
             receiverWs.send(JSON.stringify({
               type: 'chat',
               message: chatMessage
@@ -952,17 +952,19 @@ export async function registerRoutes(app: Express): Promise<Server> {
           }
           
           // Send confirmation to the sender
-          ws.send(JSON.stringify({
-            type: 'chat_sent',
-            message: chatMessage
-          }));
+          if (ws.readyState === 1) { // WebSocket.OPEN is 1
+            ws.send(JSON.stringify({
+              type: 'chat_sent',
+              message: chatMessage
+            }));
+          }
         }
         else if (message.type === 'video_offer' || message.type === 'video_answer' || message.type === 'ice_candidate') {
           // Forward WebRTC signaling messages
           const { targetUserId } = message;
           const targetWs = userConnections.get(targetUserId);
           
-          if (targetWs && targetWs.readyState === WebSocket.OPEN) {
+          if (targetWs && targetWs.readyState === 1) { // WebSocket.OPEN is 1
             targetWs.send(JSON.stringify(message));
           }
         }
@@ -974,7 +976,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
     
     ws.on('close', () => {
       // Remove the connection when it's closed
-      for (const [userId, connection] of userConnections.entries()) {
+      // Convert to array first to avoid iterator issues
+      const entries = Array.from(userConnections.entries());
+      for (const [userId, connection] of entries) {
         if (connection === ws) {
           userConnections.delete(userId);
           break;

@@ -81,9 +81,11 @@ export default function Chat({ receiverId }: ChatProps) {
     };
 
     // Send via WebSocket
-    if (websocketRef.current && websocketRef.current.readyState === WebSocket.OPEN) {
+    if (websocketRef.current && websocketRef.current.readyState === 1) { // WebSocket.OPEN is 1
       websocketRef.current.send(JSON.stringify(chatMessage));
       setMessage("");
+    } else {
+      console.error("WebSocket not connected or not in OPEN state");
     }
   };
 

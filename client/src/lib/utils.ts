@@ -94,37 +94,66 @@ export function createPeerConnection(): RTCPeerConnection {
   return new RTCPeerConnection(config);
 }
 
-// WebSocket setup
+// WebSocket setup with automatic reconnection and error handling
 export function setupWebSocket(userId: number, onMessage: (data: any) => void) {
-  const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
-  const wsUrl = `${protocol}//${window.location.host}/ws`;
-  const socket = new WebSocket(wsUrl);
+  const maxReconnectAttempts = 5;
+  let reconnectAttempts = 0;
+  let reconnectTimeout: NodeJS.Timeout | null = null;
   
-  socket.onopen = () => {
-    console.log('WebSocket connection established');
-    // Authenticate the connection
-    socket.send(JSON.stringify({
-      type: 'auth',
-      userId
-    }));
+  const connect = () => {
+    const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
+    const wsUrl = `${protocol}//${window.location.host}/ws`;
+    const socket = new WebSocket(wsUrl);
+    
+    socket.onopen = () => {
+      console.log('WebSocket connection established');
+      // Reset reconnect attempts on successful connection
+      reconnectAttempts = 0;
+      
+      // Authenticate the connection
+      socket.send(JSON.stringify({
+        type: 'auth',
+        userId
+      }));
+    };
+    
+    socket.onmessage = (event) => {
+      try {
+        const data = JSON.parse(event.data);
+        onMessage(data);
+      } catch (error) {
+        console.error('Error parsing WebSocket message:', error);
+      }
+    };
+    
+    socket.onerror = (error) => {
+      console.error('WebSocket error:', error);
+    };
+    
+    socket.onclose = (event) => {
+      console.log(`WebSocket connection closed: ${event.code} ${event.reason}`);
+      
+      // Clear any existing reconnect timeouts
+      if (reconnectTimeout) {
+        clearTimeout(reconnectTimeout);
+      }
+      
+      // Try to reconnect if not a normal closure
+      if (event.code !== 1000 && reconnectAttempts < maxReconnectAttempts) {
+        reconnectAttempts++;
+        const delay = Math.min(1000 * Math.pow(2, reconnectAttempts), 10000);
+        console.log(`Attempting to reconnect (${reconnectAttempts}/${maxReconnectAttempts}) in ${delay}ms...`);
+        
+        reconnectTimeout = setTimeout(() => {
+          const newSocket = connect();
+          // If the old socket instance was stored somewhere, this new socket should replace it
+          return newSocket;
+        }, delay);
+      }
+    };
+    
+    return socket;
   };
   
-  socket.onmessage = (event) => {
-    try {
-      const data = JSON.parse(event.data);
-      onMessage(data);
-    } catch (error) {
-      console.error('Error parsing WebSocket message:', error);
-    }
-  };
-  
-  socket.onerror = (error) => {
-    console.error('WebSocket error:', error);
-  };
-  
-  socket.onclose = () => {
-    console.log('WebSocket connection closed');
-  };
-  
-  return socket;
+  return connect();
 }

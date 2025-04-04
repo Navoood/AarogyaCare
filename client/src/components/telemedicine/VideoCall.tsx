@@ -5,6 +5,7 @@ import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/context/AuthContext";
 import { createPeerConnection, setupWebSocket } from "@/lib/utils";
 import { Mic, MicOff, Phone, PhoneOff, Video, VideoOff } from "lucide-react";
+import VideoCallFallback from "./VideoCallFallback";
 
 interface VideoCallProps {
   doctorId?: number;
@@ -17,12 +18,15 @@ export default function VideoCall({ doctorId, onEndCall }: VideoCallProps) {
   const [isVideoEnabled, setIsVideoEnabled] = useState(true);
   const [isConnecting, setIsConnecting] = useState(false);
   const [isCallInitiator, setIsCallInitiator] = useState(false);
+  const [connectionFailed, setConnectionFailed] = useState(false);
+  const [fallbackAttemptsCount, setFallbackAttemptsCount] = useState(0);
   
   const localVideoRef = useRef<HTMLVideoElement>(null);
   const remoteVideoRef = useRef<HTMLVideoElement>(null);
   const localStreamRef = useRef<MediaStream | null>(null);
   const peerConnectionRef = useRef<RTCPeerConnection | null>(null);
   const webSocketRef = useRef<WebSocket | null>(null);
+  const connectionTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   
   const { user } = useAuth();
   const { toast } = useToast();
@@ -44,7 +48,55 @@ export default function VideoCall({ doctorId, onEndCall }: VideoCallProps) {
     if (doctorId && user) {
       startCall();
     }
+
+    // Clean up any timeouts on unmount
+    return () => {
+      if (connectionTimeoutRef.current) {
+        clearTimeout(connectionTimeoutRef.current);
+      }
+    };
   }, [doctorId, user]);
+
+  // Set a connection timeout to show fallback UI if connection fails
+  useEffect(() => {
+    if (isConnecting && !isCallActive) {
+      if (connectionTimeoutRef.current) {
+        clearTimeout(connectionTimeoutRef.current);
+      }
+      
+      connectionTimeoutRef.current = setTimeout(() => {
+        if (isConnecting && !isCallActive) {
+          console.log("Video call connection timed out");
+          setConnectionFailed(true);
+          setIsConnecting(false);
+          setFallbackAttemptsCount(prev => prev + 1);
+          
+          // Stop media tracks
+          if (localStreamRef.current) {
+            localStreamRef.current.getTracks().forEach(track => track.stop());
+          }
+          
+          // Close existing peer connection
+          if (peerConnectionRef.current) {
+            peerConnectionRef.current.close();
+            peerConnectionRef.current = null;
+          }
+          
+          toast({
+            title: "Connection timed out",
+            description: "Could not establish video call connection",
+            variant: "destructive",
+          });
+        }
+      }, 15000); // 15 second timeout
+      
+      return () => {
+        if (connectionTimeoutRef.current) {
+          clearTimeout(connectionTimeoutRef.current);
+        }
+      };
+    }
+  }, [isConnecting, isCallActive]);
 
   const handleWebSocketMessage = async (data: any) => {
     if (!peerConnectionRef.current) {
@@ -68,7 +120,7 @@ export default function VideoCall({ doctorId, onEndCall }: VideoCallProps) {
         const answer = await peerConnectionRef.current.createAnswer();
         await peerConnectionRef.current.setLocalDescription(answer);
         
-        if (webSocketRef.current && webSocketRef.current.readyState === WebSocket.OPEN) {
+        if (webSocketRef.current && webSocketRef.current.readyState === 1) { // WebSocket.OPEN is 1
           webSocketRef.current.send(JSON.stringify({
             type: 'video_answer',
             answer,
@@ -145,7 +197,7 @@ export default function VideoCall({ doctorId, onEndCall }: VideoCallProps) {
         };
         
         peerConnectionRef.current.onicecandidate = (event) => {
-          if (event.candidate && webSocketRef.current && webSocketRef.current.readyState === WebSocket.OPEN) {
+          if (event.candidate && webSocketRef.current && webSocketRef.current.readyState === 1) { // WebSocket.OPEN is 1
             webSocketRef.current.send(JSON.stringify({
               type: 'ice_candidate',
               candidate: event.candidate,
@@ -186,7 +238,7 @@ export default function VideoCall({ doctorId, onEndCall }: VideoCallProps) {
       await peerConnectionRef.current.setLocalDescription(offer);
       
       // Send offer via WebSocket
-      if (webSocketRef.current && webSocketRef.current.readyState === WebSocket.OPEN) {
+      if (webSocketRef.current && webSocketRef.current.readyState === 1) { // WebSocket.OPEN is 1
         webSocketRef.current.send(JSON.stringify({
           type: 'video_offer',
           offer,
@@ -259,6 +311,20 @@ export default function VideoCall({ doctorId, onEndCall }: VideoCallProps) {
     }
   };
 
+  // If connection failed or we've had too many attempts (3+), show fallback UI
+  if (connectionFailed || fallbackAttemptsCount >= 3) {
+    return (
+      <VideoCallFallback 
+        doctorId={doctorId}
+        onTryVideoCall={() => {
+          setConnectionFailed(false);
+          startCall();
+        }}
+        onEndCall={onEndCall}
+      />
+    );
+  }
+
   return (
     <div className="flex flex-col h-full">
       <div className="flex-1 relative">
@@ -291,46 +357,50 @@ export default function VideoCall({ doctorId, onEndCall }: VideoCallProps) {
         </div>
         
         {/* Local video (small overlay) */}
-        <div className="absolute bottom-4 right-4 w-1/4 max-w-[180px] rounded-lg overflow-hidden shadow-lg border-2 border-white">
-          <video
-            ref={localVideoRef}
-            autoPlay
-            playsInline
-            muted
-            className="w-full h-full object-cover"
-          />
-        </div>
+        {(isCallActive || isConnecting) && (
+          <div className="absolute bottom-4 right-4 w-1/4 max-w-[180px] rounded-lg overflow-hidden shadow-lg border-2 border-white">
+            <video
+              ref={localVideoRef}
+              autoPlay
+              playsInline
+              muted
+              className="w-full h-full object-cover"
+            />
+          </div>
+        )}
       </div>
       
-      {/* Call controls */}
-      <div className="mt-4 flex justify-center space-x-4">
-        <Button
-          size="icon"
-          variant={isMuted ? "destructive" : "secondary"}
-          onClick={toggleMute}
-          className="rounded-full h-12 w-12"
-        >
-          {isMuted ? <MicOff /> : <Mic />}
-        </Button>
-        
-        <Button
-          size="icon"
-          variant="destructive"
-          onClick={endCall}
-          className="rounded-full h-12 w-12"
-        >
-          <PhoneOff />
-        </Button>
-        
-        <Button
-          size="icon"
-          variant={isVideoEnabled ? "secondary" : "destructive"}
-          onClick={toggleVideo}
-          className="rounded-full h-12 w-12"
-        >
-          {isVideoEnabled ? <Video /> : <VideoOff />}
-        </Button>
-      </div>
+      {/* Call controls - only show when call is active */}
+      {isCallActive && (
+        <div className="mt-4 flex justify-center space-x-4">
+          <Button
+            size="icon"
+            variant={isMuted ? "destructive" : "secondary"}
+            onClick={toggleMute}
+            className="rounded-full h-12 w-12"
+          >
+            {isMuted ? <MicOff /> : <Mic />}
+          </Button>
+          
+          <Button
+            size="icon"
+            variant="destructive"
+            onClick={endCall}
+            className="rounded-full h-12 w-12"
+          >
+            <PhoneOff />
+          </Button>
+          
+          <Button
+            size="icon"
+            variant={isVideoEnabled ? "secondary" : "destructive"}
+            onClick={toggleVideo}
+            className="rounded-full h-12 w-12"
+          >
+            {isVideoEnabled ? <Video /> : <VideoOff />}
+          </Button>
+        </div>
+      )}
     </div>
   );
 }
